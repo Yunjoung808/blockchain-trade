@@ -22,13 +22,11 @@ import OrderPageOld from "views/examples/OrderPageOld.js"
 import OrderCompletePageOld from "views/examples/OrderCompletePageOld.js"
 import UploadNewPage from "views/examples/UploadNewPage.js";
 
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route 
-        path="/components" 
-        render={props => <Index {...props} />} 
-      />
+      
       <Route
         path="/old-page"
         render={props => <OldPage {...props} />}
@@ -79,9 +77,12 @@ ReactDOM.render(
        exact path="/upload-new-page"
         render={props => <UploadNewPage {...props} />}
       />
-      
+      <Route 
+        path="/" 
+        render={props => <Index {...props} />} 
+      />
 
-      <Redirect from="/" to="/components" />
+      <Redirect from="/" to="/" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

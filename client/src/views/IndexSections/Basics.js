@@ -261,6 +261,8 @@ class Basics extends React.Component {
                       </a>
                     </div>
                     <div className="card-body">
+
+                
                       <hr className="line-success"></hr>
                         <table className="tablesorter table">
                           <tbody>

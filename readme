@@ -18,4 +18,3 @@ insert document 눌러서
 *서버에 돌리고 싶을 때
 root- package.json 에서 
 "webpack": "webpack-dev-server --progress --host 183.111.227.113 --port 8080",
-복붙

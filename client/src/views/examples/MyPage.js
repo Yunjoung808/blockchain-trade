@@ -413,19 +413,6 @@ class Mypage extends React.Component {
                           <div className="tab-pane active">
                             <div>
 
-
-
-                            {/* <div className="progress">
-                              <div className="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                              aria-valuemax="100" style={{width: "200%"}}>
-                                <span className="progress-value">100%</span>
-                              </div>
-                            </div> */}
-
-
-
-
-                         
                               <header>
                                 <h2 className="text-uppercase"><b>My Information</b></h2>
 

@@ -20,7 +20,7 @@ class Footer extends React.Component {
         <Container>
           <Row>
             <Col md="3">
-              <h2 className="title">CRYPTOBERRY•</h2>
+              <h2 className="title">DM_Plus•</h2>
             </Col>
             <Col md="3">
               <Nav>

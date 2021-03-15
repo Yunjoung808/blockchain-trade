@@ -247,11 +247,6 @@ class NewPage extends React.Component {
                   id="square4"
                   style={{ transform: this.state.squares1to6 }}
                 />
-                {/* <div
-                  className="square square-5"
-                  id="square5"
-                  style={{ transform: this.state.squares1to6 }}
-                /> */}
                 <div
                   className="square square-6"
                   id="square6"

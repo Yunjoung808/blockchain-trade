@@ -81,18 +81,23 @@ class ComponentsNavbar extends React.Component {
 
     if (accessType == 'privateKey') {
       this.integrateWallet(privateKey)
+      console.log("1");
+      window.location.reload();
+      console.log("2");
       return
     }
-
     try {
       const { privateKey: privateKeyFromKeystore } = caver.klay.accounts.decrypt(keystore, password)
       this.integrateWallet(privateKeyFromKeystore)
+      
     } catch (e) {
       this.setState({ keystoreMsg: `Password doesn't match.` })
     }
   }
 
   getWallet = () => {
+    
+   
     if (caver.klay.accounts.wallet.length) {
 
       return caver.klay.accounts.wallet[0]
@@ -100,6 +105,8 @@ class ComponentsNavbar extends React.Component {
       const walletFromSession = sessionStorage.getItem('walletInstance')
       try {
         caver.klay.accounts.wallet.add(JSON.parse(walletFromSession))
+        // var walletInstance = this.getWallet();
+        // console.log("getWallet : "+ walletInstance.address);
       } catch (e) {
         sessionStorage.removeItem('walletInstance')
       }
@@ -202,7 +209,7 @@ class ComponentsNavbar extends React.Component {
                 to="/"
                 tag={Link}
                 id="navbar-brand">
-                <span>CRYPTOBERRY • </span>
+                <span>DM_Plus • </span>
               
               </NavbarBrand>
               <button
@@ -226,7 +233,7 @@ class ComponentsNavbar extends React.Component {
                 <Row>
                   <Col className="collapse-brand" xs="6">
                     
-                      CRYPTOBERRY•
+                  DM_Plus•
                     
                   </Col>
                   <Col className="collapse-close text-right" xs="6">
@@ -277,18 +284,6 @@ class ComponentsNavbar extends React.Component {
               </Link>
               {walletInstance.address}
               </UncontrolledTooltip>
-
-
-{/* 
-                <Button className="btn-round btn-icon" color="success">
-                    <Link to="my-page">
-                     <i className="tim-icons  icon-single-02" />
-                     </Link>
-                </Button>
-                <p >계정 주소: {walletInstance.address}</p> */}
-
-
-
                 <Button size="sm" color="secondary" onClick={this.removeWallet}>Logout</Button>
               </Nav>
             </Collapse>
@@ -308,7 +303,7 @@ class ComponentsNavbar extends React.Component {
               to="/"
               tag={Link}
               id="navbar-brand">
-              <span>CRYPTOBERRY• </span>
+              <span>DM_Plus• </span>
 
             </NavbarBrand>
             <button
@@ -331,7 +326,7 @@ class ComponentsNavbar extends React.Component {
             <div className="navbar-collapse-header">
               <Row>
                 <Col className="collapse-brand" xs="6">
-                    CRYPTOBERRY •
+                DM_Plus •
                   
                 </Col>
                 <Col className="collapse-close text-right" xs="6">

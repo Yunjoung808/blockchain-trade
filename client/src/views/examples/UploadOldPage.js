@@ -565,10 +565,6 @@ class UploadOldPage extends React.Component {
                     <ListGroupItem>브렌드: {item.brand}</ListGroupItem>
                     <ListGroupItem>제품이름: {item.productName}</ListGroupItem>
                     <ListGroupItem>제품제작일: {item.date}</ListGroupItem>
-                    {/* <ListGroupItem>제품판매가격: {item.amount}</ListGroupItem>
-                    <ListGroupItem>제품가격: <input type="text" placeholder= "제품판매가격입력" name="amount" value={this.state.amount} onChange={(e) => this.handleItemChange(e, item.Id)}/>klay</ListGroupItem>
-                    <Button onClick = {this.approve}> 토큰 판매승인</Button>
-                    <Button value={item.index} onClick={(e) => this.sellToken(item.index)}>토큰 등록</Button> */}
                   </ListGroup>
                 </Row>
               </Card>
