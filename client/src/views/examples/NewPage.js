@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 
@@ -179,7 +179,7 @@ class NewPage extends React.Component {
 
     return (
       <>
-        <IndexNavbar />
+        <UserNavbar />
         <div className="wrapper">
           <div className="page-header">
             <div className="page-header-image" />

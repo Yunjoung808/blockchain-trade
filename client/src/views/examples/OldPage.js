@@ -22,7 +22,7 @@ import {
   Col
 } from "reactstrap";
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import CompanyNavbar from "components/Navbars/CompanyNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
@@ -189,7 +189,7 @@ class OldPage extends React.Component {
     if (walletInstance) { 
       return (
         <>
-        <IndexNavbar />
+        <CompanyNavbar />
           <div className="wrapper">
             <div className="page-header">
             <div className="page-header-image" />

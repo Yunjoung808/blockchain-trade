@@ -252,7 +252,7 @@ class ComponentsNavbar extends React.Component {
                 <NavItem className="p-0">
                   <NavLink
                     tag={Link} to="/new-page">
-                    <p>New Product</p>
+                    <p>for USER</p>
                   </NavLink>
                 </NavItem>
 
@@ -260,7 +260,7 @@ class ComponentsNavbar extends React.Component {
                   <NavLink
                     tag={Link} to="/old-page"
                   >
-                    <p>Old Product</p>
+                    <p>for COMPANY</p>
                   </NavLink>
                 </NavItem>
                 
@@ -342,21 +342,7 @@ class ComponentsNavbar extends React.Component {
             </div>
 
             <Nav navbar>
-              <NavItem className="p-0">
-                <NavLink
-                  tag={Link} to="/new-page">
-
-                  <p>New Product</p>
-                </NavLink>
-              </NavItem>
-
-              <NavItem className="p-0">
-                <NavLink
-                  tag={Link} to="/old-page"
-                >
-                  <p>Old Product</p>
-                </NavLink>
-              </NavItem>
+              
 
               <NavItem>
                 <Button
