@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React ,{ Component }  from "react";
 import classnames from "classnames";
+import Login from "components/GoogleLogin/GoogleLogin.js";
 // reactstrap components
 import {
   Button,
@@ -32,10 +33,7 @@ const caver = new Caver(config.rpcURL);
 
 
 class OldPage extends React.Component {
-  state = {
-    squares1to6: "",
-    squares7and8: "",
-  };
+  
   componentDidMount() {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", this.followCursor);
@@ -50,34 +48,8 @@ class OldPage extends React.Component {
       this.followCursor
     );
   }
-  followCursor = event => {
-    let posX = event.clientX - window.innerWidth / 2;
-    let posY = event.clientY - window.innerWidth / 6;
-    this.setState({
-      squares1to6:
-        "perspective(500px) rotateY(" +
-        posX * 0.05 +
-        "deg) rotateX(" +
-        posY * -0.05 +
-        "deg)",
-      squares7and8:
-        "perspective(500px) rotateY(" +
-        posX * 0.02 +
-        "deg) rotateX(" +
-        posY * -0.02 +
-        "deg)"
-    });
-  };
+  
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      inputFocus: false,
-      products:[],
-      value:0,min:0,counter:0
-    };
-  }
 
   componentDidMount(){
     this.callApi()
@@ -140,49 +112,7 @@ class OldPage extends React.Component {
   }
 
   render() {
- 
-    let Items = this.state.products.map( item=>{
-      if (item._id ==='index') return( <></>)
-      return(
 
-        <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-        <div className="card-profile card">
-          <div className="card-image">
-            <a href="#pablo">
-            <button type="button" onClick={(e) => {e.preventDefault(); window.location.href='/old-descript-page?index='+item.index;}}>
-              <img alt="..." className="img-fluid rounded shadow-lg" 
-                src={item.images[0].binary}
-                 style={{ width: "250px" ,height: "220px" }} Link tag={Link} to="/new-descript-page"/>
-              </button>
-            </a>
-          </div>
-          <div className="card-body">
-            <hr className="line-success"></hr>
-              
-                <table className="tablesorter table">
-                  <tbody>
-                    <tr>
-                    <td className="text-left" >
-                          <i className="tim-icons icon-bag-16 text-success" ></i> &nbsp;
-                          <p className="category text-success d-inline">Brand</p>
-                        </td>
-                        <td className="text-right">{item.brand}</td>
-                      </tr>
-                      <tr>
-                      <td className="text-left">
-                          <i class="tim-icons icon-money-coins text-success"/>&nbsp;&nbsp;
-                          <p className="category text-success d-inline">Price</p>
-                        </td>
-                        <td className="text-right">{item.price} Klay</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
-        
-      </Col>
-                  
-      )});
 
       
     var walletInstance = this.getWallet();
@@ -200,35 +130,29 @@ class OldPage extends React.Component {
                 <Row>
                 <Col className="item"><hr className="line-success"></hr></Col>
               </Row>
+              <div className="space-50"></div>
               <Row>
-              <h2>Old PRODUCT</h2>
-             
+              <h2>LOGIN for Company</h2>
               </Row>
-    
-                  
-                
                   <Row className="row-grid justify-content-between align-items-center text-left">
                     <Col lg="6" md="6">
                       <h1 className="text-white">We keep your token <br />
-                      <span className="text-white">secured</span>
+                        <span className="text-white">secured</span>
                       </h1>
                       <p className="text-white mb-3">
                         A wonderful serenity has taken possession of my entire soul,
                         like these sweet mornings of spring which I enjoy with my
                         whole heart. I am alone, and feel...
                       </p>
-                     
-
-                      
                       <div className="btn-wrapper">
                         <div className="button-container">
                           <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
                             onClick={e => e.preventDefault()}>
-                          <i className="fab fa-twitter" />
+                            <i className="fab fa-twitter" />
                           </Button>
                           <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
                             onClick={e => e.preventDefault()}>
-                          <i className="fab fa-dribbble" />
+                            <i className="fab fa-dribbble" />
                           </Button>
                           <Button
                             className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
@@ -237,45 +161,17 @@ class OldPage extends React.Component {
                           </Button>
                         </div>
                       </div>
-                      <div className="space-70"></div>
-                      <Button
-                    className="btn btn-success"  Link tag={Link} to="/upload-old-page">
-                    <b>중고 상품 등록</b>
-                    </Button>
-                    
+                      <div className="space-50"></div>
+                      <Login/>
                     </Col>
-                  
                     <Col lg="4" md="5">
-                    <img alt="..." className="img-fluid" src="https://demos.creative-tim.com/blk-design-system-pro-react/static/media/etherum.73bbf767.png"/>
+                    <img alt="..." className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0RJLMHNZYBuToyhqHdLtOjcpkOoxq-KVYQ&usqp=CAU"/>
                     </Col>
-
                   </Row>
-            
-
-                
+                  <div className="space-50"></div>
                   <Row>
-                <Col className="item"><hr className="line-success"></hr></Col>
-              </Row>
-              <Row>
-              <h2>OLD</h2>
-             
-              </Row>
-
-
-                  <Row>
-                    {Items}
+                    <Col className="item"><hr className="line-success"></hr></Col>
                   </Row>
-                    
-                    {/* <Row>
-                      <Col className="offset-lg-0 offset-md-3" lg="5" md="6">
-                      <div className="square square-7" id="square7" style={{ transform: this.state.squares7and8 }}/>
-                      <div className="square square-8" id="square8" style={{ transform: this.state.squares7and8 }}/>
-                      </Col>
-                    </Row> */}
-
-                    <div className="square square-3" id="square3" style={{ transform: this.state.squares1to6 }}/>
-                    <div className="square square-5" id="square5" style={{ transform: this.state.squares1to6 }}/>
-                    <div className="square square-6" id="square6" style={{ transform: this.state.squares1to6 }}/>
                 </Container>
               </div>
             </div>
@@ -285,93 +181,6 @@ class OldPage extends React.Component {
       </>
       );
     }
-    return (
-      <>
-      <IndexNavbar />
-        <div className="wrapper">
-          <div className="page-header">
-          <div className="page-header-image" />
-            <div className="content">
-
-              <Container>
-               
-              <Row>
-                <Col className="item"><hr className="line-success"></hr></Col>
-              </Row>
-              <Row>
-              <h2>Old PRODUCT</h2>
-             
-              </Row>
-    
-              
-              <Row className="row-grid justify-content-between align-items-center text-left">
-                    <Col lg="6" md="6">
-                      <h1 className="text-white">We keep your token <br />
-                      <span className="text-white">secured</span>
-                      </h1>
-                      <p className="text-white mb-3">
-                        A wonderful serenity has taken possession of my entire soul,
-                        like these sweet mornings of spring which I enjoy with my
-                        whole heart. I am alone, and feel...
-                      </p>
-                     
-
-                      
-                      <div className="btn-wrapper">
-                        <div className="button-container">
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-twitter" />
-                          </Button>
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-dribbble" />
-                          </Button>
-                          <Button
-                            className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-facebook" />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="space-70"></div>
-                      <Button
-                    className="btn btn-success"  Link tag={Link} to="/upload-old-page">
-                    <b>중고 상품 등록</b>
-                    </Button>
-                    
-                    </Col>
-                  
-                    <Col lg="4" md="5">
-                    <img alt="..." className="img-fluid" src="https://demos.creative-tim.com/blk-design-system-pro-react/static/media/etherum.73bbf767.png"/>
-                    </Col>
-
-                  </Row>
-            
-          
-                <Row>
-                <Col className="item"><hr className="line-success"></hr></Col>
-              </Row>
-              <Row>
-              <h2>OLD</h2>
-             
-              </Row>
-
-                <Row>
-                  {Items}
-                </Row>
-
-                  <div className="square square-3" id="square3" style={{ transform: this.state.squares1to6 }}/>
-                  <div className="square square-5" id="square5" style={{ transform: this.state.squares1to6 }}/>
-                  <div className="square square-6" id="square6" style={{ transform: this.state.squares1to6 }}/>
-              </Container>
-            </div>
-          </div>
-        <Footer/>
-      </div>
-      
-    </>
-    );
   }
 }
 

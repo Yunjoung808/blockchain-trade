@@ -415,12 +415,8 @@ class Mypage extends React.Component {
 
                               <header>
                                 <h2 className="text-uppercase"><b>My Information</b></h2>
-
                               </header>
-                              
                               <br/>
-
-
                           <Card>
                             <CardBody>
                               <Row>
