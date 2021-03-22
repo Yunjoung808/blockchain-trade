@@ -35,9 +35,6 @@ import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 
 class LoginUser extends React.Component {
-
-  
-
   state = {
     squares1to6: "",
     squares7and8: "",
@@ -148,7 +145,7 @@ class LoginUser extends React.Component {
   }
 
   encryptData = () => {
-    let data = "hello";
+    let data = "email@gmail.com";
     let key = "hi";
     let enc = this.encrypt(data, key);
     console.log("enc : ", enc);

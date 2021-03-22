@@ -75,6 +75,8 @@ router.post('/',(req,res) => {
   })
 })
 
+
+
 router.post('/register', async (req,res) =>{
   console.log(req.body);
   var products = DB.collection('products');
@@ -101,9 +103,6 @@ router.post('/receipt', async (req,res) =>{
   data = await updateOldSellReceipt(req.body.tokenIndex, req.body.sell_receipt),
   res.json({success:true, msg:data})
 })
-
-
-
 
 
 //db에서 OldProduct 가져오기 
