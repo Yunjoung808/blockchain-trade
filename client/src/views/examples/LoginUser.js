@@ -34,7 +34,7 @@ import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 
-class NewPage extends React.Component {
+class LoginUser extends React.Component {
 
   
 
@@ -137,10 +137,12 @@ class NewPage extends React.Component {
       })
   }
 
+  //암호화
   encrypt(data, key){
     return Crypto.AES.encrypt(data, key).toString();
   }
-
+  
+  //복호화
   decrypt(data, key){
     return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
   }
@@ -257,4 +259,4 @@ class NewPage extends React.Component {
   }
 }
 
-export default NewPage;
+export default LoginUser;

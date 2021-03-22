@@ -6,6 +6,8 @@ import Slider from "nouislider";
 import Switch from "react-bootstrap-switch";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import UserNavbar from "components/Navbars/UserNavbar.js";
+
 
 // reactstrap components
 import {
@@ -90,15 +92,24 @@ class Basics extends React.Component {
 
   render() {
 
-    return (
+    return ( 
+    <>
+      <UserNavbar />
+        <div className="wrapper">
+          <div className="page-header">
+            <div className="page-header-image" />
+            <div className="content">
       <Container>
+      
         <div id="images">
-
+        <hr className="line-primary"></hr>
+        <div className="space-50"></div>
           <Row>
-            <Col md="1">
-              <h1>NEW</h1>
+            
+            <Col md="4">
+              <h1>Get Your Tokens!</h1>
             </Col>
-            <Col md="9">
+            <Col md="6">
               <Button className="btn-simple btn-round" color="primary" type="button" Link tag={Link} to="/new-page">+ More</Button>
             </Col>
           </Row>
@@ -236,163 +247,22 @@ class Basics extends React.Component {
                       </table>
                     </div>
                   </div>
+                
                 </Col>
               </Row>
             </Row>
-
-          <div className="space-70"></div>
-            <Row>
-              <Col md="1">
-                <h1> OLD</h1>
-              </Col>
-              <Col md="9">
-                <Button className="btn-simple btn-round" color="success" type="button" Link tag={Link} to="/old-page">+ More</Button>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-                  <div className="card-profile card">
-                    <div className="card-image">
-                      <a href="#pablo">
-                        <Link to={`/old-descript-page?index=${products2[0].id}`}>
-                          <img alt="..." className="img-fluid rounded shadow-lg" src={products2[0].image} style={{ width: "250px" ,height: "220px"}}/>
-                        </Link>
-                      </a>
-                    </div>
-                    <div className="card-body">
-
-                
-                      <hr className="line-success"></hr>
-                        <table className="tablesorter table">
-                          <tbody>
-                            <tr>
-                              <td className="text-left" >
-                                <i className="tim-icons icon-bag-16 text-success " ></i> &nbsp;
-                                <p className="category text-success d-inline">Brand</p>
-                              </td>
-                              <td className="text-right">{products2[0].pname}</td>
-                            </tr>
-                            <tr>
-                              <td className="text-left">
-                                <i class="tim-icons icon-money-coins text-success"/>&nbsp;&nbsp;
-                                <p className="category text-success d-inline ">Price</p>
-                              </td>
-                              <td className="text-right">{products2[0].price} Klay</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                </Col>
-              
-                <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-                  <div className="card-profile card">
-                    <div className="card-image">
-                      <a href="#pablo">
-                        <Link to={`/old-descript-page?index=${products2[1].id}`}>
-                          <img alt="..." className="img-fluid rounded shadow-lg" src={products2[1].image} style={{ width: "250px" ,height: "220px"}}/>
-                        </Link>
-                      </a>
-                    </div>
-                    <div className="card-body">
-                      <hr className="line-success"></hr>
-                        <table className="tablesorter table">
-                          <tbody>
-                            <tr>
-                              <td className="text-left" >
-                                <i className="tim-icons icon-bag-16 text-success " ></i> &nbsp;
-                                <p className="category text-success d-inline">Brand</p>
-                              </td>
-                              <td className="text-right">{products2[1].pname}</td>
-                            </tr>
-                            <tr>
-                              <td className="text-left">
-                                <i class="tim-icons icon-money-coins text-success"/>&nbsp;&nbsp;
-                                <p className="category text-success d-inline">Price</p>
-                              </td>
-                              <td className="text-right">{products2[1].price} Klay</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                </Col>
-
-                <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-                  <div className="card-profile card">
-                    <div className="card-image">
-                      <a href="#pablo">
-                        <Link to={`/old-descript-page?index=${products2[2].id}`}>
-                          <img alt="..." className="img-fluid rounded shadow-lg" src={products2[2].image} style={{ width: "250px" ,height: "220px"}}/>
-                        </Link>
-                      </a>
-                    </div>
-                    <div className="card-body">
-                      <hr className="line-success"></hr>
-                        <table className="tablesorter table">
-                          <tbody>
-                            <tr>
-                              <td className="text-left" >
-                                <i className="tim-icons icon-bag-16  text-success" ></i> &nbsp;
-                                <p className="category text-success d-inline">Brand</p>
-                              </td>
-                              <td className="text-right">{products2[2].pname}</td>
-                            </tr>
-                            <tr>
-                              <td className="text-left">
-                                <i class="tim-icons icon-money-coins text-success"/>&nbsp;&nbsp;
-                                <p className="category text-success d-inline">Price</p>
-                              </td>
-                              <td className="text-right">{products2[2].price} Klay</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                </Col>
-
-                <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-                  <div className="card-profile card">
-                    <div className="card-image">
-                      <a href="#pablo">
-                        <Link to={`/old-descript-page?index=${products2[3].id}`}>
-                          <img alt="..." className="img-fluid rounded shadow-lg" src={products2[3].image} style={{ width: "250px" ,height: "220px"}}/>
-                        </Link>
-                      </a>
-                    </div>
-                    <div className="card-body">
-                      <hr className="line-success"></hr>
-                        <table className="tablesorter table">
-                          <tbody>
-                            <tr>
-                              <td className="text-left" >
-                                <i className="tim-icons icon-bag-16 text-success" ></i> &nbsp;
-                                <p className="category text-success d-inline">Brand</p>
-                              </td>
-                              <td className="text-right">{products2[3].pname}</td>
-                            </tr>
-                            <tr>
-                              <td className="text-left">
-                                <i class="tim-icons icon-money-coins text-success"/>&nbsp;&nbsp;
-                                <p className="category text-success d-inline">Price</p>
-                              </td>
-                              <td className="text-right">{products2[3].price} Klay</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                </Col>
-            </Row>
+   
         </div>
 
-        <div className="space-70"></div>
-        
+  
         </Container>
-      
+            </div>
+            
+          </div>
+        
+        </div>
+      </>
     );
   }
-}
-
+  }
 export default Basics;

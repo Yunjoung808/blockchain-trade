@@ -255,9 +255,6 @@ class OrderPage extends React.Component {
         return (
             <>
             <IndexNavbar />
-            {/* <p>{allSell_items_metadata[0]}</p> */}
-            {/* <p>"index번호는"{ allSell_items_metadata.length >0 ? allSell_items_metadata[0].index : -1}</p> */}
-            {/* <p>{allSell_items.length}</p> */}
             <div className="wrapper">
             <div className="section">
                 <Container>
@@ -274,7 +271,6 @@ class OrderPage extends React.Component {
                             </div>
                         </div>
                         </Col>
-                        {/* -------------오른쪽---------- */}
                         <Col className="col-lg-8">
                             <form className="js-validate">
                                 <Container>
@@ -364,23 +360,9 @@ class OrderPage extends React.Component {
                             </form>
                         </Col>
                     </Row>
-                    {/* <Link to={{
-                       pathname:"/order-complete-page",
-                       state:{
-                         tokenIndex: this.state.t_index,
-                         productKey:this.state.t_productKey,
-                         brand:this.state.s_brand,
-                         productName: this.state.s_productName,
-                         price:this.state.s_price,
-                        //  sell_receipt:receipt.transactionHash,
-                         sell_receipt: this.state.sell_receipt,
-
-                       }
-                     }}> */}
                         <button type="button" class="btn btn-info btn-sm" style={{float: "right"}} onClick={(e) => this.buyToken(allSell_items_metadata[0].index)}>
                             Order now
                         </button>
-                     {/* </Link> */}
                      
                 </Container>
                 </div>

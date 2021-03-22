@@ -5,6 +5,7 @@ import Container from 'reactstrap/lib/Container';
 const clientId = '813360299085-c5cvdrmbd10ek16g3ij92giun4ks84tl.apps.googleusercontent.com';
 
 function Login(){
+
     const onSuccess = (res) => {
         console.log('[Login Success] currentUser:', res.profileObj);
     };
@@ -12,7 +13,7 @@ function Login(){
     const onFailure = (res) => {
         console.log('[Login Failed] res:', res);
     };
-
+    
     return(
         <div>
             <Container>

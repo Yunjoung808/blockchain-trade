@@ -24,8 +24,6 @@ import Caver from "caver-js";
 const axios = require('axios').default;
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
-var ipfsClient = require('ipfs-http-client');//ipfs 클라이언트를 import 한다
-var ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });
 const yttContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
 const tsContract = new caver.klay.Contract(DEPLOYED_ABI_TOKENSALES, DEPLOYED_ADDRESS_TOKENSALES);
 
@@ -38,6 +36,9 @@ class Mypage extends React.Component {
   componentDidMount() {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", this.followCursor);
+    var walletInstance = this.getWallet()
+    var balance = parseInt(this.getBalanceOf(walletInstance.address));
+    console.log("balance :",balance);
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
@@ -138,9 +139,6 @@ class Mypage extends React.Component {
           if (parseInt(price) > 0) {
             this.renderSellTokens(tokenIndex, ytt, metadata, price);
           }
-          // if (parseInt(price) == 0) {
-          //   this.renderMyTokens(tokenIndex, ytt, metadata, isApproved, price);  
-          // }
       })();      
       }
     }
@@ -391,15 +389,6 @@ class Mypage extends React.Component {
                             &nbsp;  Security 
                             </a>
                             </li>
-
-                            <hr className="line-info"/>
-                            <li className="nav-item">
-                            <a href="#pablo" className="nav-link">
-                            <i className="tim-icons icon-volume-98"></i>
-                            &nbsp;  Notifications 
-                            </a>
-                            </li>
-
                           </ul>
                           </section>
                           <br/><br/><br/>
@@ -414,7 +403,7 @@ class Mypage extends React.Component {
                             <div>
 
                               <header>
-                                <h2 className="text-uppercase"><b>My Information</b></h2>
+                                <h2 className="text-uppercase"><b>Get your tokens!</b></h2>
                               </header>
                               <br/>
                           <Card>
@@ -426,22 +415,17 @@ class Mypage extends React.Component {
                                 <Col className="align-self-center col-md-8">
                                 <p className="text-neutral"><b>
                                 {walletInstance.address}</b></p>
-                        
                                 </Col>
                               </Row>
                               <br/>
                               <hr className="line-primary"></hr>
-                              <header>
+                              {/* <header>
                                 <h3 className="text-uppercase"><b>My Token</b></h3>
-
-                              </header>
-
-
+                              </header> */}
                               <Col className="align-self-center row-md-3">
                                 <Card className="card-coin card-plain" style={{ display: 'flex', overFlow: 'auto', width: '660px',paddingLeft:'30px', paddingRight:'30px'}}>
                                   <br/> 
-                                  <Row>
-                                    {/* 첫번째 토큰 */}                              
+                                  <Row>                            
                                     <Col>
                                       {DOM_items}
                                     </Col>
@@ -449,23 +433,6 @@ class Mypage extends React.Component {
                                 </Card>
                               </Col>
                               <br/>
-
-                              <hr className="line-success"></hr>
-                              <header>
-                                <h3 className="text-uppercase"><b>판매중인 Token</b></h3>
-
-                              </header>
-                              <Col className="align-self-center row-md-3">
-                                <Card className="card-coin card-plain" style={{ display: 'flex', overFlow: 'auto', width: '660px',paddingLeft:'30px', paddingRight:'30px'}}>
-                                  <br/> 
-                                  <Row>
-                                    {/* 판매중인 토큰 */}
-                                    <Col>
-                                      {sell_items}
-                                    </Col>
-                                  </Row>
-                                </Card>
-                              </Col>
                               <br/>
                               <br/>
                               </CardBody>
@@ -474,8 +441,6 @@ class Mypage extends React.Component {
                           </div>
                         </div>
                       </div>
-                      
-
                     </Col>
                   </Row>
                 </div>
@@ -486,20 +451,6 @@ class Mypage extends React.Component {
         </>
       );
     }
-    return (
-      <>
-      <IndexNavbar />
-      <div className="space-70"></div>
-          <div className="wrapper">
-              <div className="section">
-                  <Container>
-                      <h4>로그인 후 확인 가능합니다.</h4>
-                  </Container>
-              </div>
-          </div>
-          <Footer />
-      </>
-    );
   }
 }
 

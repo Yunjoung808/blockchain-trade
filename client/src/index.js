@@ -10,7 +10,7 @@ import "assets/demo/demo.css";
 import Index from "views/Index.js";
 
 
-import NewPage from "views/examples/NewPage.js"
+import LoginUser from "views/examples/LoginUser.js"
 import OldPage from "views/examples/OldPage.js";
 import NewDescriptPage from "views/examples/NewDescriptPage.js"
 import OrderPage from "views/examples/OrderPage.js"
@@ -21,19 +21,28 @@ import MyPage from "views/examples/MyPage.js";
 import OrderPageOld from "views/examples/OrderPageOld.js"
 import OrderCompletePageOld from "views/examples/OrderCompletePageOld.js"
 import UploadNewPage from "views/examples/UploadNewPage.js";
+import Basics from "views/examples/Basics.js";
+import MainUser from "views/examples/MainUser.js";
 
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      
+    <Route
+        path="/basics-page"
+        render={props => <Basics {...props} />}
+      />
+       <Route
+        path="/main-user"
+        render={props => <MainUser {...props} />}
+      />
       <Route
         path="/old-page"
         render={props => <OldPage {...props} />}
       />
       <Route
-        path="/new-page"
-        render={props => <NewPage {...props} />}
+        path="/login-user"
+        render={props => <LoginUser {...props} />}
       />
       <Route
         path="/new-descript-page"

@@ -7,7 +7,7 @@ import PageHeader from "components/PageHeader/PageHeader.js";
 import Footer from "components/Footer/Footer.js";
 
 // sections for this page/view
-import Basics from "views/IndexSections/Basics.js";
+import Basics from "views/examples/Basics.js";
 
 
 class Index extends React.Component {

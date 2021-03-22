@@ -29,18 +29,6 @@ const connect = mongoose.connect(config.mongoURI,
   app.use(cors())
 
 
-
-  
-// app.get('/OldP/products', (req,res)=>{
-  
-
-//     res.send(
-      
-//     )
-
-    
-// });
-
 //Old Table
 app.use('/OldP/products', require('./routes/product'))
 

@@ -251,7 +251,7 @@ class ComponentsNavbar extends React.Component {
               <Nav navbar>
                 <NavItem className="p-0">
                   <NavLink
-                    tag={Link} to="/new-page">
+                    tag={Link} to="/login-user">
                     <b>for USER</b>
                   </NavLink>
                 </NavItem>
