@@ -1,11 +1,6 @@
 import Axios from 'axios';
 import React , { Component } from "react";
-import Login from "components/GoogleLogin/GoogleLogin.js";
-import Caver from "caver-js";
-const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
-const caver = new Caver(config.rpcURL);
-const Crypto = require('crypto-js');
-
+import classnames from "classnames";
 
 // reactstrap components
 import {
@@ -34,14 +29,13 @@ import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 
+
+
+
 class NewPage extends React.Component {
-
-  
-
   state = {
     squares1to6: "",
-    squares7and8: "",
-    
+    squares7and8: ""
   };
   componentDidMount() {
     document.body.classList.toggle("register-page");
@@ -49,7 +43,6 @@ class NewPage extends React.Component {
     fetch('/products')
     .then(res => res.json())
     .then(products => this.setState({ products }));
-  
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
@@ -57,7 +50,6 @@ class NewPage extends React.Component {
       "mousemove",
       this.followCursor
     );
-   
   }
   followCursor = event => {
     let posX = event.clientX - window.innerWidth / 2;
@@ -86,8 +78,6 @@ class NewPage extends React.Component {
       news:[],
       value:0,min:0,counter:0
     };
-
-
   }
 
   componentDidMount(){
@@ -99,8 +89,6 @@ class NewPage extends React.Component {
       .then(res => this.setState({news: res}))
       //만약 오류가 발생하는경우 콘솔창에 오류를 보여준다.
       .catch(err => console.log(err));
-
-    this.encryptData()
   }
 
   callApi = async()=>{
@@ -124,6 +112,8 @@ class NewPage extends React.Component {
     // tokens: Tokens[Token-1].value
   }
 
+
+
   //서버에서 가져오기
   Axios.get("http://localhost:5000/NewP/new/getNewP", body)
       .then(response => {
@@ -137,98 +127,61 @@ class NewPage extends React.Component {
       })
   }
 
-  encrypt(data, key){
-    return Crypto.AES.encrypt(data, key).toString();
-  }
 
-  decrypt(data, key){
-    return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
-  }
-
-  encryptData = () => {
-    let data = "hello";
-    let key = "hi";
-    let enc = this.encrypt(data, key);
-    console.log("enc : ", enc);
-    let dec = this.decrypt(enc, key);
-    console.log("dec : ", dec);
-  }
-
-  getWallet = () => {
-    console.log("getWallet"+caver.klay.accounts.wallet.length);
-    if (caver.klay.accounts.wallet.length) {
-      return caver.klay.accounts.wallet[0]
-    } else {
-      const walletFromSession = sessionStorage.getItem('walletInstance')
-      try {
-        caver.klay.accounts.wallet.add(JSON.parse(walletFromSession))
-      } catch (e) {
-        sessionStorage.removeItem('walletInstance')
-      }
-      return caver.klay.accounts.wallet[0]
-    }
-  }
+  // -------------------------------------------------------------------------------------
 
   render() {
-    var walletInstance = this.getWallet();
-    if (walletInstance) { 
     return (
       <>
-      <UserNavbar />
+        <UserNavbar />
         <div className="wrapper">
           <div className="page-header">
             <div className="page-header-image" />
             <div className="content">
               <Container>
+
+
               <Row>
                 <Col className="item"><hr className="line-primary"></hr></Col>
               </Row>
 
               <Row>
-              <h2>LOGIN for User </h2>
+              <h2>NEW PRODUCT</h2>
+             
               </Row>
 
-              <Row className="row-grid justify-content-between align-items-center text-left">
-                    <Col lg="6" md="6">
-                      <h1 className="text-white">We keep your token <br />
-                        <span className="text-white">secured</span>
-                      </h1>
-                      <p className="text-white mb-3">
-                        A wonderful serenity has taken possession of my entire soul,
-                        like these sweet mornings of spring which I enjoy with my
-                        whole heart. I am alone, and feel...
-                      </p>
-                      <div className="btn-wrapper">
-                        <div className="button-container">
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                            <i className="fab fa-twitter" />
-                          </Button>
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                            <i className="fab fa-dribbble" />
-                          </Button>
-                          <Button
-                            className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-facebook" />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="space-50"></div>
-                      <Login/>
-                    </Col>
-                    <Col lg="4" md="5">
-                    <img alt="..." className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0RJLMHNZYBuToyhqHdLtOjcpkOoxq-KVYQ&usqp=CAU"/>
+        <Row>
+          <Col className="item"><hr style={{width: '100%', height: 2, Align: "center"}}/></Col>
+
+
+        <iframe width="850" height="400" src="https://nikevideo.nike.com/72451143001/202011/44/72451143001_6206983118001_6206980123001.mp4" frameborder="0" allow="accelerometer; autoplay; loop; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <Col className="item"><hr style={{width: '100%', height: 2, Align: "center"}}/></Col>
+        </Row>
+
+       
+        <div class="space-70"></div>
+
+          <Row>
+                <Col className="item"><hr className="line-primary"></hr></Col>
+              </Row>
+              <Row>
+              <h2>NEW</h2>
+             
+              </Row>
+
+
+               <Row>
+                  {Items}
+                </Row>
+
+                <Row>
+                    <Col className="offset-lg-0 offset-md-3" lg="5" md="6">
+                    <div className="square square-7" id="square7" style={{ transform: this.state.squares7and8 }}/>
+                    <div className="square square-8" id="square8" style={{ transform: this.state.squares7and8 }}/>
                     </Col>
                   </Row>
-                  <div className="space-50"></div>
-                  <Row>
-                <Col className="item"><hr className="line-primary"></hr></Col>
-              </Row>
-              
-        <div className="space-70"></div>
 
+      
                 <div
                   className="square square-3"
                   id="square3"
@@ -244,7 +197,7 @@ class NewPage extends React.Component {
                   id="square6"
                   style={{ transform: this.state.squares1to6 }}
                 />
-                  <div className="space-70"></div>
+                  <div class="space-70"></div>
               </Container>
             </div>
             
@@ -253,7 +206,6 @@ class NewPage extends React.Component {
         </div>
       </>
     );
-  }
   }
 }
 

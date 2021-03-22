@@ -5,19 +5,6 @@ import Login from "components/GoogleLogin/GoogleLogin.js";
 // reactstrap components
 import {
   Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardImg,
-  CardTitle,
-  Label,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col
@@ -33,7 +20,10 @@ const caver = new Caver(config.rpcURL);
 
 
 class OldPage extends React.Component {
-  
+  state = {
+    squares1to6: "",
+    squares7and8: ""
+  };
   componentDidMount() {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", this.followCursor);
@@ -172,6 +162,22 @@ class OldPage extends React.Component {
                   <Row>
                     <Col className="item"><hr className="line-success"></hr></Col>
                   </Row>
+                      <div
+                      className="square square-3"
+                      id="square3"
+                      style={{ transform: this.state.squares1to6 }}
+                    />
+                    <div
+                      className="square square-4"
+                      id="square4"
+                      style={{ transform: this.state.squares1to6 }}
+                    />
+                    <div
+                      className="square square-6"
+                      id="square6"
+                      style={{ transform: this.state.squares1to6 }}
+                    />
+                  <div class="space-70"></div>
                 </Container>
               </div>
             </div>
