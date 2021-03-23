@@ -31,6 +31,9 @@ class MainUser extends React.Component {
     fetch('/products')
     .then(res => res.json())
     .then(products => this.setState({ products }));
+    this.callApi()
+      .then(res => this.setState({products: res}))
+      .catch(err => console.log(err));
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
@@ -40,21 +43,8 @@ class MainUser extends React.Component {
     );
   }
   
-  componentDidMount(){
-    this.callApi()
-      //body로 담은 고객 목록을 받아서 
-      //이 목록을 state로 설정해주는것
-      //결과적으로 body가 res라는 변수이름으로 바뀌고
-      //그것을 customers 변수값에 넣어줌
-      .then(res => this.setState({products: res}))
-      //만약 오류가 발생하는경우 콘솔창에 오류를 보여준다.
-      .catch(err => console.log(err));
-  }
-
   callApi = async()=>{
-    //접속하고자 하는 api주소를 넣어줌
     const response = await fetch('http://localhost:5000/OldP/products/getOldP');
-    //출력한 데이터를 json으로 만들어서 body라는 변수에 넣어줌
     const body = await response.json();
     return body;
   }

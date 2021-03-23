@@ -42,7 +42,6 @@ class LoginUser extends React.Component {
   };
   componentDidMount() {
     document.body.classList.toggle("register-page");
-    document.documentElement.addEventListener("mousemove", this.followCursor);
     fetch('/products')
     .then(res => res.json())
     .then(products => this.setState({ products }));
@@ -50,30 +49,7 @@ class LoginUser extends React.Component {
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
-    document.documentElement.removeEventListener(
-      "mousemove",
-      this.followCursor
-    );
-   
   }
-  followCursor = event => {
-    let posX = event.clientX - window.innerWidth / 2;
-    let posY = event.clientY - window.innerWidth / 6;
-    this.setState({
-      squares1to6:
-        "perspective(500px) rotateY(" +
-        posX * 0.05 +
-        "deg) rotateX(" +
-        posY * -0.05 +
-        "deg)",
-      squares7and8:
-        "perspective(500px) rotateY(" +
-        posX * 0.02 +
-        "deg) rotateX(" +
-        posY * -0.02 +
-        "deg)"
-    });
-  };
 
   constructor(props) {
     super(props);
@@ -83,18 +59,11 @@ class LoginUser extends React.Component {
       news:[],
       value:0,min:0,counter:0
     };
-
-
   }
 
   componentDidMount(){
     this.callApi()
-      //body로 담은 고객 목록을 받아서 
-      //이 목록을 state로 설정해주는것
-      //결과적으로 body가 res라는 변수이름으로 바뀌고
-      //그것을 customers 변수값에 넣어줌
       .then(res => this.setState({news: res}))
-      //만약 오류가 발생하는경우 콘솔창에 오류를 보여준다.
       .catch(err => console.log(err));
 
     this.encryptData()
