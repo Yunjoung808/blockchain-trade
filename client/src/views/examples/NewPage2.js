@@ -82,34 +82,24 @@ class NewPage extends React.Component {
 
   componentDidMount(){
     this.callApi()
-      //body로 담은 고객 목록을 받아서 
-      //이 목록을 state로 설정해주는것
-      //결과적으로 body가 res라는 변수이름으로 바뀌고
-      //그것을 customers 변수값에 넣어줌
       .then(res => this.setState({news: res}))
-      //만약 오류가 발생하는경우 콘솔창에 오류를 보여준다.
       .catch(err => console.log(err));
   }
 
   callApi = async()=>{
     //접속하고자 하는 api주소를 넣어줌
     const response = await fetch('http://localhost:5000/NewP/new/getNewP');
-    //출력한 데이터를 json으로 만들어서 body라는 변수에 넣어줌
     const body = await response.json();
     return body;
   }
 
   //데이터 불러오기
   loadHandler = (event) =>{
-  // preventDefault를 해줘야 확인 버튼을 눌렀을때
-  // 화면이 새로고침되지 않는다.
   event.preventDefault();
   const body = {
-    //로그인된 사람의 ID를 가져오기위해 
     description:this.state.description,
     price:this.state.price,
     images:this.state.file
-    // tokens: Tokens[Token-1].value
   }
 
 
@@ -126,9 +116,6 @@ class NewPage extends React.Component {
           }
       })
   }
-
-
-  // -------------------------------------------------------------------------------------
 
   render() {
     return (
@@ -150,23 +137,12 @@ class NewPage extends React.Component {
              
               </Row>
 
-        <Row>
-          <Col className="item"><hr style={{width: '100%', height: 2, Align: "center"}}/></Col>
-
-
-        <iframe width="850" height="400" src="https://nikevideo.nike.com/72451143001/202011/44/72451143001_6206983118001_6206980123001.mp4" frameborder="0" allow="accelerometer; autoplay; loop; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <Col className="item"><hr style={{width: '100%', height: 2, Align: "center"}}/></Col>
-        </Row>
-
        
         <div class="space-70"></div>
 
-          <Row>
-                <Col className="item"><hr className="line-primary"></hr></Col>
-              </Row>
+
               <Row>
               <h2>NEW</h2>
-             
               </Row>
 
 

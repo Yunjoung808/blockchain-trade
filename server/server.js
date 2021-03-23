@@ -36,6 +36,23 @@ app.use('/OldP/products', require('./routes/product'))
 app.use('/NewP/new', require('./routes/new'))
 
 
+app.get('/api/hello', (req, res)=>{
+ res.send([
+  {
+  'index' : '1',
+  'title' : 'email 인증'
+  },
+  {
+  'index' : '2',
+  'title' : 'sms 인증'
+  },
+  {
+  'index' : '3',
+  'title' : '여권 인증'
+  }
+]);
+});
+
 if (process.env.NODE_ENV === "production") {
 
     // Set static folder   

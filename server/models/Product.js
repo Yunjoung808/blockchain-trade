@@ -60,5 +60,5 @@ productSchema.plugin(
 
 
 module.exports =  {
-    Product : connection.model('Product',productSchema)//mongoose.model('Product', productSchema);
+    Product : connection.model('Product',productSchema)
 }

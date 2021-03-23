@@ -610,48 +610,15 @@ class UploadOldPage extends React.Component {
       <IndexNavbar/>
       <div className="section section-signup">
         <Container>
-          {/* <Row>
-            <Col className="item"><hr style={{width: '100%', color: "white", backgroundColor:"white", height: 2, Align: "center"}}/></Col>
-            <Col className="item"><h2>OLD PRODUCT REGISTER</h2></Col>
-            <Col className="item"><hr style={{width: '100%', color: "white", backgroundColor:"white", height: 2, Align: "center"}}/></Col>                
-          </Row> */}
+         
           <br/>
           <br/>
             <Row className="row-grid justify-content-between align-items-center">
               <Row>
                 <Col className="offset-lg-0 offset-md-3" lg="5" md="6">
-                  {/* <div
-                    className="square square-7"
-                    id="square7"
-                    style={{ transform: this.state.squares7and8 }}
-                  />
-                  <div
-                    className="square square-8"
-                    id="square8"
-                    style={{ transform: this.state.squares7and8 }}
-                  /> */}
+                  
                 </Col>
               </Row>
-              {/* <div
-                className="square square-3"
-                id="square3"
-                style={{ transform: this.state.squares1to6 }}
-              />
-              <div
-                className="square square-4"
-                id="square4"
-                style={{ transform: this.state.squares1to6 }}
-              />
-              <div
-                className="square square-5"
-                id="square5"
-                style={{ transform: this.state.squares1to6 }}
-              />
-              <div
-                className="square square-6"
-                id="square6"
-                style={{ transform: this.state.squares1to6 }}
-              /> */}
 
               <Card className="card-register">
                 

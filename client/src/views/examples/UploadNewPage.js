@@ -25,6 +25,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { relativeTimeThreshold } from "moment";
 
 const axios = require('axios').default;
 
@@ -373,7 +374,6 @@ class UploadNewPage extends React.Component {
 
                       <br/>
                       {/* product 체크박스로 */}
-                      
                       <Input
                             cols="100" rows="1000"
                             placeholder="description"

@@ -6,7 +6,7 @@ const {New} = require('../models/New');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(Mongodb_URI);
 var DB;
-let getNextSequence
+let getNextSequence;
 client.connect().then( res =>{
   DB = client.db('Cryptoberry')
   console.log(DB)
@@ -85,7 +85,7 @@ router.get('/getNewP', (req,res) =>{
   var news = DB.collection('new');
 
   
-  let cusor;
+  let cursor;
   if(req.query.index){
     cursor = news.find({index:parseInt(req.query.index)});
   }
@@ -96,7 +96,7 @@ router.get('/getNewP', (req,res) =>{
 
   let result=[];
   cursor.count().then(cnt =>{
-    let arrLength=  cnt;
+    let arrLength=cnt;
     if(cnt==0) {
       res.json(result);
     } else{
