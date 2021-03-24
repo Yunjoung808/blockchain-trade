@@ -63,8 +63,10 @@ class Test extends React.Component{
       return caver.klay.accounts.wallet[0]
     }
   }
-
-
+  
+  getWallet = () => {
+      console.log("getWallet"+caver.klay.accounts.wallet.length);
+  }
 
   render(){
     var walletInstance = this.getWallet();

@@ -253,7 +253,7 @@ class ComponentsNavbar extends React.Component {
 
                 <NavItem className="p-0">
                   <NavLink
-                    tag={Link} to="/old-page"
+                    tag={Link} to="/login-company"
                   >
                     <p>for COMPANY</p>
                   </NavLink>

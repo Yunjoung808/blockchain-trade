@@ -50,34 +50,6 @@ const products = [
   },
 ]
 
-const products2 = [
-  {
-    'id' : 1,
-    'image' : './src/assets/img/air jordan old.jpg',
-    'pname' : 'Air Jordan',
-    'price' : '0.07'
-  },
-  {
-    'id' : 2,
-    'image' : './src/assets/img/bal.jpg',
-    'pname' : 'balenciaga',
-    'price' : '0.11'
-  },
-  {
-    'id' : 3,
-    'image' : './src/assets/img/chanel old.jpg',
-    'pname' : 'CHANEL',
-    'price' : '0.2'
-  },
-  {
-    'id' : 4,
-    'image' : './src/assets/img/monc old.jpg',
-    'pname' : 'Moncler',
-    'price' : '0.3'
-  },
-]
-
-
 class Basics extends React.Component {
   state={
     products:""

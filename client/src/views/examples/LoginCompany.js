@@ -19,7 +19,7 @@ const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 
 
-class OldPage extends React.Component {
+class LoginCompany extends React.Component {
   state = {
     squares1to6: "",
     squares7and8: ""
@@ -110,6 +110,7 @@ class OldPage extends React.Component {
       return (
         <>
         <CompanyNavbar />
+        <img alt="..." className="path" src={require("assets/img/blob.png")} />
           <div className="wrapper">
             <div className="page-header">
             <div className="page-header-image" />
@@ -190,4 +191,4 @@ class OldPage extends React.Component {
   }
 }
 
-export default OldPage;
+export default LoginCompany;

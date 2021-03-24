@@ -11,10 +11,10 @@ import Index from "views/Index.js";
 
 
 import LoginUser from "views/examples/LoginUser.js"
-import OldPage from "views/examples/OldPage.js";
-import NewDescriptPage from "views/examples/NewDescriptPage.js"
+import LoginCompany from "views/examples/LoginCompany.js";
+import RegisterPage from "views/examples/RegisterPage.js"
 import OrderPage from "views/examples/OrderPage.js"
-import OrderCompletePage from "views/examples/OrderCompletePage.js"
+import CompletePage from "views/examples/CompletePage.js"
 import OldDescriptPage from "views/examples/OldDescriptPage.js";
 import UploadOldPage from "views/examples/UploadOldPage.js";
 import MyPage from "views/examples/MyPage.js";
@@ -42,25 +42,24 @@ ReactDOM.render(
         render={props => <MainUser {...props} />}
       />
       <Route
-        path="/old-page"
-        render={props => <OldPage {...props} />}
+        path="/login-company"
+        render={props => <LoginCompany {...props} />}
       />
       <Route
         path="/login-user"
         render={props => <LoginUser {...props} />}
       />
       <Route
-        path="/new-descript-page"
-        render={props => <NewDescriptPage {...props} />}
+        path="/register-page"
+        render={props => <RegisterPage {...props} />}
       />
-
       <Route
         path="/order-page"
         render={props => <OrderPage {...props} />}
       />
       <Route
-        path="/order-complete-page"
-        render={props => <OrderCompletePage {...props} />}
+        path="/complete-page"
+        render={props => <CompletePage {...props} />}
       />
       <Route
         path="/old-descript-page"
@@ -74,11 +73,6 @@ ReactDOM.render(
        exact path="/my-page"
         render={props => <MyPage {...props} />}
       />
-      <Route
-        path="/new-descript-page"
-        render={props => <NewDescriptPage {...props} />}
-      />
-
       <Route
         path="/order-page-old"
         render={props => <OrderPageOld {...props} />}

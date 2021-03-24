@@ -117,7 +117,6 @@ router.get('/getOldP', (req,res) =>{
       index: {$eq : parseInt(req.query.index) },
       sell_receipt:{$eq: null}
     })
-
   }
 
   let result=[];

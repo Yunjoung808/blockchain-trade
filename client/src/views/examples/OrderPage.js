@@ -192,7 +192,7 @@ class OrderPage extends React.Component {
           if (receipt.transactionHash) {         
             alert(receipt.transactionHash);
             odpage.props.history.push({
-              pathname:"/order-complete-page",
+              pathname:"/complete-page",
               state:{
                 tokenIndex: odpage.state.t_index,
                 productKey:odpage.state.t_productKey,

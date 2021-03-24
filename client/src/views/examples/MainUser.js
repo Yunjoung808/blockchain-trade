@@ -1,19 +1,20 @@
-import Axios from 'axios';
 import React ,{ Component }  from "react";
-
+import UserNavbar from 'components/Navbars/UserNavbar';
 // reactstrap components
 import {
   Button,
   Container,
   Row,
-  Col
+  Col,
+  Card,
+  CardBody,
+  Badge
 } from "reactstrap";
 // core components
 
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
-import Basics from './Basics';
 
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
@@ -25,15 +26,20 @@ class MainUser extends React.Component {
         squares7and8: "",
         
       };
+
+    constructor(props) {
+      super(props)
+      this.state = {
+        mission:[]
+      };
+    }
+
   componentDidMount() {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", this.followCursor);
-    fetch('/products')
-    .then(res => res.json())
-    .then(products => this.setState({ products }));
     this.callApi()
-      .then(res => this.setState({products: res}))
-      .catch(err => console.log(err));
+    .then(res => this.setState({mission: res}))
+    .catch(err => console.log("err:", err))
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
@@ -44,35 +50,9 @@ class MainUser extends React.Component {
   }
   
   callApi = async()=>{
-    const response = await fetch('http://localhost:5000/OldP/products/getOldP');
+    const response = await fetch('http://localhost:5000/api/hello');
     const body = await response.json();
     return body;
-  }
-
-  //데이터 불러오기
-  loadHandler = (event) =>{
-  // preventDefault를 해줘야 확인 버튼을 눌렀을때
-  // 화면이 새로고침되지 않는다.
-  event.preventDefault();
-  const body = {
-    //로그인된 사람의 ID를 가져오기위해 
-    description:this.state.description,
-    price:this.state.price,
-    images:this.state.file
-    // tokens: Tokens[Token-1].value
-  }
-
-  //서버에서 가져오기
-  Axios.get("http://localhost:5000/OldP/products/getOldP", body)
-      .then(response => {
-          if(response.data.success){
-              alert('상품 불러오기 성공 했습니다.')
-              //상품업로드 후 랜딩페이지로 돌아감
-              this.props.history.pull('/')
-          }else{
-              alert('상품 불러오기에 실패 했습니다.')
-          }
-      })
   }
 
   getWallet = () => {
@@ -91,6 +71,46 @@ class MainUser extends React.Component {
   }
 
   render() {
+    let Items = this.state.mission.map( item=>{
+      if (item._id ==='index') return( <></>)
+      return(
+        <Col className="mt-5 mt-sm-0" sm="3" xs="6">
+          <div className="card-profile card">
+            <div className="card-body">
+                <hr className="line-primary"></hr>
+                  <table className="tablesorter table">
+                    <tbody>
+                      <tr>
+                        <td className="text-left" >
+                          <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
+                          <p className="category text-primary d-inline">Auth</p>
+                        </td>
+                        <td className="text-right">{item.title}</td>
+                      </tr>
+                      <tr>
+                      <td className="text-left">
+                        <i class="tim-icons icon-money-coins text-primary"/>&nbsp;&nbsp;
+                        <p className="category text-primary d-inline">Price</p>
+                      </td>
+                      <td className="text-right">{item.token} Token</td>  
+                    </tr>
+                    <tr>
+                      <td className="text-left">
+                      </td>
+                      <td className="text-right">
+                        <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
+                                onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
+                            +
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+      </Col>
+    )});
+
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -99,84 +119,63 @@ class MainUser extends React.Component {
             <div className="page-header">
             <div className="page-header-image" />
               <div className="content">
-
-                <Container>
-                  
+              <UserNavbar />
+              <img alt="..." className="path" src={require("assets/img/blob.png")} />
+                <Container> 
                 <Row>
-                <Col className="item"><hr className="line-primary"></hr></Col>
-                <div className="space-50"></div>
-              </Row>
-
-                  <Row className="row-grid justify-content-between align-items-center text-left">
-                    <Col lg="6" md="6">
-                      <h1 className="text-white">We keep your token <br />
-                      <span className="text-white">secured</span>
-                      </h1>
-                      <p className="text-white mb-3">
-                        A wonderful serenity has taken possession of my entire soul,
-                        like these sweet mornings of spring which I enjoy with my
-                        whole heart. I am alone, and feel...
-                      </p>
-                     
-
-                      
-                      <div className="btn-wrapper">
-                        <div className="button-container">
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-twitter" />
-                          </Button>
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-dribbble" />
-                          </Button>
-                          <Button
-                            className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-facebook" />
-                          </Button>
-                        </div>
-                      </div>
-             
-                    
+                  <Col className="item"><hr className="line-primary"></hr></Col>
+                  <div className="space-50"></div>
+                </Row>
+                <Card>
+                  <CardBody>
+                  <Row>
+                    <Col className="align-self-center col-md-3">
+                    <Badge color="primary">Wallet Address</Badge>
                     </Col>
-                  
-                    <Col lg="4" md="5">
-                    <img alt="..." className="img-fluid" src="img/bitcoin.png"/>
+                    <Col className="align-self-center col-md-8">
+                    <p className="text-neutral"><b>
+                    {walletInstance.address}</b></p>
                     </Col>
                   </Row>
-                  <Basics/>
-                      <div
-                      className="square square-3"
-                      id="square3"
-                      style={{ transform: this.state.squares1to6 }}
-                    />
-                    <div
-                      className="square square-4"
-                      id="square4"
-                      style={{ transform: this.state.squares1to6 }}
-                    />
-                    <div
-                      className="square square-6"
-                      id="square6"
-                      style={{ transform: this.state.squares1to6 }}
-                    />
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                  </CardBody>
+                </Card>
+                <hr className="line-primary"></hr>
+                  <Container>
+                    <div id="images">
+                      <div className="space-50"></div>
+                      <Row>
+                        <Col md="4">
+                          <h1>Get Your Tokens!</h1>
+                        </Col>
+                      </Row>
+                      <Row>
+                        {Items}
+                      </Row>
+                    </div>
+                  </Container>
                   <div class="space-70"></div>
-                  <div
+                  {/* <div
                   className="square square-3"
                   id="square3"
-                  style={{ transform: this.state.squares1to6 }}
-                />
-                <div
-                  className="square square-4"
-                  id="square4"
                   style={{ transform: this.state.squares1to6 }}
                 />
                 <div
                   className="square square-6"
                   id="square6"
                   style={{ transform: this.state.squares1to6 }}
-                />
+                /> */}
                 </Container>
               </div>
             </div>

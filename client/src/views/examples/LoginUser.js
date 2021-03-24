@@ -10,19 +10,6 @@ const Crypto = require('crypto-js');
 // reactstrap components
 import {
   Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardImg,
-  CardTitle,
-  Label,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col,
@@ -33,6 +20,7 @@ import {
 import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
+
 
 class LoginUser extends React.Component {
   state = {
@@ -53,13 +41,13 @@ class LoginUser extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       inputFocus: false,
       news:[],
       value:0,min:0,counter:0
     };
   }
+  
 
   componentDidMount(){
     this.callApi()
@@ -67,6 +55,7 @@ class LoginUser extends React.Component {
       .catch(err => console.log(err));
 
     this.encryptData()
+
   }
 
   callApi = async()=>{
@@ -79,15 +68,11 @@ class LoginUser extends React.Component {
 
   //데이터 불러오기
   loadHandler = (event) =>{
-  // preventDefault를 해줘야 확인 버튼을 눌렀을때
-  // 화면이 새로고침되지 않는다.
   event.preventDefault();
   const body = {
-    //로그인된 사람의 ID를 가져오기위해 
     description:this.state.description,
     price:this.state.price,
     images:this.state.file
-    // tokens: Tokens[Token-1].value
   }
 
   //서버에서 가져오기
@@ -143,6 +128,7 @@ class LoginUser extends React.Component {
     return (
       <>
       <UserNavbar />
+      <img alt="..." className="path" src={require("assets/img/blob.png")} />
         <div className="wrapper">
           <div className="page-header">
             <div className="page-header-image" />
@@ -195,7 +181,7 @@ class LoginUser extends React.Component {
                 <Col className="item"><hr className="line-primary"></hr></Col>
               </Row>
               
-        <div className="space-70"></div>
+              <div className="space-70"></div>
 
                 <div
                   className="square square-3"
@@ -215,7 +201,6 @@ class LoginUser extends React.Component {
                   <div className="space-70"></div>
               </Container>
             </div>
-            
           </div>
           <Footer />
         </div>

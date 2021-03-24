@@ -6,9 +6,6 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import PageHeader from "components/PageHeader/PageHeader.js";
 import Footer from "components/Footer/Footer.js";
 
-// sections for this page/view
-import Basics from "views/examples/Basics.js";
-
 
 class Index extends React.Component {
   componentDidMount() {

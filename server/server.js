@@ -9,15 +9,6 @@ const path = require("path");
 const cors = require('cors')
 
 
-//파일용량 제한 늘리기
-app.use(bodyParser.json({
-  limit : "10mb"
-}));
-app.use(bodyParser.urlencoded({
-  limit:"10mb",
-  extended: false
-}));
-
 const connect = mongoose.connect(config.mongoURI,
     {
       useNewUrlParser: true, useUnifiedTopology: true,
@@ -29,37 +20,57 @@ const connect = mongoose.connect(config.mongoURI,
   app.use(cors())
 
 
-//Old Table
-app.use('/OldP/products', require('./routes/product'))
 
-//New Table
-app.use('/NewP/new', require('./routes/new'))
-
+app.use('api/mission', require('./routes/mission'))
 
 app.get('/api/hello', (req, res)=>{
  res.send([
   {
   'index' : '1',
-  'title' : 'email 인증'
+  'title' : 'email 인증',
+  'token' : '10'
   },
   {
   'index' : '2',
-  'title' : 'sms 인증'
+  'title' : 'sms 인증',
+  'token' : '10'
   },
   {
   'index' : '3',
-  'title' : '여권 인증'
+  'title' : '여권 인증',
+  'token' : '20'
+  },
+  {
+    'index' : '4',
+    'title' : 'SNS 인증',
+    'token' : '50'
+  },
+  {
+    'index' : '5',
+    'title' : '주소 인증',
+    'token' : '100'
+  },
+  {
+    'index' : '6',
+    'title' : '민증 인증',
+    'token' : '200'
+  },
+  {
+    'index' : '7',
+    'title' : '얼굴 인증',
+    'token' : '300'
+  },
+  {
+    'index' : '8',
+    'title' : '네이버 인증',
+    'token' : '25'
   }
 ]);
 });
 
 if (process.env.NODE_ENV === "production") {
 
-    // Set static folder   
-    // All the javascript and css files will be read and served from this folder
     app.use(express.static("client/build"));
-  
-    // index.html for all page routes    html or routing and naviagtion
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
