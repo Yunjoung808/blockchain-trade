@@ -65,18 +65,25 @@ class RegisterPage extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault()
-    
-    let data = this.state.name
+
+    //데이터 암복호화
+    let data = this.state.name +','+ this.state.email
     let key = "hi";
+
     let enc = this.encrypt(data, key);
     console.log("enc : ", enc);
+
     let dec = this.decrypt(enc, key);
     console.log("dec : ", dec);
 
+    //데이터 서버로 보내기
     this.addInfo()
         .then((response)=>{
           console.log(response.data);
         })
+    
+    //토큰 지급 컨트랙트 발동
+        
   }
 
   handleValueChange = (e) => {
@@ -149,17 +156,6 @@ class RegisterPage extends React.Component {
                             value={this.state.email}
                             onChange={this.handleValueChange}
                           />
-                        </InputGroup>
-                        <InputGroup>
-                          <InputGroupAddon addonType="prepend">
-                            {/* <InputGroupText>
-                              <i className="tim-icons icon-lock-circle" />
-                            </InputGroupText> */}
-                          </InputGroupAddon>
-                          {/* <Input
-                            placeholder="Password"
-                            type="text"
-                          /> */}
                         </InputGroup>
                         <FormGroup check className="text-left">
                           <Label check>
