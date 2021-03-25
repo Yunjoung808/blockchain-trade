@@ -81,9 +81,7 @@ class ComponentsNavbar extends React.Component {
 
     if (accessType == 'privateKey') {
       this.integrateWallet(privateKey)
-      console.log("1");
       window.location.reload();
-      console.log("2");
       return
     }
     try {
@@ -96,7 +94,6 @@ class ComponentsNavbar extends React.Component {
   }
 
   getWallet = () => {
-    
    
     if (caver.klay.accounts.wallet.length) {
 
@@ -105,8 +102,6 @@ class ComponentsNavbar extends React.Component {
       const walletFromSession = sessionStorage.getItem('walletInstance')
       try {
         caver.klay.accounts.wallet.add(JSON.parse(walletFromSession))
-        // var walletInstance = this.getWallet();
-        // console.log("getWallet : "+ walletInstance.address);
       } catch (e) {
         sessionStorage.removeItem('walletInstance')
       }
@@ -210,7 +205,6 @@ class ComponentsNavbar extends React.Component {
                 tag={Link}
                 id="navbar-brand">
                 <span>DM_Plus • </span>
-              
               </NavbarBrand>
               <button
                 aria-expanded={this.state.collapseOpen}
@@ -232,9 +226,7 @@ class ComponentsNavbar extends React.Component {
               <div className="navbar-collapse-header">
                 <Row>
                   <Col className="collapse-brand" xs="6">
-                    
                   DM_Plus•
-                    
                   </Col>
                   <Col className="collapse-close text-right" xs="6">
                     <button
@@ -247,10 +239,7 @@ class ComponentsNavbar extends React.Component {
                   </Col>
                 </Row>
               </div>
-
               <Nav navbar>
-                
-
                 <NavItem className="p-0">
                   <NavLink
                     tag={Link} to="/login-company"
@@ -258,7 +247,6 @@ class ComponentsNavbar extends React.Component {
                     <p>for COMPANY</p>
                   </NavLink>
                 </NavItem>
-                
                 <Button
                 className="btn-tooltip"
                 color="success"
@@ -274,7 +262,7 @@ class ComponentsNavbar extends React.Component {
                 placement="bottom"
                 target="tooltip789511871"
               >
-                             <Link to="my-page">
+              <Link to="my-page">
               <i className="tim-icons icon-single-02 text-neutral" />
               </Link>
               {walletInstance.address}

@@ -23,11 +23,14 @@ import UserNavbar from 'components/Navbars/UserNavbar';
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import { post } from "axios";
-import Caver from "caver-js";
-const Crypto = require('crypto-js');
 
+import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
+const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
+
+const Crypto = require('crypto-js');
+
 
 class RegisterPage extends React.Component {
 
@@ -55,6 +58,11 @@ class RegisterPage extends React.Component {
     return post(url, formData);
   }
 
+  uploadInfo = (enc) => {
+    console.log(enc);
+   return userContract.methods.setUserInfo(enc,200);
+  }
+
   encrypt(data, key){
     return Crypto.AES.encrypt(data, key).toString();
   }
@@ -64,11 +72,11 @@ class RegisterPage extends React.Component {
   }
 
   handleFormSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     //데이터 암복호화
     let data = this.state.name +','+ this.state.email
-    let key = "hi";
+    let key = "dmplus";
 
     let enc = this.encrypt(data, key);
     console.log("enc : ", enc);
@@ -81,9 +89,12 @@ class RegisterPage extends React.Component {
         .then((response)=>{
           console.log(response.data);
         })
-    
+
+    //enc 블록체인에 올리기 
+    this.uploadInfo(enc);
+   
     //토큰 지급 컨트랙트 발동
-        
+  
   }
 
   handleValueChange = (e) => {
@@ -129,6 +140,7 @@ class RegisterPage extends React.Component {
                     </CardHeader>
                     <CardBody>
                       <Form className="form" >
+                      <div className="space-50"></div>
                         <InputGroup>
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
@@ -179,6 +191,7 @@ class RegisterPage extends React.Component {
                       <Button className="btn-round" color="primary" size="lg" type="submit" >
                         등록하기
                       </Button>
+                      <div className="space-50"></div>
                     </CardFooter>
                   </Card>
                   </form>
