@@ -14,6 +14,11 @@ module.exports = {
         contentBase: './',
         hot: true
      },
+
+    node: {
+        fs:'empty',
+        net:'empty'
+    },
      
     entry: path.resolve(__dirname, "./src/index.js"),
 

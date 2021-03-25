@@ -27,12 +27,12 @@ app.get('/api/hello', (req, res)=>{
  res.send([
   {
   'index' : '1',
-  'title' : 'email 인증',
+  'title' : 'Email 인증',
   'token' : '10'
   },
   {
   'index' : '2',
-  'title' : 'sms 인증',
+  'title' : 'SMS 인증',
   'token' : '10'
   },
   {
@@ -62,7 +62,7 @@ app.get('/api/hello', (req, res)=>{
   },
   {
     'index' : '8',
-    'title' : '네이버 인증',
+    'title' : 'Naver 인증',
     'token' : '25'
   }
 ]);

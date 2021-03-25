@@ -24,8 +24,10 @@ import Footer from "components/Footer/Footer.js";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import {post} from "axios";
 import Caver from "caver-js";
 import GoogleLogin from "components/GoogleLogin/GoogleLogin";
+
 
 
 const axios = require('axios').default;
@@ -49,50 +51,81 @@ class RegisterPage extends React.Component {
    
   }
 
+  addInfo = () => {
+    const url = 'api/info';
+    const formData = new FormData();
+    formData.append('name', this.state.name);
+    formData.append('email', this.state.email);
+
+    return post(url, formData);
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault()
+    this.addInfo()
+        .then((response)=>{
+          console.log(response.data);
+        })
+  }
+
+  handleValueChange = (e) => {
+    let nextStage = {};
+    nextStage[e.target.name] = e.target.value;
+    this.setState(nextStage);
+  }
+
+  // constructor(props){
+  //   super(props);
+  //   var params = new URLSearchParams(props.location.search);
+  //   this.state={
+  //     productKey: '',
+  //     brand: '',
+  //     imgUrl: '',
+  //     productName: '',
+  //     dateCreated: '',
+  //     tokenUri:'',
+  //     price:'',
+  //     productKey:null,
+  //     items :[],
+  //     sell_items : [],
+  //     all_items: [],
+  //     allSell_items: [],
+  //     news:{
+  //       id           :'',
+  //       index        :'',
+  //       brand        :'',
+  //       productName  :'',
+  //       image :'',
+  //       tokenUri    :'',
+  //       description  :'',
+  //       price        :'',
+  //       date         :''  
+  //     },
+  //     value:0,min:0,counter:0,
+  //     index:params.get('index')
+  //   };
+
   constructor(props){
     super(props);
-    var params = new URLSearchParams(props.location.search);
-    this.state={
-      productKey: '',
-      brand: '',
-      imgUrl: '',
-      productName: '',
-      dateCreated: '',
-      tokenUri:'',
-      price:'',
-      productKey:null,
-      items :[],
-      sell_items : [],
-      all_items: [],
-      allSell_items: [],
-      news:{
-        id           :'',
-        index        :'',
-        brand        :'',
-        productName  :'',
-        image :'',
-        tokenUri    :'',
-        description  :'',
-        price        :'',
-        date         :''  
-      },
-      value:0,min:0,counter:0,
-      index:params.get('index')
-    };
+    this.state = {
+      name:'',
+      email:''
+    }
+  }
     
 
-    Axios.get("http://localhost:5000/NewP/new/getNewP?index="+params.get('index'))
-      .then(response => {
-          if(response.status==200){
-            this.setState({
-              news:response.data[0]
-            })
+  //   Axios.get("http://localhost:5000/NewP/new/getNewP?index="+params.get('index'))
+  //     .then(response => {
+  //         if(response.status==200){
+  //           this.setState({
+  //             news:response.data[0]
+  //           })
               
-          }else{
-              console.log(err);
-          }
-    })
-  }
+  //         }else{
+  //             console.log(err);
+  //         }
+  //   })
+  // }
 
 
 
@@ -135,7 +168,7 @@ class RegisterPage extends React.Component {
               <Row>
                 <Col className="offset-lg-0 offset-md-3" lg="5" md="6">
                  
-                 
+                 <form onSubmit={this.handleFormSubmit}>
                   <Card className="card-register">
                     <CardHeader>
                     <CardImg
@@ -145,7 +178,7 @@ class RegisterPage extends React.Component {
                       <CardTitle tag="h4">Register</CardTitle>
                     </CardHeader>
                     <CardBody>
-                      <Form className="form">
+                      <Form className="form" >
                         <InputGroup>
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
@@ -155,8 +188,9 @@ class RegisterPage extends React.Component {
                           <Input
                             placeholder="Full Name"
                             type="text"
-                            onFocus={(e) => setFullNameFocus(true)}
-                            onBlur={(e) => setFullNameFocus(false)}
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleValueChange}
                           />
                         </InputGroup>
                         <InputGroup>
@@ -168,21 +202,21 @@ class RegisterPage extends React.Component {
                           <Input
                             placeholder="Email"
                             type="text"
-                            
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleValueChange}
                           />
                         </InputGroup>
                         <InputGroup>
                           <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
+                            {/* <InputGroupText>
                               <i className="tim-icons icon-lock-circle" />
-                            </InputGroupText>
+                            </InputGroupText> */}
                           </InputGroupAddon>
-                          <Input
+                          {/* <Input
                             placeholder="Password"
                             type="text"
-                            onFocus={(e) => setPasswordFocus(true)}
-                            onBlur={(e) => setPasswordFocus(false)}
-                          />
+                          /> */}
                         </InputGroup>
                         <FormGroup check className="text-left">
                           <Label check>
@@ -200,11 +234,15 @@ class RegisterPage extends React.Component {
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button className="btn-round" color="primary" size="lg" type="button" Link tag={Link} to="/complete-page">
+                      <Button className="btn-round" color="primary" size="lg" type="submit" Link tag={Link} to="/complete-page">
                         등록하기
                       </Button>
+                      {/* <Button className="btn-round" color="primary" size="lg" type="submit" >
+                        등록하기
+                      </Button> */}
                     </CardFooter>
                   </Card>
+                  </form>
                 </Col>
               </Row>
               <div className="register-bg" />

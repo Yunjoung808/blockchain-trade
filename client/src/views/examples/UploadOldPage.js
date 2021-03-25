@@ -392,7 +392,7 @@ class UploadOldPage extends React.Component {
     });
   }
 
-  //인호
+
    //컴포넌트 실행시
    componentDidMount() {
     document.body.classList.toggle("register-page");

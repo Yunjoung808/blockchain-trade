@@ -100,7 +100,7 @@ class MainUser extends React.Component {
                       <td className="text-right">
                         <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
                                 onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
-                            +
+                            >
                         </Button>
                       </td>
                     </tr>
@@ -143,6 +143,7 @@ class MainUser extends React.Component {
                     <br/>
                     <br/>
                     <br/>
+                    <h4>기록이 없습니다.</h4>
                     <br/>
                     <br/>
                     <br/>
@@ -166,7 +167,7 @@ class MainUser extends React.Component {
                     </div>
                   </Container>
                   <div class="space-70"></div>
-                  {/* <div
+                  <div
                   className="square square-3"
                   id="square3"
                   style={{ transform: this.state.squares1to6 }}
@@ -175,7 +176,7 @@ class MainUser extends React.Component {
                   className="square square-6"
                   id="square6"
                   style={{ transform: this.state.squares1to6 }}
-                /> */}
+                />
                 </Container>
               </div>
             </div>
