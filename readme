@@ -1,20 +1,7 @@
-*설치해주세요
+node 버전 : v10.16.0
 
-**root
-npm install mongoose-auto-increment
+본 글을 작성하는 시점에서 caver-js와 호환되는 node 버전은 10.16.0 입니다. 
 
-**cd server
--> npm install mongodb
+Node 버전이 이보다 더 높은 경우 caver-js를 설치할 수 없습니다. 
 
-ㅡㅡㅡㅡ
-*mongodb
-데이터베이스 초기화 하는경우
-insert document 눌러서
-아래와 같이 추가 요망
-    _id:"index"
-    seq:0
-
-ㅡㅡㅡㅡ
-*서버에 돌리고 싶을 때
-root- package.json 에서 
-"webpack": "webpack-dev-server --progress --host 183.111.227.113 --port 8080",
+git clone 받은 후 node_modules, package-lock.json 지운 후 npm install (서버와 클라이언트 모두)
