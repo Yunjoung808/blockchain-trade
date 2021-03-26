@@ -1,3 +1,5 @@
 node 버전 : v10.16.0
 
+본 글을 작성하는 시점에서 caver-js와 호환되는 node 버전은 10.16.0 입니다. Node 버전이 이보다 더 높은 경우 caver-js를 설치할 수 없습니다. 
+
 git clone 받은 후 node_modules, package-lock.json 지운 후 npm install (서버와 클라이언트 모두)
