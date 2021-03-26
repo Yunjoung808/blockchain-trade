@@ -34,7 +34,7 @@ const caver = new Caver(config.rpcURL);
 var ipfsClient = require('ipfs-http-client');//ipfs 클라이언트를 import 한다
 var ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });
 const yttContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
-const tsContract = new caver.klay.Contract(DEPLOYED_ABI_TOKENSALES, DEPLOYED_ADDRESS_TOKENSALES);
+
 
 class UploadOldPage extends React.Component {
   state = {
@@ -168,34 +168,7 @@ class UploadOldPage extends React.Component {
     }
   }
 
-  displayMyTokensAndSale = async () => {       
-    var walletInstance = this.getWallet()
-    var balance = parseInt(await this.getBalanceOf(walletInstance.address));
-    if (balance === 0) {
-      alert("현재 보유한 토큰이 없습니다.");
-    } else {
-      var isApproved = await this.isApprovedForAll(walletInstance.address, DEPLOYED_ADDRESS_TOKENSALES);
-      this.state.items = [];//초기화
-      this.state.sell_items = [];//초기화
-      for (var i = 0; i < balance; i++) {
-      (async () => {//빨리 렌더링하기 위해 쓰이는 방법
-          var tokenIndex = await this.getTokenOfOwnerByIndex(walletInstance.address, i);
-          var tokenUri = await this.getTokenUri(tokenIndex);
-          var ytt = await this.getYTT(tokenIndex);
-          var metadata = await this.getMetadata(tokenUri);
-          var price = await this.getTokenPrice(tokenIndex);
-          // this.renderMyTokens(tokenIndex, ytt, metadata, isApproved, price); 
-          if (parseInt(price) > 0) {
-            this.renderSellTokens(tokenIndex, ytt, metadata, price);
-          }
-          if (parseInt(price) == 0) {
-            this.renderMyTokens(tokenIndex, ytt, metadata, isApproved, price);  
-          }
-      })();      
-      }
-    }
-  }
-
+ 
   renderMyTokens = (tokenIndex, ytt, metadata, isApproved, price) => {
 
     var _tokenIndex = tokenIndex;  
@@ -335,62 +308,7 @@ class UploadOldPage extends React.Component {
         })
   }
 
-  sellToken = async(index) => {    
-    var tokenIndex=index
-    var amount = this.state.amount;
-
-    console.log(tokenIndex, amount, typeof(tokenIndex))
-    if (amount==null) 
-      return;//수가0이하면 함수 종료
-    
-    var feePayer;
-    try {
-      var sender = this.getWallet();
-      console.log(sender.address);
-      
-      try { 
-        feePayer = caver.klay.accounts.wallet.add('0x4e2fc35f9a305401b0f7dedf2dcaa97f3cb0bb9dcae12378d9f31d7644fc34a7')
-      }
-      catch(e){
-        feePayer = caver.klay.accounts.wallet.getAccount('0xee345743f1c137207c9d8212502e3e975157a22b');
-      }
-      console.log(feePayer.address);
-      var { rawTransaction: senderRawTransaction } = await caver.klay.accounts.signTransaction({
-        type: 'FEE_DELEGATED_SMART_CONTRACT_EXECUTION',
-        from: sender.address,
-        to:   DEPLOYED_ADDRESS_TOKENSALES,
-        data: tsContract.methods.setForSale(tokenIndex, caver.utils.toPeb(amount, 'KLAY')).encodeABI(),
-        gas:  '500000',
-        value: caver.utils.toPeb('0', 'KLAY'),
-      }, sender.privateKey)
-
-      this.submitHandler()
-      caver.klay.sendTransaction({
-        senderRawTransaction: senderRawTransaction,
-        feePayer: feePayer.address,
-      })
-      .then(function(receipt){
-        if (receipt.transactionHash) {         
-          alert("토큰 등록 완료" + receipt.transactionHash);
-        }
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    // window.location.reload();
-  }
-
-  approve = () => {//판매승인
-    const walletInstance = this.getWallet();//계정정보 불러온다
-    yttContract.methods.setApprovalForAll(DEPLOYED_ADDRESS_TOKENSALES, true).send({
-      from: walletInstance.address,//현재 로그인된 계정의 주소
-      gas: '250000'
-    }).then(function (receipt) {
-      if (receipt.transactionHash) {
-        alert("토큰등록 승인완료"+ receipt.transactionHash)
-      }
-    });
-  }
+  
 
 
    //컴포넌트 실행시
