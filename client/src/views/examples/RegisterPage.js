@@ -59,8 +59,17 @@ class RegisterPage extends React.Component {
   }
 
   uploadInfo = (enc) => {
-    console.log(enc);
-    userContract.methods.setUserInfo(enc,200);
+    const walletInstance = this.getWallet();
+  
+    userContract.methods.setUserInfo(enc,200).send({
+      from: walletInstance.address,
+      gas: '250000'
+    }).then(function(receipt){
+      if (receipt.transactionHash){
+        alert("업로드 성공 : "+ receipt.transactionHash);
+      }
+    })
+
   }
 
   encrypt(data, key){
