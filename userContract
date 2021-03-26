@@ -1,0 +1,21 @@
+pragma solidity ^0.4.24;
+
+contract UploadData {
+   struct User {
+       string userInfo;
+   }
+   
+   mapping(uint256 => User) userInfo;
+   
+   function setUserInfo(string _userInfo, uint _userSeq) public {
+       User storage user = userInfo[_userSeq];
+       
+       user.userInfo = _userInfo;
+      
+   }
+   
+   function getUserInfo(uint256 _userSeq) public view returns (string) {
+       return (userInfo[_userSeq].userInfo);
+   }
+   
+}

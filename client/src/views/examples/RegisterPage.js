@@ -60,7 +60,7 @@ class RegisterPage extends React.Component {
 
   uploadInfo = (enc) => {
     console.log(enc);
-   return userContract.methods.setUserInfo(enc,200);
+    userContract.methods.setUserInfo(enc,200);
   }
 
   encrypt(data, key){
