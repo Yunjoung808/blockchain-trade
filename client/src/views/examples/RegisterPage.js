@@ -49,6 +49,7 @@ class RegisterPage extends React.Component {
     document.body.classList.toggle("register-page");
   }
 
+  //데이터 받아서 서버로 보내기
   addInfo = () => {
     const url = 'http://localhost:5000/api/info';
     const formData = new FormData();
@@ -58,28 +59,51 @@ class RegisterPage extends React.Component {
     return post(url, formData);
   }
 
+  //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
-    const walletInstance = this.getWallet();
-  
     userContract.methods.setUserInfo(enc,200).send({
-      from: walletInstance.address,
+      from: '0x53a6426775da737a92bfa061366da166e9899b8e', //DM_Plus 지갑 주소(Feepayer)
       gas: '250000'
     }).then(function(receipt){
+
+      //txHash받으면 토큰 지급하기
       if (receipt.transactionHash){
-        alert("업로드 성공 : "+ receipt.transactionHash);
+        // alert("업로드 성공 : "+ receipt.transactionHash);
+        
+
       }
     })
-
   }
 
+  //데이터 암호화
   encrypt(data, key){
     return Crypto.AES.encrypt(data, key).toString();
   }
   
+  //데이터 복호화
   decrypt(data, key){
     return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
   }
 
+
+  handleValueChange = (e) => {
+    let nextStage = {};
+    nextStage[e.target.name] = e.target.value;
+    this.setState(nextStage);
+  }
+
+  //로그인된 지갑 주소 받기
+  getWallet = () => {
+    if (caver.klay.accounts.wallet.length) {
+      return caver.klay.accounts.wallet[0]
+    } else {
+      const walletFromSession = sessionStorage.getItem('walletInstance');
+      caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+      return caver.klay.accounts.wallet[0];
+    }
+  }
+
+  //'등록하기' 클릭하면 실행
   handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -101,27 +125,9 @@ class RegisterPage extends React.Component {
 
     //enc 블록체인에 올리기 
     this.uploadInfo(enc);
-   
-    //토큰 지급 컨트랙트 발동
-  
   }
 
-  handleValueChange = (e) => {
-    let nextStage = {};
-    nextStage[e.target.name] = e.target.value;
-    this.setState(nextStage);
-  }
-
-  getWallet = () => {
-    if (caver.klay.accounts.wallet.length) {
-      return caver.klay.accounts.wallet[0]
-    } else {
-      const walletFromSession = sessionStorage.getItem('walletInstance');
-      caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
-      return caver.klay.accounts.wallet[0];
-    }
-  }
-
+  //화면
   render() {
     return (  
       <>
