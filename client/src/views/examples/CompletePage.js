@@ -2,6 +2,8 @@ import React, { Component, PropTypes, useState } from "react";
 import classnames from "classnames";
 import PerfectScrollbar from "perfect-scrollbar";
 import { Link } from "react-router-dom";
+import "assets/css/nucleo-icons.css";
+
 import {
   Container,
   Row,
@@ -26,12 +28,10 @@ class CompletePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sell_receipt:props.location.state.sell_receipt
+            sell_receipt:props.location.state.sell_receipt,
+            block_number:props.location.state.block_number
         }
-       
     }
-
-
 
     getWallet = () => {
         if (caver.klay.accounts.wallet.length) {
@@ -43,12 +43,13 @@ class CompletePage extends React.Component {
         }
     }
 
+    //클레이튼 스코프 바로가기
     onClick = (e) => {
         e.preventDefault(); 
         
         var scope1 = 'https://baobab.scope.klaytn.com/tx/';
         var scope2 = this.state.sell_receipt;
-        var scope3 = '?tabId=tokenTransfer';
+        var scope3 = '?tabId=eventLog';
 
         window.location.href=scope1+scope2+scope3;
     }
@@ -76,9 +77,10 @@ class CompletePage extends React.Component {
                                         </div>
                                             <div className="text-center card-header" data-color-icon="warning">
                                                 <br/>
-                                                <h4 className="mt-3 text-left text-primary">#Transaction Hash</h4>
+                                                <h3 className="mt-3 text-left text-primary"><i className="tim-icons icon-app">  </i> Transaction Hash</h3>
                                                 <h4 className="text-bold">{this.state.sell_receipt}</h4>
-                                                <Button onClick={this.onClick}>Go To Klaytn Scope</Button>
+                                                <br/>
+                                                <Button onClick={this.onClick}>Go To Klaytn Scope  <i className="tim-icons icon-minimal-right"/></Button>
                                                 <Row className="justify-content-md-between">
                                                 </Row>
                                                 <div className="card-body">
@@ -88,15 +90,15 @@ class CompletePage extends React.Component {
                                                                 <table className="text-right table">
                                                                     <thead className="bg-default">
                                                                         <tr>
-                                                                            <th scope="col">Block Number</th>
+                                                                            <th scope="col">#Block Number</th>
                                                                             <th scope="col">Date</th>
-                                                                            <th className="text-right" scope="col">Auth</th>
+                                                                            <th scope="col">Auth Type</th>
                                                                             <th className="text-right" scope="col">Token</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td>0234863</td>
+                                                                            <td>#{this.state.block_number}</td>
                                                                             <td>2021년 4월 1일</td>
                                                                             <td>Email</td>
                                                                             <td>20</td>
@@ -106,8 +108,8 @@ class CompletePage extends React.Component {
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
-                                                                            <th className="text-right">Total</th>
-                                                                            <th className="text-right" colSpan="3">20 Token</th>
+                                                                            <th className="text-right ">Total</th>
+                                                                            <th className="text-right text-primary" colSpan="3">20 Token</th>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -123,8 +125,9 @@ class CompletePage extends React.Component {
                                                         <Col className="col-md-6 text-right">
                                                             <h4>Thank you!</h4>
                                                             <p className="description">
-                                                                IF you encounter any issue related to the invoice you can contact us at:
+                                                                IF you encounter any issue related to the invoice 
                                                             </p>
+                                                            <p className="description">you can contact us at:</p>
                                                             <h5 className="d-block">
                                                                 email : s_holmes25@naver.com
                                                             </h5>

@@ -10,6 +10,7 @@ import {
   CardBody,
   Badge
 } from "reactstrap";
+import "assets/css/nucleo-icons.css";
 // core components
 
 import Footer from "components/Footer/Footer.js";
@@ -100,8 +101,9 @@ class MainUser extends React.Component {
                       <td className="text-right">
                         <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
                                 onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
-                            >
+                             <i className="tim-icons icon-minimal-right"/>
                         </Button>
+
                       </td>
                     </tr>
                   </tbody>

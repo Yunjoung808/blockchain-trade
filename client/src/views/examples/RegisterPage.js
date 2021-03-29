@@ -18,12 +18,14 @@ import {
   Container,
   Row,
   Col,
+  Alert
 } from "reactstrap";
 import UserNavbar from 'components/Navbars/UserNavbar';
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import { post } from "axios";
 import Caver from "caver-js";
+import "assets/css/nucleo-icons.css";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
@@ -38,9 +40,14 @@ class RegisterPage extends React.Component {
     super(props);
     this.state = {
       name:'',
-      email:''
+      email:'',
+      visible: true
     }
   }
+
+  onDismiss = () => {
+    this.setState({ visible: false });
+  };
 
 
   componentDidMount() {
@@ -71,7 +78,7 @@ class RegisterPage extends React.Component {
       //txHash받으면 토큰 지급하기
       if (receipt.transactionHash){
         alert("업로드 성공 : "+ receipt.transactionHash);
-
+ 
         const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8');
 
         //send
@@ -83,14 +90,15 @@ class RegisterPage extends React.Component {
           complpage.props.history.push({
             pathname:"/complete-page",
             state:{
-              sell_receipt:receipt.transactionHash
+              sell_receipt:receipt.transactionHash,
+              block_number:receipt.blockNumber
             }
           })
         })
       }
     })
   }
-  
+
   //데이터 암호화
   encrypt(data, key){
     return Crypto.AES.encrypt(data, key).toString();
@@ -220,11 +228,8 @@ class RegisterPage extends React.Component {
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      {/* <Button className="btn-round" color="primary" size="lg" type="submit" Link tag={Link} to="/complete-page">
-                        등록하기
-                      </Button> */}
                       <Button className="btn-round" color="primary" size="lg" type="submit" >
-                        등록하기
+                        등록하기 <i className="tim-icons icon-minimal-right"/>
                       </Button>
                       <div className="space-50"></div>
                     </CardFooter>
