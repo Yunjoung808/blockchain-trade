@@ -20,7 +20,12 @@ let ps = null;
 
 class CompletePage extends React.Component {
     
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            sell_receipt:props.location.state.sell_receipt
+        }
+    }
    
 
     getWallet = () => {
@@ -57,7 +62,7 @@ class CompletePage extends React.Component {
                                             <div className="text-center card-header" data-color-icon="warning">
                                                 <br/>
                                                 <h4 className="mt-3 text-left ">#Transaction Hash</h4>
-                                                <h4><small className="mr-2"></small></h4>
+                                                <h4><small className="mr-2">{this.state.sell_receipt}</small></h4>
                                                 <Row className="justify-content-md-between">
                                                 </Row>
                                                 <div className="card-body">

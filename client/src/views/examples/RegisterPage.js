@@ -23,13 +23,11 @@ import UserNavbar from 'components/Navbars/UserNavbar';
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import { post } from "axios";
-
 import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
 const rewardContract = new caver.klay.Contract(DEPLOYED_ABI_REWARDTOKEN, DEPLOYED_ADDRESS_REWARDTOKEN);
-
 
 
 const Crypto = require('crypto-js');
@@ -43,6 +41,7 @@ class RegisterPage extends React.Component {
       email:''
     }
   }
+
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
@@ -63,21 +62,40 @@ class RegisterPage extends React.Component {
 
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
-    const walletInstance = this.getWallet();
-    userContract.methods.setUserInfo(enc,200).send({
-      from: walletInstance.address,
+    let complpage=this;
+    const user = this.getWallet();
+    userContract.methods.setUserInfo(enc,25532).send({
+      from: user.address,
       gas: '250000'
     }).then(function(receipt){
       //txHash받으면 토큰 지급하기
       if (receipt.transactionHash){
         alert("업로드 성공 : "+ receipt.transactionHash);
+
+        //approve
+        // rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 100).send({
+        //   from:'0x53a6426775da737a92bfa061366da166e9899b8e', //DM_Plus 지갑 주소(Feepayer)
+        //   gas: '2500000'
+        // }).then(
+        //   alert("approve 성공")
+        // )
+
+        const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8');
         
-        rewardContract.methods.safeTransferFrom('0x53a6426775da737a92bfa061366da166e9899b8e',walletInstance.address, 1).send({
-          from:'0x53a6426775da737a92bfa061366da166e9899b8e', //DM_Plus 지갑 주소(Feepayer)
-          gas: '250000'
+        //send
+        rewardContract.methods.transferFrom(feePayer.address, user.address, 18).send({
+          from: feePayer.address, 
+          gas: '25000000'
         }).then(function(receipt){
           alert("토큰 지급 :"+receipt.transactionHash)
+          complpage.props.history.push({
+            pathname:"/complete-page",
+            state:{
+              sell_receipt:receipt.transactionHash
+            }
+          })
         })
+        
       }
     })
   }
@@ -99,17 +117,7 @@ class RegisterPage extends React.Component {
     this.setState(nextStage);
   }
 
-  //로그인된 지갑 주소 받기
-  getWallet = () => {
-    if (caver.klay.accounts.wallet.length) {
-      return caver.klay.accounts.wallet[0]
-    } else {
-      const walletFromSession = sessionStorage.getItem('walletInstance');
-      caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
-      return caver.klay.accounts.wallet[0];
-    }
-  }
-
+ 
   //'등록하기' 클릭하면 실행
   handleFormSubmit = (e) => {
     e.preventDefault();
@@ -132,7 +140,21 @@ class RegisterPage extends React.Component {
 
     //enc 블록체인에 올리기 
     this.uploadInfo(enc);
+
   }
+
+     //로그인된 지갑 주소 받기
+     getWallet = () => {
+      if (caver.klay.accounts.wallet.length) {
+        return caver.klay.accounts.wallet[0]
+      } else {
+        const walletFromSession = sessionStorage.getItem('walletInstance');
+        caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+        return caver.klay.accounts.wallet[0];
+      }
+    }
+  
+  
 
   //화면
   render() {

@@ -25,7 +25,7 @@ const caver = new Caver(config.rpcURL);
 var ipfsClient = require('ipfs-http-client');//ipfs 클라이언트를 import 한다
 var ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });
 const yttContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
-const tsContract = new caver.klay.Contract(DEPLOYED_ABI_TOKENSALES, DEPLOYED_ADDRESS_TOKENSALES);
+
 
 class OldDescriptPage extends React.Component {
   state = {products: []}

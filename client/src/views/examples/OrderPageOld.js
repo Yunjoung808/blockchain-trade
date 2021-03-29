@@ -24,7 +24,7 @@ const caver = new Caver(config.rpcURL);
 var ipfsClient = require('ipfs-http-client');//ipfs 클라이언트를 import 한다
 var ipfs = ipfsClient({ host: 'ipfs.infura.io', port: '5001', protocol: 'https' });
 const yttContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
-const tsContract = new caver.klay.Contract(DEPLOYED_ABI_TOKENSALES, DEPLOYED_ADDRESS_TOKENSALES);
+
 
 class OrderPageOld extends React.Component {
 
@@ -144,58 +144,6 @@ class OrderPageOld extends React.Component {
 
   getOwnerOf = async (tokenIndex) => {
     return await yttContract.methods.ownerOf(tokenIndex).call();
-  }
-      
-  buyToken = async (tokenIndex) => {
-      var price = await this.getTokenPrice(tokenIndex);
-      var feePayer;
-      if (price <= 0) 
-        return;
-
-      try {
-        let odpage=this;
-        const sender = this.getWallet();
-        try { 
-          feePayer = caver.klay.accounts.wallet.add('0x4e2fc35f9a305401b0f7dedf2dcaa97f3cb0bb9dcae12378d9f31d7644fc34a7')
-        }
-        catch(e){
-          feePayer = caver.klay.accounts.wallet.getAccount('0xee345743f1c137207c9d8212502e3e975157a22b');
-        }
-        const { rawTransaction: senderRawTransaction } = await caver.klay.accounts.signTransaction({
-                                                                  type: 'FEE_DELEGATED_SMART_CONTRACT_EXECUTION',
-                                                                  from: sender.address,
-                                                                  to:   DEPLOYED_ADDRESS_TOKENSALES,
-                                                                  data: tsContract.methods.purchaseToken(tokenIndex).encodeABI(),
-                                                                  gas:  '500000',
-                                                                  value: price,
-                                                                }, sender.privateKey)
-        caver.klay.sendTransaction({senderRawTransaction: senderRawTransaction,feePayer: feePayer.address,})
-        .on('transactionHash', function(hash){
-          console.log(hash)
-        })
-        .on('receipt', function(receipt){
-          if (receipt.transactionHash) {         
-            alert(receipt.transactionHash);
-            odpage.props.history.push({
-              pathname:"/order-complete-page-old",
-              state:{
-                tokenIndex: odpage.state.t_tokenIndex,
-                productKey:odpage.state.t_productKey,
-                brand:odpage.state.t_brand,
-                productName: odpage.state.t_productName,
-                price:odpage.state.t_price,
-                sell_receipt:receipt.transactionHash,
-              }
-            })
-          }
-        })
-        .on('error', function(err){
-          alert("구매자와 판매자가 같습니다")
-          console.log(err)
-        });
-      } catch (err) {
-        console.error(err);
-      }
   }
 
   render() {

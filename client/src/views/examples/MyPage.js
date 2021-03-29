@@ -25,7 +25,7 @@ const axios = require('axios').default;
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const yttContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
-const tsContract = new caver.klay.Contract(DEPLOYED_ABI_TOKENSALES, DEPLOYED_ADDRESS_TOKENSALES);
+
 
 class Mypage extends React.Component {
   state = {
@@ -124,7 +124,7 @@ class Mypage extends React.Component {
     if (balance === 0) {
       alert("현재 보유한 토큰이 없습니다.");
     } else {
-      var isApproved = await this.isApprovedForAll(walletInstance.address, DEPLOYED_ADDRESS_TOKENSALES);
+
       this.state.items = [];//초기화
       this.state.sell_items = [];//초기화
       for (var i = 0; i < balance; i++) {
@@ -251,11 +251,7 @@ class Mypage extends React.Component {
     
     const walletInstance = this.getWallet();
     
-    const receipt = await yttContract.methods.setApprovalForAll(DEPLOYED_ADDRESS_TOKENSALES, false).send({
-      from: walletInstance.address,
-      gas: '250000'
-    })
-
+  
     if (receipt.transactionHash) {
       await this.onCancelApprovalSuccess(walletInstance);//로그인계정의 정보를 넣고 승인취소 된 토큰 안보이게 지움
       location.reload();
