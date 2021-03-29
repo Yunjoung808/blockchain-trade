@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 import {
   Container,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Caver from "caver-js";
 import Axios from 'axios';
 
+
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
+
 
 
 let ps = null;
@@ -25,8 +28,10 @@ class CompletePage extends React.Component {
         this.state = {
             sell_receipt:props.location.state.sell_receipt
         }
+       
     }
-   
+
+
 
     getWallet = () => {
         if (caver.klay.accounts.wallet.length) {
@@ -36,6 +41,16 @@ class CompletePage extends React.Component {
         caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
         return caver.klay.accounts.wallet[0];
         }
+    }
+
+    onClick = (e) => {
+        e.preventDefault(); 
+        
+        var scope1 = 'https://baobab.scope.klaytn.com/tx/';
+        var scope2 = this.state.sell_receipt;
+        var scope3 = '?tabId=tokenTransfer';
+
+        window.location.href=scope1+scope2+scope3;
     }
 
     render() {
@@ -61,8 +76,9 @@ class CompletePage extends React.Component {
                                         </div>
                                             <div className="text-center card-header" data-color-icon="warning">
                                                 <br/>
-                                                <h4 className="mt-3 text-left ">#Transaction Hash</h4>
-                                                <h4><small className="mr-2">{this.state.sell_receipt}</small></h4>
+                                                <h4 className="mt-3 text-left text-primary">#Transaction Hash</h4>
+                                                <h4 className="text-bold">{this.state.sell_receipt}</h4>
+                                                <Button onClick={this.onClick}>Go To Klaytn Scope</Button>
                                                 <Row className="justify-content-md-between">
                                                 </Row>
                                                 <div className="card-body">
@@ -72,18 +88,18 @@ class CompletePage extends React.Component {
                                                                 <table className="text-right table">
                                                                     <thead className="bg-default">
                                                                         <tr>
-                                                                            <th scope="col">Token Index</th>
-                                                                            <th className="text-right" scope="col">Product Key</th>
-                                                                            <th className="text-right" scope="col">Brand</th>
-                                                                            <th className="text-right" scope="col">Product Name</th>
+                                                                            <th scope="col">Block Number</th>
+                                                                            <th scope="col">Date</th>
+                                                                            <th className="text-right" scope="col">Auth</th>
+                                                                            <th className="text-right" scope="col">Token</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td>tokenIndex</td>
-                                                                            <td>productKey</td>
-                                                                            <td>brand</td>
-                                                                            <td>productName</td>
+                                                                            <td>0234863</td>
+                                                                            <td>2021년 4월 1일</td>
+                                                                            <td>Email</td>
+                                                                            <td>20</td>
                                                                         </tr>
                                                                         <tr>
                                                                         </tr>
@@ -91,7 +107,7 @@ class CompletePage extends React.Component {
                                                                     <tfoot>
                                                                         <tr>
                                                                             <th className="text-right">Total</th>
-                                                                            <th className="text-right" colSpan="3"> klay</th>
+                                                                            <th className="text-right" colSpan="3">20 Token</th>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
