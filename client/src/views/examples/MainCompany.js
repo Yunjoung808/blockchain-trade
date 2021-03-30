@@ -26,7 +26,8 @@ import { post } from "axios";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
-
+const rewardContract = new caver.klay.Contract(DEPLOYED_ABI_REWARDTOKEN, DEPLOYED_ADDRESS_REWARDTOKEN);
+const Crypto = require('crypto-js');
 class MainCompany extends React.Component {
     state = {
         squares1to6: "",
@@ -61,6 +62,17 @@ class MainCompany extends React.Component {
       //DB에서 암호 키 가져와서 복호화 -> 화면에 보여주기
 
     )
+  }
+
+  //Company->DM_Plus 결제
+  sendToken = (e) => {
+    const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
+      rewardContract.methods.transferFrom(user.address,feePayer.address,  20).send({
+        from: feePayer.address, 
+        gas: '25000000'
+      }).then(function(receipt){
+        alert("결제 완료 :"+receipt.transactionHash)
+      })
   }
   
   //데이터 받아서 서버로 보내기
