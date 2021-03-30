@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React , { Component } from "react";
-import Login from "components/GoogleLogin/GoogleLogin.js";
+import Login from "components/GoogleLogin/GoogleLoginForUser.js";
 import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);

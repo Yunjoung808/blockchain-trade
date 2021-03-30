@@ -24,7 +24,7 @@ import UploadNewPage from "views/examples/UploadNewPage.js";
 import Basics from "views/examples/Basics.js";
 import MainUser from "views/examples/MainUser.js";
 import Test from "views/examples/Test.js";
-
+import MainCompany from "views/examples/MainCompany.js";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -40,6 +40,10 @@ ReactDOM.render(
        <Route
         path="/main-user"
         render={props => <MainUser {...props} />}
+      />
+      <Route
+        path="/main-company"
+        render={props => <MainCompany {...props} />}
       />
       <Route
         path="/login-company"

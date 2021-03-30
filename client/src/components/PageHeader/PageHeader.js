@@ -1,6 +1,5 @@
 
 import React from "react";
-import Login from "components/GoogleLogin/GoogleLogin.js";
 import Caver from "caver-js";
 
 // reactstrap components

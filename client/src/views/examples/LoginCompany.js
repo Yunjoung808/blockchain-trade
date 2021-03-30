@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React ,{ Component }  from "react";
 import classnames from "classnames";
-import Login from "components/GoogleLogin/GoogleLogin.js";
+import Login2 from "components/GoogleLogin/GoogleLoginForCompany.js";
 // reactstrap components
 import {
   Button,
@@ -153,7 +153,7 @@ class LoginCompany extends React.Component {
                         </div>
                       </div>
                       <div className="space-50"></div>
-                      <Login/>
+                      <Login2/>
                     </Col>
                     <Col lg="4" md="5">
                     <img alt="..." className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0RJLMHNZYBuToyhqHdLtOjcpkOoxq-KVYQ&usqp=CAU"/>

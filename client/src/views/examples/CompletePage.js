@@ -46,11 +46,9 @@ class CompletePage extends React.Component {
     //클레이튼 스코프 바로가기
     onClick = (e) => {
         e.preventDefault(); 
-        
         var scope1 = 'https://baobab.scope.klaytn.com/tx/';
         var scope2 = this.state.sell_receipt;
         var scope3 = '?tabId=eventLog';
-
         window.location.href=scope1+scope2+scope3;
     }
 
@@ -98,7 +96,7 @@ class CompletePage extends React.Component {
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td>#{this.state.block_number}</td>
+                                                                            <td>{this.state.block_number}</td>
                                                                             <td>2021년 4월 1일</td>
                                                                             <td>Email</td>
                                                                             <td>20</td>
