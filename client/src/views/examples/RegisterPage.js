@@ -71,13 +71,21 @@ class RegisterPage extends React.Component {
   uploadInfo = (enc) => {
     let complpage=this;
     const user = this.getWallet();
-    userContract.methods.setUserInfo(enc,25532).send({
+    userContract.methods.setUserInfo(enc,88).send({
       from: user.address,
       gas: '250000'
     }).then(function(receipt){
       //txHash받으면 토큰 지급하기
       if (receipt.transactionHash){
         alert("업로드 성공 : "+ receipt.transactionHash);
+
+        //approve
+        rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 100).send({
+          from:'0x53a6426775da737a92bfa061366da166e9899b8e', //DM_Plus 지갑 주소(Feepayer)
+          gas: '2500000'
+        }).then(
+          alert("approve 성공")
+        )
  
         const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8');
 

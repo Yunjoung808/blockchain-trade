@@ -30,82 +30,13 @@ class LoginUser extends React.Component {
   };
   componentDidMount() {
     document.body.classList.toggle("register-page");
-    fetch('/products')
-    .then(res => res.json())
-    .then(products => this.setState({ products }));
-  
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocus: false,
-      news:[],
-      value:0,min:0,counter:0
-    };
-  }
-  
 
-  componentDidMount(){
-    this.callApi()
-      .then(res => this.setState({news: res}))
-      .catch(err => console.log(err));
 
-    this.encryptData()
-
-  }
-
-  callApi = async()=>{
-    //접속하고자 하는 api주소를 넣어줌
-    const response = await fetch('http://localhost:5000/NewP/new/getNewP');
-    //출력한 데이터를 json으로 만들어서 body라는 변수에 넣어줌
-    const body = await response.json();
-    return body;
-  }
-
-  //데이터 불러오기
-  loadHandler = (event) =>{
-  event.preventDefault();
-  const body = {
-    description:this.state.description,
-    price:this.state.price,
-    images:this.state.file
-  }
-
-  //서버에서 가져오기
-  Axios.get("http://localhost:5000/NewP/new/getNewP", body)
-      .then(response => {
-          if(response.data.success){
-              alert('상품 불러오기 성공 했습니다.')
-              //상품업로드 후 랜딩페이지로 돌아감
-              this.props.history.pull('/')
-          }else{
-              alert('상품 불러오기에 실패 했습니다.')
-          }
-      })
-  }
-
-  //암호화
-  encrypt(data, key){
-    return Crypto.AES.encrypt(data, key).toString();
-  }
-  
-  //복호화
-  decrypt(data, key){
-    return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
-  }
-
-  encryptData = () => {
-    let data = "email@gmail.com";
-    let key = "hi";
-    let enc = this.encrypt(data, key);
-    console.log("enc : ", enc);
-    let dec = this.decrypt(enc, key);
-    console.log("dec : ", dec);
-  }
 
   getWallet = () => {
     console.log("getWallet"+caver.klay.accounts.wallet.length);

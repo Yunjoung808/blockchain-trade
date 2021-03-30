@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import Container from 'reactstrap/lib/Container';
@@ -8,6 +9,8 @@ function Login(){
 
     const onSuccess = (res) => {
         console.log('[Login Success] currentUser:', res.profileObj);
+        document.location.href = "/main-user"
+        
     };
 
     const onFailure = (res) => {

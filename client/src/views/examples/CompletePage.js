@@ -127,7 +127,7 @@ class CompletePage extends React.Component {
                                                             <p className="description">
                                                                 IF you encounter any issue related to the invoice 
                                                             </p>
-                                                            <p className="description">you can contact us at:</p>
+                                                            <p className="description">you can contact us at</p>
                                                             <h5 className="d-block">
                                                                 email : s_holmes25@naver.com
                                                             </h5>
