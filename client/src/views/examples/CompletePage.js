@@ -94,7 +94,7 @@ class CompletePage extends React.Component {
                                                                             <th className="text-right" scope="col">Token</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>q
+                                                                    <tbody>
                                                                         <tr>
                                                                             <td>{this.state.block_number}</td>
                                                                             <td>2021년 3월 30일</td>

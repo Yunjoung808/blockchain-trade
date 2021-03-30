@@ -67,96 +67,95 @@ class RegisterPage extends React.Component {
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
     let complpage=this;
-    const user = this.getWallet();
-    userContract.methods.setUserInfo(enc,88).send({
-      from: user.address,
+    const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
+    userContract.methods.setUserInfo(enc,808).send({
+      from: feePayer.address,
       gas: '250000'
     }).then(function(receipt){
       //txHash받으면 토큰 지급하기
       if (receipt.transactionHash){
         alert("업로드 성공 : "+ receipt.transactionHash);
 
-        //approve
-        rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 100).send({
-          from:'0x53a6426775da737a92bfa061366da166e9899b8e', //DM_Plus 지갑 주소(Feepayer)
-          gas: '2500000'
-        }).then(
-          alert("approve 성공")
-        )
- 
-        const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
-
-        //send
-        rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({
-          from: feePayer.address, 
-          gas: '25000000'
-        }).then(function(receipt){
-          alert("토큰 지급 :"+receipt.transactionHash)
-          complpage.props.history.push({
-            pathname:"/complete-page",
-            state:{
-              sell_receipt:receipt.transactionHash,
-              block_number:receipt.blockNumber
-            }
-          })
+      //approve
+      rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 100).send({
+        from: feePayer.address, //DM_Plus 지갑 주소(Feepayer)
+        gas: '2500000'
+      }).then(
+        alert("approve 성공")
+      )
+      
+      const user = this.getWallet();
+      //send
+      rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({
+        from: feePayer.address, 
+        gas: '25000000'
+      }).then(function(receipt){
+        alert("토큰 지급 :"+receipt.transactionHash)
+        complpage.props.history.push({
+          pathname:"/complete-page",
+          state:{
+            sell_receipt:receipt.transactionHash,
+            block_number:receipt.blockNumber
+          }
         })
-      }
-    })
-  }
-
-  //데이터 암호화
-  encrypt(data, key){
-    return Crypto.AES.encrypt(data, key).toString();
-  }
-  
-  //데이터 복호화
-  decrypt(data, key){
-    return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
-  }
-
-
-  handleValueChange = (e) => {
-    let nextStage = {};
-    nextStage[e.target.name] = e.target.value;
-    this.setState(nextStage);
-  }
-
- 
-  //'등록하기' 클릭하면 실행
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    //데이터 암복호화
-    let data = this.state.name +','+ this.state.email
-    let key = "dmplus";
-
-    let enc = this.encrypt(data, key);
-    console.log("enc : ", enc);
-
-    let dec = this.decrypt(enc, key);
-    console.log("dec : ", dec);
-
-    //데이터 서버로 보내기
-    this.addInfo()
-        .then((response)=>{
-          console.log(response.data);
-        })
-
-    //enc 블록체인에 올리기 
-    this.uploadInfo(enc);
-
-  }
-
-     //로그인된 지갑 주소 받기
-     getWallet = () => {
-      if (caver.klay.accounts.wallet.length) {
-        return caver.klay.accounts.wallet[0]
-      } else {
-        const walletFromSession = sessionStorage.getItem('walletInstance');
-        caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
-        return caver.klay.accounts.wallet[0];
-      }
+      })
     }
+  })
+}
+
+//데이터 암호화
+encrypt(data, key){
+  return Crypto.AES.encrypt(data, key).toString();
+}
+
+//데이터 복호화
+decrypt(data, key){
+  return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
+}
+
+
+handleValueChange = (e) => {
+  let nextStage = {};
+  nextStage[e.target.name] = e.target.value;
+  this.setState(nextStage);
+}
+
+
+//'등록하기' 클릭하면 실행
+handleFormSubmit = (e) => {
+  e.preventDefault();
+
+  //데이터 암복호화
+  let data = this.state.name +','+ this.state.email
+  let key = "dmplus";
+
+  let enc = this.encrypt(data, key);
+  console.log("enc : ", enc);
+
+  let dec = this.decrypt(enc, key);
+  console.log("dec : ", dec);
+
+  //데이터 서버로 보내기
+  this.addInfo()
+      .then((response)=>{
+        console.log(response.data);
+      })
+
+  //enc 블록체인에 올리기 
+  this.uploadInfo(enc);
+
+}
+
+    //로그인된 지갑 주소 받기
+    getWallet = () => {
+    if (caver.klay.accounts.wallet.length) {
+      return caver.klay.accounts.wallet[0]
+    } else {
+      const walletFromSession = sessionStorage.getItem('walletInstance');
+      caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+      return caver.klay.accounts.wallet[0];
+    }
+  }
   
   
 

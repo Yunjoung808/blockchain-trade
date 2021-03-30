@@ -60,7 +60,7 @@ class MainCompany extends React.Component {
     }).then(
       console.log(userInfo[_userSeq].userInfo)
       //DB에서 암호 키 가져와서 복호화 -> 화면에 보여주기
-
+      
     )
   }
 
