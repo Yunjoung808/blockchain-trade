@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 let userSchema = Schema({
 
-    index:{ type: Number, required: true, unique: true },
+  
     googleId:{
         type: String,
         require: true
@@ -44,10 +44,7 @@ let userSchema = Schema({
     
 },{sysdate:true});
 
-userSchema.plugin(
-    autoIncrement.plugin,
-    { model : 'User', field : 'index', startAt : 1,increment : 1 }
-);
+
 
 module.exports =  {
     User : connection.model('User', userSchema)

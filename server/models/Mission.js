@@ -18,7 +18,7 @@ let missionSchema = Schema({
         type: String,
         require: true
     },
-    authDone:{
+    auth:{
         type: String,
         require:true
     }

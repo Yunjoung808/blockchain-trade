@@ -20,7 +20,6 @@ import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 
-
 class MainUser extends React.Component {
     state = {
         squares1to6: "",
@@ -31,27 +30,22 @@ class MainUser extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        mission:[]
+        missions:[]
       };
     }
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
-    document.documentElement.addEventListener("mousemove", this.followCursor);
     this.callApi()
-    .then(res => this.setState({mission: res}))
+    .then(res => this.setState({missions: res}))
     .catch(err => console.log("err:", err))
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
-    document.documentElement.removeEventListener(
-      "mousemove",
-      this.followCursor
-    );
   }
   
   callApi = async()=>{
-    const response = await fetch('http://localhost:5000/api/hello');
+    const response = await  fetch('http://localhost:5000/api/mission/getMission');
     const body = await response.json();
     return body;
   }
@@ -72,7 +66,7 @@ class MainUser extends React.Component {
   }
 
   render() {
-    let Items = this.state.mission.map( item=>{
+    let Items = this.state.missions.map( item=>{
       if (item._id ==='index') return( <></>)
       return(
         <Col className="mt-5 mt-sm-0" sm="3" xs="6">
@@ -103,7 +97,6 @@ class MainUser extends React.Component {
                                 onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
                              <i className="tim-icons icon-minimal-right"/>
                         </Button>
-
                       </td>
                     </tr>
                   </tbody>
@@ -168,16 +161,14 @@ class MainUser extends React.Component {
                       </Row>
                     </div>
                   </Container>
-                  <div class="space-70"></div>
+                  <div className="space-70"></div>
                   <div
                   className="square square-3"
                   id="square3"
-                  style={{ transform: this.state.squares1to6 }}
                 />
                 <div
                   className="square square-6"
                   id="square6"
-                  style={{ transform: this.state.squares1to6 }}
                 />
                 </Container>
               </div>

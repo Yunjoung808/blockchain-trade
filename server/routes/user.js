@@ -32,7 +32,7 @@ router.post('/register', (req,res) => {
 
     var users = DB.collection('users');
 
-    users.insertOne({
+      users.insertOne({
         googleId: req.body.googleId,
         imageUrl: req.body.imageUrl,
         email: req.body.email,
@@ -42,19 +42,20 @@ router.post('/register', (req,res) => {
     }).then ((data) => {
         res.json({success:true, msg:data})
     })
-})
-
-router.get('/getUser', (req,res) => {
-    var users = DB.collection('users');
-    let cursor;
-
-    if(req.query.index){
-        cursor = users.find({index:parseInt(req.query.index)});
-    }else{
-        cursor = users.find({});
-    }
 
 })
+
+// router.get('/getUser', (req,res) => {
+//     var users = DB.collection('users');
+//     let cursor;
+
+//     if(req.query.index){
+//         cursor = users.find({index:parseInt(req.query.index)});
+//     }else{
+//         cursor = users.find({});
+//     }
+
+// })
 
 
 module.exports = router;
