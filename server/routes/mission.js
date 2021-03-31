@@ -20,33 +20,39 @@ router.get('/getMission', (req,res) => {
   var missions = DB.collection('missions');
   let cursor;
 
+  console.log(req);
+
+
   if(req.query.index == null){
     cursor = missions.find({"auth":{$eq: null}})
-  }else {
+  }
+  else {
     cursor = missions.find({ 
       index: {$eq : parseInt(req.query.index) },
       auth:{$eq: null}
     })
   }
 
-  let result=['a'];
-  cursor.count().then(cnt =>{
-    console.log(cnt);
-    let arrLength=  cnt;
-    if(cnt==0) {
-      res.json(result);
-    } else{
-      cursor.each( function(err,doc){
-        if (doc != null) {
-          result.push(doc)
-          if(result.length == arrLength){
-            res.json(result)
+  let result=[];
+  cursor.count()
+        .then(cnt =>{
+          console.log(cnt);
+          let arrLength=  cnt;
+          if(cnt==0) {
+            res.json(result);
+            console.log(result)
+          } else{
+            cursor.each( function(err,doc){
+              if (doc != null) {
+                result.push(doc)
+                if(result.length == arrLength){
+                  res.json(result)
+                }
+              } 
+            })
           }
-        } 
+        }); 
       })
-    }
-  }); 
-})
 
 
 module.exports = router;
