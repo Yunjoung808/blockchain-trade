@@ -60,7 +60,7 @@ class MainCompany extends React.Component {
     }).then(
       console.log(userInfo[_userSeq].userInfo)
       //DB에서 암호 키 가져와서 복호화 -> 화면에 보여주기
-      
+
     )
   }
 
@@ -91,12 +91,15 @@ class MainCompany extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
+
     //데이터 서버로 보내기
     this.addInfo()
         .then((response)=>{
           console.log(response.data);
         })
     
+    
+
   }
 
   getWallet = () => {
@@ -183,7 +186,7 @@ class MainCompany extends React.Component {
                   </CardBody>
                 </Card>
                   
-                <div class="space-70"></div>
+              
                 <div
                   className="index-page square square-3"
                   id="square3"
@@ -197,6 +200,8 @@ class MainCompany extends React.Component {
                 </Container>
               </div>
             </div>
+            <div class="space-70"></div>
+                <div class="space-70"></div>  
           <Footer/>
         </div>
       </>

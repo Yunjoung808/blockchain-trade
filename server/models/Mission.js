@@ -18,7 +18,7 @@ let missionSchema = Schema({
         type: String,
         require: true
     },
-    sell_receipt:{
+    authDone:{
         type: String,
         require:true
     }

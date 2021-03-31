@@ -77,7 +77,7 @@ class RegisterPage extends React.Component {
         alert("업로드 성공 : "+ receipt.transactionHash);
 
       //approve
-      rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 100).send({
+      rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 20).send({
         from: feePayer.address, //DM_Plus 지갑 주소(Feepayer)
         gas: '2500000'
       }).then(
