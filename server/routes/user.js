@@ -45,17 +45,6 @@ router.post('/register', (req,res) => {
 
 })
 
-// router.get('/getUser', (req,res) => {
-//     var users = DB.collection('users');
-//     let cursor;
-
-//     if(req.query.index){
-//         cursor = users.find({index:parseInt(req.query.index)});
-//     }else{
-//         cursor = users.find({});
-//     }
-
-// })
 
 
 module.exports = router;

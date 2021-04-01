@@ -1,6 +1,5 @@
 import React ,{ Component }  from "react";
 import UserNavbar from 'components/Navbars/UserNavbar';
-// reactstrap components
 import {
   Button,
   Container,
@@ -11,8 +10,6 @@ import {
   Badge
 } from "reactstrap";
 import "assets/css/nucleo-icons.css";
-// core components
-
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
@@ -29,22 +26,24 @@ class MainUser extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        missions:[]
+        mission:[]
       };
     }
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
+
     this.callApi()
-    .then(res => this.setState({missions: res}))
+    .then(res => this.setState({mission: res}))
     .catch(err => console.log("err:", err))
   }
+
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
   }
   
   callApi = async()=>{
-    const response = await  fetch('http://localhost:5000/api/mission/getMission');
+    const response = await fetch('http://localhost:5000/api/mission/getMission');
     const body = await response.json();
     return body;
   }
@@ -65,7 +64,7 @@ class MainUser extends React.Component {
   }
 
   render() {
-    let Items = this.state.missions.map( item=>{
+    let Items = this.state.mission.map( item => {
       if (item._id ==='index') return( <></>)
       return(
         <Col className="mt-5 mt-sm-0" sm="3" xs="6">

@@ -45,7 +45,6 @@ let userSchema = Schema({
 },{sysdate:true});
 
 
-
 module.exports =  {
     User : connection.model('User', userSchema)
 }

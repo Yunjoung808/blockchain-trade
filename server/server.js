@@ -8,7 +8,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
-
 const connect = mongoose.connect(config.mongoURI,
     {
       useNewUrlParser: true, useUnifiedTopology: true,
@@ -17,7 +16,6 @@ const connect = mongoose.connect(config.mongoURI,
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
   
-
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -32,51 +30,6 @@ app.use('/api/mission', require('./routes/mission'))
 //User
 app.use('/api/user', require('./routes/user'))
 
-
-// app.get('/api/hello', (req, res)=>{
-//  res.send([
-//   {
-//   'index' : '1',
-//   'title' : 'Email 인증',
-//   'token' : '10'
-//   },
-//   {
-//   'index' : '2',
-//   'title' : 'SMS 인증',
-//   'token' : '10'
-//   },
-//   {
-//   'index' : '3',
-//   'title' : '여권 인증',
-//   'token' : '20'
-//   },
-//   {
-//     'index' : '4',
-//     'title' : 'SNS 인증',
-//     'token' : '50'
-//   },
-//   {
-//     'index' : '5',
-//     'title' : '주소 인증',
-//     'token' : '100'
-//   },
-//   {
-//     'index' : '6',
-//     'title' : '민증 인증',
-//     'token' : '200'
-//   },
-//   {
-//     'index' : '7',
-//     'title' : '얼굴 인증',
-//     'token' : '300'
-//   },
-//   {
-//     'index' : '8',
-//     'title' : 'Naver 인증',
-//     'token' : '25'
-//   }
-// ]);
-// });
 
 if (process.env.NODE_ENV === "production") {
 

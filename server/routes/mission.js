@@ -14,22 +14,12 @@ client.connect().then( res =>{
 //             Mission
 //=================================
 
-// Mission.find(function(err, Mission){
-//   if(err){
-//     console.log("err:"+err)
-//   }else{
-//     Mission.forEach(function(row){
-//       console.log("data:"+row)
-//     })
-//   }
-// })
-
 
 router.get('/getMission', (req, res) => {
   Mission.find()
     .then((row) => {
       if (!row.length) return res.status(404).send({ err: 'not found' });
-      res.send({row});
+      res.send(row);
     })
     .catch(err => res.status(500).send(err));
 });
