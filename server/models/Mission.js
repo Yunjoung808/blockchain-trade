@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 
 let missionSchema = Schema({
 
-    index:{ type: Number, required: true, unique: true },
+    index:{ type: String, required: true, unique: true },
     title:{
         type: String,
         require: true
@@ -24,11 +24,6 @@ let missionSchema = Schema({
     }
     
 },{sysdate:true});
-
-missionSchema.plugin(
-    autoIncrement.plugin,
-    { model : 'Mission', field : 'index', startAt : 1,increment : 1 }
-);
 
 module.exports =  {
     Mission : connection.model('Mission', missionSchema)

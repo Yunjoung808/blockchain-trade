@@ -23,8 +23,7 @@ const caver = new Caver(config.rpcURL);
 class MainUser extends React.Component {
     state = {
         squares1to6: "",
-        squares7and8: "",
-        
+        squares7and8: ""
       };
 
     constructor(props) {

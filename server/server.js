@@ -23,6 +23,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile)
 
 //Mission
 app.use('/api/mission', require('./routes/mission'))
