@@ -30,6 +30,8 @@ app.use('/api/mission', require('./routes/mission'))
 //User
 app.use('/api/user', require('./routes/user'))
 
+//Company
+app.use('/api/company', require('./routes/company'))
 
 if (process.env.NODE_ENV === "production") {
 
