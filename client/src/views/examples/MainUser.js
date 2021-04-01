@@ -42,6 +42,7 @@ class MainUser extends React.Component {
     document.body.classList.toggle("register-page");
   }
   
+  //mission데이터 DB에서 불러오기
   callApi = async()=>{
     const response = await fetch('http://localhost:5000/api/mission/getMission');
     const body = await response.json();

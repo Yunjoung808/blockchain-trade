@@ -12,6 +12,8 @@ client.connect().then( res =>{
 })
 
 
+
+
 //=================================
 //             Company
 //=================================
@@ -27,9 +29,7 @@ router.post('/',(req,res) => {
   })
 
 router.post('/register', (req,res) => {
-
     var companys = DB.collection('companys');
-
     companys.insertOne({
         googleId: req.body.googleId,
         imageUrl: req.body.imageUrl,
@@ -40,7 +40,6 @@ router.post('/register', (req,res) => {
     }).then ((data) => {
         res.json({success:true, msg:data})
     })
-
 })
 
 

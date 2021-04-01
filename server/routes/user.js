@@ -28,10 +28,12 @@ router.post('/',(req,res) => {
     })
   })
 
+  router.post('/getUser',(req,res) => {
+    console.log(res)
+  })
+
 router.post('/register', (req,res) => {
-
     var users = DB.collection('users');
-
       users.insertOne({
         googleId: req.body.googleId,
         imageUrl: req.body.imageUrl,
@@ -42,9 +44,17 @@ router.post('/register', (req,res) => {
     }).then ((data) => {
         res.json({success:true, msg:data})
     })
-
 })
 
+// router.get('/getUser', (req, res) => {
+//   console.log(req)
+//   User.find({email: req.params.email}, function(err, users ){
+//       if(err) return res,status(500).json({error: err});
+//       if(users.length === 0) return res.status(404).json({error: 'No Data'});
+//       res.json(users)
+//       console.log(users)
+//   }
+//   )})
 
 
 module.exports = router;
