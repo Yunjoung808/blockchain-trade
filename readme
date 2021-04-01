@@ -4,4 +4,4 @@ node 버전 : v10.16.0
 
 Node 버전이 이보다 더 높은 경우 caver-js를 설치할 수 없습니다. 
 
-git clone 받은 후 node_modules, package-lock.json 지운 후 npm install (서버와 클라이언트 모두)
+git clone 받은 후 node_modules, package-lock.json, yarn-lock 지운 후 npm install (서버와 클라이언트 모두)
