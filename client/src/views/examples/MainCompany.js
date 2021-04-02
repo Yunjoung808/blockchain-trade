@@ -21,7 +21,7 @@ import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
 import InputGroupText from "reactstrap/lib/InputGroupText";
-import { post } from "axios";
+import Axios from 'axios';
 
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
@@ -39,7 +39,8 @@ class MainCompany extends React.Component {
       this.state = {
         email:'',
         userSeq:'',
-        hashKey:''
+        hashKey:'',
+        userInfo:['a']
       };
     }
 
@@ -48,6 +49,27 @@ class MainCompany extends React.Component {
   }
   componentWillUnmount() {
     document.body.classList.toggle("index-page");
+  }
+
+  handleValueChange = (e) => {
+    let nextStage = {};
+    nextStage[e.target.name] = e.target.value;
+    this.setState(nextStage);
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    this.getInfoDB();
+  }
+
+  //DB에서 검색한 User의 데이터 받아오기
+  getInfoDB = () => {
+    const url = 'http://localhost:5000/api/user/getUser';
+    const body = { email:this.state.email };
+    Axios.post(url, body)
+        .then(res => console.log(res.data[0])) //[0]나중에 지워야함!!! test용
+        .then(data => this.setState({userInfo: data}))
+        .catch(err => console.log("err:", err))
   }
 
 
@@ -74,34 +96,9 @@ class MainCompany extends React.Component {
         alert("결제 완료 :"+receipt.transactionHash)
       })
   }
-  
-  //데이터 받아서 서버로 보내기
-  addInfo = () => {
-    const url = 'http://localhost:5000/api/user/getUser';
-    const body = {
-      email:this.state.email
-    }
-    return post(url, body);
-  }
 
-  handleValueChange = (e) => {
-    let nextStage = {};
-    nextStage[e.target.name] = e.target.value;
-    this.setState(nextStage);
-  }
-
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    //데이터 서버로 보내기
-    this.addInfo()
-        .then((response)=>{
-          console.log(response.data);
-        })
-  }
-
+  //로그인된 wallet address 
   getWallet = () => {
-    console.log("getWallet"+caver.klay.accounts.wallet.length);
     if (caver.klay.accounts.wallet.length) {
       return caver.klay.accounts.wallet[0]
     } else {
@@ -164,8 +161,8 @@ class MainCompany extends React.Component {
                     <Badge color="success">Wallet Address</Badge>
                     </Col>
                     <Col className="align-self-center col-md-8">
-                    <p className="text-neutral"><b>
-                    {walletInstance.address}</b></p>
+                    <p className="text-neutral"><b>{walletInstance.address}</b></p>
+                    <p className="text-neutral"><b>{this.state.userInfo}</b></p>
                     </Col>
                   </Row>
                     <br/>
@@ -174,7 +171,7 @@ class MainCompany extends React.Component {
                     <br/>
                     <br/>
                     <br/>
-                    <h4>기록이 없습니다.</h4>
+                    
                     <br/>
                     <br/>
                     <br/>

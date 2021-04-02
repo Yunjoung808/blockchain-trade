@@ -89,7 +89,6 @@ class ComponentsNavbar extends React.Component {
     try {
       const { privateKey: privateKeyFromKeystore } = caver.klay.accounts.decrypt(keystore, password)
       this.integrateWallet(privateKeyFromKeystore)
-      
     } catch (e) {
       this.setState({ keystoreMsg: `Password doesn't match.` })
     }
@@ -97,7 +96,6 @@ class ComponentsNavbar extends React.Component {
 
   getWallet = () => {
     
-   
     if (caver.klay.accounts.wallet.length) {
 
       return caver.klay.accounts.wallet[0]
