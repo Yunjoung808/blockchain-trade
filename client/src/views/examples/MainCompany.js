@@ -78,9 +78,10 @@ class MainCompany extends React.Component {
   //데이터 받아서 서버로 보내기
   addInfo = () => {
     const url = 'http://localhost:5000/api/user/getUser';
-    const formData = new FormData();
-    formData.append('email', this.state.email);
-    return post(url, formData);
+    const body = {
+      email:this.state.email
+    }
+    return post(url, body);
   }
 
   handleValueChange = (e) => {
@@ -97,9 +98,6 @@ class MainCompany extends React.Component {
         .then((response)=>{
           console.log(response.data);
         })
-    
-    
-
   }
 
   getWallet = () => {

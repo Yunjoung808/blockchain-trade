@@ -4,8 +4,8 @@ const Mongodb_URI = require('../config/dev').mongoURI
 const { User } = require('../models/User');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(Mongodb_URI);
+const CircularJSON = require('circular-json');
 var DB;
-let getNextSequence;
 
 
 client.connect().then( res =>{
@@ -28,9 +28,15 @@ router.post('/',(req,res) => {
     })
   })
 
-  router.post('/getUser',(req,res) => {
-    console.log(res)
+router.post('/getUser', (req,res) => {
+  User.find({ email: { $regex:req.body.email }})
+  .then((row) => {
+    if (!row.length) return res.status(404).send({ err: 'not found' });
+    res.send(row);
+    console.log(row)
   })
+  .catch(err => res.status(500).send(err));
+})
 
 router.post('/register', (req,res) => {
     var users = DB.collection('users');
