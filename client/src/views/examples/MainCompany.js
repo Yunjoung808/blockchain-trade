@@ -113,6 +113,46 @@ class MainCompany extends React.Component {
   }
 
   render() {
+
+    let Items =  this.state.mission.map(item => {
+      if (item._id ==='index') return( <></>)
+      return(
+        <Col className="mt-5 mt-sm-0" sm="3" xs="6">
+          <div className="card-profile card">
+            <div className="card-body">
+                <hr className="line-primary"></hr>
+                  <table className="tablesorter table">
+                    <tbody>
+                      <tr>
+                        <td className="text-left" >
+                          <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
+                          <p className="category text-primary d-inline">Auth</p>
+                        </td>
+                        <td className="text-right">{item.title}</td>
+                      </tr>
+                      <tr>
+                      <td className="text-left">
+                        <i class="tim-icons icon-money-coins text-primary"/>&nbsp;&nbsp;
+                        <p className="category text-primary d-inline">Price</p>
+                      </td>
+                      <td className="text-right">{item.token} Token</td>  
+                    </tr>
+                    <tr>
+                      <td className="text-left">
+                      </td>
+                      <td className="text-right">
+                        <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
+                                onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
+                             <i className="tim-icons icon-minimal-right"/>
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+      </Col>
+    )});
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -171,7 +211,7 @@ class MainCompany extends React.Component {
                     <br/>
                     <br/>
                     <br/>
-                    
+                    {Items}
                     <br/>
                     <br/>
                     <br/>
