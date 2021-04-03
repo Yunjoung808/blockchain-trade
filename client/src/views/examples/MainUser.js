@@ -32,7 +32,6 @@ class MainUser extends React.Component {
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
-
     this.callApi()
     .then(res => this.setState({mission: res}))
     .catch(err => console.log("err:", err))
@@ -65,7 +64,7 @@ class MainUser extends React.Component {
   }
 
   render() {
-    let Items = this.state.mission.map( item => {
+    let Items =  this.state.mission.map(item => {
       if (item._id ==='index') return( <></>)
       return(
         <Col className="mt-5 mt-sm-0" sm="3" xs="6">
@@ -181,3 +180,4 @@ class MainUser extends React.Component {
 }
 
 export default MainUser;
+

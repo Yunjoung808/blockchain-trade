@@ -2,13 +2,13 @@
     "name": "cryptoberry_server",
     "version": "1.0.0",
     "scripts": {
-        "client": "cd client && yarn webpack",
+        "client": "cd client && npm run webpack",
         "server": "cd server && nodemon server.js",
-        "dev": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server\""
+        "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\""
     },
     "dependencies": {
         "body-parser": "^1.18.3",
-        "circular-json": "^0.5.9",
+  
         "cors": "^2.8.5",
         "css-loader": "^5.0.1",
         "ejs": "^3.1.6",
