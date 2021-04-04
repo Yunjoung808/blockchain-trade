@@ -60,6 +60,9 @@ class MainCompany extends React.Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
     this.getInfoDB();
+    this.setState({
+      email:''
+    })
   }
 
   //DB에서 검색한 User의 데이터 받아오기
