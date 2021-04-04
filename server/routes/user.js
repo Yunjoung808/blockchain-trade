@@ -4,7 +4,7 @@ const Mongodb_URI = require('../config/dev').mongoURI
 const { User } = require('../models/User');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(Mongodb_URI);
-const CircularJSON = require('circular-json');
+
 var DB;
 
 
@@ -37,6 +37,8 @@ router.post('/getUser', (req,res) => {
   })
   .catch(err => res.status(500).send(err));
 })
+
+
 
 //회원정보 저장
 router.post('/register', (req,res) => {
