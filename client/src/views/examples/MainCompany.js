@@ -28,6 +28,7 @@ const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
 const rewardContract = new caver.klay.Contract(DEPLOYED_ABI_REWARDTOKEN, DEPLOYED_ADDRESS_REWARDTOKEN);
 const Crypto = require('crypto-js');
+
 class MainCompany extends React.Component {
     state = {
         squares1to6: "",
@@ -209,19 +210,7 @@ class MainCompany extends React.Component {
                    
                     </Col>
                   </Row>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
                     {Items}
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
                   </CardBody>
                 </Card>
               

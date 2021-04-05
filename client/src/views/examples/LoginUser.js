@@ -55,7 +55,7 @@ class LoginUser extends React.Component {
 
   render() {
     var walletInstance = this.getWallet();
-    if (walletInstance) { 
+   
     return (
       <>
       <UserNavbar />
@@ -137,7 +137,6 @@ class LoginUser extends React.Component {
         </div>
       </>
     );
-  }
   }
 }
 

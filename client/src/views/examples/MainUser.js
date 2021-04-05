@@ -13,6 +13,7 @@ import "assets/css/nucleo-icons.css";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
+import WalletCard from "components/WalletCard/WalletCard.js";
 
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
@@ -49,7 +50,6 @@ class MainUser extends React.Component {
   }
 
   getWallet = () => {
-    console.log("getWallet"+caver.klay.accounts.wallet.length);
     if (caver.klay.accounts.wallet.length) {
       return caver.klay.accounts.wallet[0]
     } else {
@@ -64,6 +64,8 @@ class MainUser extends React.Component {
   }
 
   render() {
+    var walletInstance = this.getWallet();
+
     let Items =  this.state.mission.map(item => {
       if (item._id ==='index') return( <></>)
       return(
@@ -104,8 +106,7 @@ class MainUser extends React.Component {
       </Col>
     )});
 
-    var walletInstance = this.getWallet();
-    if (walletInstance) { 
+    if(walletInstance){
       return (
         <>
           <div className="wrapper">
@@ -119,32 +120,7 @@ class MainUser extends React.Component {
                   <Col className="item"><hr className="line-primary"></hr></Col>
                   <div className="space-50"></div>
                 </Row>
-                <Card>
-                  <CardBody>
-                  <Row>
-                    <Col className="align-self-center col-md-3">
-                    <Badge color="primary">Wallet Address</Badge>
-                    </Col>
-                    <Col className="align-self-center col-md-8">
-                    <p className="text-neutral"><b>
-                    {walletInstance.address}</b></p>
-                    </Col>
-                  </Row>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <h4>기록이 없습니다.</h4>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                  </CardBody>
-                </Card>
+                <WalletCard/>
                 <hr className="line-primary"></hr>
                   <Container>
                     <div id="images">
@@ -159,15 +135,10 @@ class MainUser extends React.Component {
                       </Row>
                     </div>
                   </Container>
+
                   <div className="space-70"></div>
-                  <div
-                  className="square square-3"
-                  id="square3"
-                />
-                <div
-                  className="square square-6"
-                  id="square6"
-                />
+                  <div className="square square-3" id="square3"/>
+                  <div className="square square-6" id="square6"/>
                 </Container>
               </div>
             </div>
@@ -175,7 +146,34 @@ class MainUser extends React.Component {
         </div>
       </>
       );
+
     }
+      return (
+        <>
+          <div className="wrapper">
+            <div className="page-header">
+            <div className="page-header-image" />
+              <div className="content">
+              <UserNavbar />
+              <img alt="..." className="path" src={require("assets/img/blob.png")} />
+                <Container> 
+                <Row>
+                  <Col className="item"><hr className="line-primary"></hr></Col>
+                  <div className="space-50"></div>
+                </Row>
+                <WalletCard/>
+                  <div className="space-70"></div>
+                  <div className="square square-3" id="square3"/>
+                  <div className="square square-6" id="square6"/>
+                </Container>
+              </div>
+            </div>
+          <Footer/>
+        </div>
+      </>
+      );
+
+   
   }
 }
 

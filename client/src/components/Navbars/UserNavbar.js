@@ -125,7 +125,7 @@ class ComponentsNavbar extends React.Component {
     caver.klay.accounts.wallet.clear()
     sessionStorage.removeItem('walletInstance')
     this.reset()
-    window.location.reload()
+    this.props.history.push('/')
   }
 
   toggleAccessType = () => {
@@ -285,7 +285,68 @@ class ComponentsNavbar extends React.Component {
         </Navbar>
       )
     }
+    return (
+      <Navbar
+        className={"fixed-top " + this.state.color}
+        color-on-scroll="100"
+        expand="lg">
+        <Container>
+          <div className="navbar-translate">
+            <NavbarBrand
+              to="/"
+              tag={Link}
+              id="navbar-brand">
+              <span>DM_Plus • </span>
+            
+            </NavbarBrand>
+            <button
+              aria-expanded={this.state.collapseOpen}
+              className="navbar-toggler navbar-toggler"
+              onClick={this.toggleCollapse}
+            >
+              <span className="navbar-toggler-bar bar1" />
+              <span className="navbar-toggler-bar bar2" />
+              <span className="navbar-toggler-bar bar3" />
+            </button>
+          </div>
+          <Collapse
+            className={"justify-content-end " + this.state.collapseOut}
+            navbar
+            isOpen={this.state.collapseOpen}
+            onExiting={this.onCollapseExiting}
+            onExited={this.onCollapseExited}
+          > 
+            <div className="navbar-collapse-header">
+              <Row>
+                <Col className="collapse-brand" xs="6">
+                  
+                DM_Plus•
+                  
+                </Col>
+                <Col className="collapse-close text-right" xs="6">
+                  <button
+                    aria-expanded={this.state.collapseOpen}
+                    className="navbar-toggler"
+                    onClick={this.toggleCollapse}
+                  >
+                    <i className="tim-icons icon-simple-remove" />
+                  </button>
+                </Col>
+              </Row>
+            </div>
 
+            <Nav navbar>
+              <NavItem className="p-0">
+                <NavLink
+                  tag={Link} to="/login-user">
+                  <b>for USER</b>
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Container>
+      </Navbar>
+    )
   }
 }
 

@@ -13,17 +13,13 @@ import LoginCompany from "views/examples/LoginCompany.js";
 import RegisterPage from "views/examples/RegisterPage.js"
 import CompletePage from "views/examples/CompletePage.js"
 import MyPage from "views/examples/MyPage.js";
-import Basics from "views/examples/Basics.js";
+
 import MainUser from "views/examples/MainUser.js";
 import MainCompany from "views/examples/MainCompany.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-    <Route
-        path="/basics-page"
-        render={props => <Basics {...props} />}
-      />
     <Route
       path="/main-user"
       render={props => <MainUser {...props} />}
