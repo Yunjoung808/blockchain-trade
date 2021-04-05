@@ -192,35 +192,7 @@ class WalletCardForUser extends React.Component {
         var { keystore, keystoreMsg, keystoreName, accessType } = this.state;
         var walletInstance = this.getWallet();
         const { privateKey } = this.state
-        if(walletInstance){
-            return(
-                <Card>
-                      <CardBody>
-                      <Row>
-                        <Col className="align-self-center col-md-3">
-                        <Badge color="primary">My Wallet Address</Badge>
-                        </Col>
-                        <Col className="align-self-center col-md-8">
-                    <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                    </Col>
-                      </Row>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <h4>기록이 없습니다.</h4>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                      </CardBody>
-                    </Card>
-            )
-        }
+  
         return(
             
         <Card className="card-register">

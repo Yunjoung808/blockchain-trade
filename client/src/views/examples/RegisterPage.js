@@ -46,6 +46,16 @@ class RegisterPage extends React.Component {
     this.setState({ visible: false });
   };
 
+  //DB에서 검색한 User의 _id데이터 받아오기
+  getInfoDB = () => {
+    const url = 'http://localhost:5000/api/user/getUser';
+    const body = { searchKeyword:this.state.searchKeyword };
+    Axios.post(url, body)
+        .then(res => this.setState({userInfo: res.data}))
+        .catch(function (error) {
+            console.log(error);
+        });
+  }
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
@@ -146,16 +156,16 @@ handleFormSubmit = (e) => {
 
 }
 
-    //로그인된 지갑 주소 받기
-    getWallet = () => {
-    if (caver.klay.accounts.wallet.length) {
-      return caver.klay.accounts.wallet[0]
-    } else {
-      const walletFromSession = sessionStorage.getItem('walletInstance');
-      caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
-      return caver.klay.accounts.wallet[0];
-    }
+  //로그인된 지갑 주소 받기
+  getWallet = () => {
+  if (caver.klay.accounts.wallet.length) {
+    return caver.klay.accounts.wallet[0]
+  } else {
+    const walletFromSession = sessionStorage.getItem('walletInstance');
+    caver.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+    return caver.klay.accounts.wallet[0];
   }
+}
   
   
 

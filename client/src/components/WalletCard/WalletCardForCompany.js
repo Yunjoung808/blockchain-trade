@@ -23,18 +23,28 @@ class WalletCardForCompany extends React.Component {
           privateKey: ''
         };
       }
-    
-      generatePrivateKey = () => {
-        const { privateKey } = caver.klay.accounts.create()
-        this.setState({ privateKey })
+
+      componentDidMount() {
+        window.addEventListener("scroll", this.changeColor);
       }
     
+      componentWillUnmount() {
+        window.removeEventListener("scroll", this.changeColor);
+      }
+
       handleChange = (e) => {
         this.setState({
           [e.target.name]: e.target.value,
         })
       }
     
+    
+      generatePrivateKey = () => {
+        const { privateKey } = caver.klay.accounts.create()
+        this.setState({ privateKey })
+      }
+    
+     
       reset = () => {
         this.setState({
           keystore: '',
@@ -95,7 +105,6 @@ class WalletCardForCompany extends React.Component {
       }
     
       getWallet = () => {
-       
         if (caver.klay.accounts.wallet.length) {
     
           return caver.klay.accounts.wallet[0]
@@ -129,14 +138,6 @@ class WalletCardForCompany extends React.Component {
         this.setState({
           accessType: accessType === 'privateKey' ? 'keystore' : 'privateKey'
         }, this.reset)
-      }
-    
-      componentDidMount() {
-        window.addEventListener("scroll", this.changeColor);
-      }
-    
-      componentWillUnmount() {
-        window.removeEventListener("scroll", this.changeColor);
       }
     
       changeColor = () => {
@@ -190,37 +191,8 @@ class WalletCardForCompany extends React.Component {
 
     render(){
         var { keystore, keystoreMsg, keystoreName, accessType } = this.state;
-        var walletInstance = this.getWallet();
         const { privateKey } = this.state
-        if(walletInstance){
-            return(
-                <Card>
-                      <CardBody>
-                      <Row>
-                        <Col className="align-self-center col-md-3">
-                        <Badge color="primary">My Wallet Address</Badge>
-                        </Col>
-                        <Col className="align-self-center col-md-8">
-                    <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                    </Col>
-                      </Row>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <h4>기록이 없습니다.</h4>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                      </CardBody>
-                    </Card>
-            )
-        }
+       
         return(
             
         <Card className="card-register">
@@ -246,7 +218,10 @@ class WalletCardForCompany extends React.Component {
                         </Col>
                     </Row>
                     <Row>    
-                        <Col className="text-center" ><Login2/></Col>
+                        {/* Google login part */}
+                        <Col className="text-center" >
+                          <Login2/>
+                        </Col>
                         {/* wallet login part */}
                         <Col className="text-center">
                             <Button color="success" onClick={() => this.toggleModal("formModal")} > Login </Button>
