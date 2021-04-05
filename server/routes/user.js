@@ -30,7 +30,7 @@ router.post('/',(req,res) => {
 
 //search by email function
 router.post('/getUser', (req,res) => {
-  User.find({ email: { $regex:req.body.email }})
+  User.find({ email: { $regex:req.body.searchKeyword }})
   .then((row) => {
     if (!row.length) return res.status(404).send({ err: '해당 사용자의 데이터가 없습니다.' });
     res.send(row);

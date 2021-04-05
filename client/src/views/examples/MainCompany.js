@@ -37,8 +37,8 @@ class MainCompany extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        email:'',
-        userInfo:['before']
+        searchKeyword:'',
+        userInfo:[]
       };
     }
 
@@ -59,17 +59,17 @@ class MainCompany extends React.Component {
     e.preventDefault();
     this.getInfoDB();
     this.setState({
-      email:''
+      searchKeyword:''
     })
   }
 
   //DB에서 검색한 User의 데이터 받아오기
   getInfoDB = () => {
     const url = 'http://localhost:5000/api/user/getUser';
-    const body = { email:this.state.email };
+    const body = { searchKeyword:this.state.searchKeyword };
     Axios.post(url, body)
         .then(res => console.log(res.data[0]))
-        .then(data => this.setState({userInfo: data}))
+        .then(res => this.setState({userInfo: res}))
         .catch(err => console.log("err:", err))
   }
 
@@ -179,7 +179,7 @@ class MainCompany extends React.Component {
                                         <InputGroupText>
                                             <i className="tim-icons icon-email-85"/>
                                         </InputGroupText>
-                                        <Input placeholder="Search..." placeholder="Email" type="text" name="email" value={this.state.email}
+                                        <Input placeholder="Search..." type="text" name="searchKeyword" value={this.state.searchKeyword}
                                         onChange={this.handleValueChange} className="form-control"/>
                                     </InputGroup>
                                 </Col>
@@ -221,7 +221,6 @@ class MainCompany extends React.Component {
                     <br/>
                   </CardBody>
                 </Card>
-                  
               
                 <div
                   className="index-page square square-3"
