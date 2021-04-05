@@ -67,6 +67,7 @@ class RegisterPage extends React.Component {
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
     let complpage=this;
+    const user = this.getWallet();
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
     userContract.methods.setUserInfo(enc,808).send({
       from: feePayer.address,
@@ -84,7 +85,7 @@ class RegisterPage extends React.Component {
         alert("approve 성공")
       )
       
-      const user = this.getWallet();
+     
       //send
       rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({
         from: feePayer.address, 

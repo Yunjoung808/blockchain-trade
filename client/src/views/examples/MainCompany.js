@@ -65,9 +65,6 @@ class MainCompany extends React.Component {
     this.setState({
       searchKeyword:''
     })
-    // this.callApi()
-    // .then(res => this.setState({userInfo: res}))
-    // .catch(err => console.log("err:", err))
   }
 
   //DB에서 검색한 User의 데이터 받아오기
@@ -79,12 +76,6 @@ class MainCompany extends React.Component {
         .catch(function (error) {
             console.log(error);
         });
-  }
-
-  callApi = async()=>{
-    const response = await fetch('http://localhost:5000/api/user/getUser');
-    const body = await response.json();
-    return body;
   }
 
   //블록체인에서 암호화된 데이터 받아오기
@@ -143,15 +134,11 @@ class MainCompany extends React.Component {
                           <p className="category text-primary d-inline">Auth</p>
                         </td>
                         <td className="text-right">{item.name}</td>
+                        <td className="text-right">{item.email} email</td>  
+                        <td className="text-right">{item.googleId} googleId</td> 
+                        <td className="text-right">{item._id} userSeq</td> 
                       </tr>
-                      <tr>
-                      <td className="text-left">
-                        <i class="tim-icons icon-money-coins text-primary"/>&nbsp;&nbsp;
-                        <p className="category text-primary d-inline">Price</p>
-                      </td>
-                      <td className="text-right">{item.email} Token</td>  
-                      <td className="text-right">{item.googleId} Token</td> 
-                    </tr>
+
                     <tr>
                       <td className="text-left">
                       </td>
@@ -215,7 +202,7 @@ class MainCompany extends React.Component {
                   <CardBody>
                   <Row>
                     <Col className="align-self-center col-md-3">
-                    <Badge color="success">Wallet Address</Badge>
+                    <Badge color="success">My Wallet Address</Badge>
                     </Col>
                     <Col className="align-self-center col-md-8">
                     <p className="text-neutral"><b>{walletInstance.address}</b></p>

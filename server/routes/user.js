@@ -38,15 +38,6 @@ router.post('/getUser', (req,res) => {
   .catch(err => res.status(500).send(err));
 })
 
-// router.get('/getUser', (req, res) => {
-//   User.find()
-//     .then((row) => {
-//       if (!row.length) return res.status(404).send({ err: 'not found' });
-//       res.send(row);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
-
 
 
 //회원정보 저장
