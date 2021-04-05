@@ -36,6 +36,9 @@ class MainCompany extends React.Component {
 
     constructor(props) {
       super(props)
+      this.handleValueChange = this.handleValueChange.bind(this);
+      this.handleFormSubmit = this.handleFormSubmit.bind(this);
+      this.getInfoDB = this.getInfoDB.bind(this);
       this.state = {
         searchKeyword:'',
         userInfo:[]
@@ -44,6 +47,7 @@ class MainCompany extends React.Component {
 
   componentDidMount() {
     document.body.classList.toggle("index-page");
+    
   }
   componentWillUnmount() {
     document.body.classList.toggle("index-page");
@@ -61,6 +65,9 @@ class MainCompany extends React.Component {
     this.setState({
       searchKeyword:''
     })
+    // this.callApi()
+    // .then(res => this.setState({userInfo: res}))
+    // .catch(err => console.log("err:", err))
   }
 
   //DB에서 검색한 User의 데이터 받아오기
@@ -68,11 +75,17 @@ class MainCompany extends React.Component {
     const url = 'http://localhost:5000/api/user/getUser';
     const body = { searchKeyword:this.state.searchKeyword };
     Axios.post(url, body)
-        .then(res => console.log(res.data[0]))
-        .then(res => this.setState({userInfo: res}))
-        .catch(err => console.log("err:", err))
+        .then(res => this.setState({userInfo: res.data}))
+        .catch(function (error) {
+            console.log(error);
+        });
   }
 
+  callApi = async()=>{
+    const response = await fetch('http://localhost:5000/api/user/getUser');
+    const body = await response.json();
+    return body;
+  }
 
   //블록체인에서 암호화된 데이터 받아오기
   getInfo = (userSeq) => {
@@ -115,45 +128,48 @@ class MainCompany extends React.Component {
 
   render() {
 
-    // let Items =  this.state.mission.map(item => {
-    //   if (item._id ==='index') return( <></>)
-    //   return(
-    //     <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-    //       <div className="card-profile card">
-    //         <div className="card-body">
-    //             <hr className="line-primary"></hr>
-    //               <table className="tablesorter table">
-    //                 <tbody>
-    //                   <tr>
-    //                     <td className="text-left" >
-    //                       <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
-    //                       <p className="category text-primary d-inline">Auth</p>
-    //                     </td>
-    //                     <td className="text-right">{item.title}</td>
-    //                   </tr>
-    //                   <tr>
-    //                   <td className="text-left">
-    //                     <i class="tim-icons icon-money-coins text-primary"/>&nbsp;&nbsp;
-    //                     <p className="category text-primary d-inline">Price</p>
-    //                   </td>
-    //                   <td className="text-right">{item.token} Token</td>  
-    //                 </tr>
-    //                 <tr>
-    //                   <td className="text-left">
-    //                   </td>
-    //                   <td className="text-right">
-    //                     <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
-    //                             onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item.index;}}>
-    //                          <i className="tim-icons icon-minimal-right"/>
-    //                     </Button>
-    //                   </td>
-    //                 </tr>
-    //               </tbody>
-    //             </table>
-    //           </div>
-    //       </div>
-    //   </Col>
-    // )});
+    let Items =  this.state.userInfo.map(item => {
+      if (item._id ==='_id') return( <></>)
+      return(
+        <Col className="mt-5 mt-sm-0" sm="3" xs="6">
+          <div className="card-profile card">
+            <div className="card-body">
+                <hr className="line-primary"></hr>
+                  <table className="tablesorter table">
+                    <tbody>
+                      <tr>
+                        <td className="text-left" >
+                          <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
+                          <p className="category text-primary d-inline">Auth</p>
+                        </td>
+                        <td className="text-right">{item.name}</td>
+                      </tr>
+                      <tr>
+                      <td className="text-left">
+                        <i class="tim-icons icon-money-coins text-primary"/>&nbsp;&nbsp;
+                        <p className="category text-primary d-inline">Price</p>
+                      </td>
+                      <td className="text-right">{item.email} Token</td>  
+                      <td className="text-right">{item.googleId} Token</td> 
+                    </tr>
+                    <tr>
+                      <td className="text-left">
+                      </td>
+                      <td className="text-right">
+                        <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
+                                onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item._id;}}>
+                             <i className="tim-icons icon-minimal-right"/>
+                        </Button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+      </Col>
+    )});
+
+
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -203,7 +219,7 @@ class MainCompany extends React.Component {
                     </Col>
                     <Col className="align-self-center col-md-8">
                     <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                    <p className="text-neutral"><b>{this.state.userInfo}</b></p>
+                   
                     </Col>
                   </Row>
                     <br/>
@@ -212,7 +228,7 @@ class MainCompany extends React.Component {
                     <br/>
                     <br/>
                     <br/>
-                    {/* {Items} */}
+                    {Items}
                     <br/>
                     <br/>
                     <br/>
