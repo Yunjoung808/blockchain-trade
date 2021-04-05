@@ -46,16 +46,6 @@ class RegisterPage extends React.Component {
     this.setState({ visible: false });
   };
 
-  //DB에서 검색한 User의 _id데이터 받아오기
-  getInfoDB = () => {
-    const url = 'http://localhost:5000/api/user/getUser';
-    const body = { searchKeyword:this.state.searchKeyword };
-    Axios.post(url, body)
-        .then(res => this.setState({userInfo: res.data}))
-        .catch(function (error) {
-            console.log(error);
-        });
-  }
 
   componentDidMount() {
     document.body.classList.toggle("register-page");

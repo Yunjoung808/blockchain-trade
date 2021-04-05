@@ -70,7 +70,7 @@ class MainCompany extends React.Component {
 
   //DB에서 검색한 User의 데이터 받아오기
   getInfoDB = () => {
-    const url = 'http://localhost:5000/api/user/getUser';
+    const url = 'http://localhost:5000/api/user/getUserByEmail';
     const body = { searchKeyword:this.state.searchKeyword };
     Axios.post(url, body)
         .then(res => this.setState({userInfo: res.data}))
