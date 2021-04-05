@@ -7,7 +7,7 @@ import Caver from "caver-js";
 const config = { rpcURL: 'https://api.baobab.klaytn.net:8651' }
 const caver = new Caver(config.rpcURL);
 
-class ComponentsNavbar extends React.Component {
+class CompanyNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,7 +81,9 @@ class ComponentsNavbar extends React.Component {
 
     if (accessType == 'privateKey') {
       this.integrateWallet(privateKey)
+      console.log("1");
       window.location.reload();
+      console.log("2");
       return
     }
     try {
@@ -94,6 +96,7 @@ class ComponentsNavbar extends React.Component {
   }
 
   getWallet = () => {
+    
    
     if (caver.klay.accounts.wallet.length) {
 
@@ -102,6 +105,8 @@ class ComponentsNavbar extends React.Component {
       const walletFromSession = sessionStorage.getItem('walletInstance')
       try {
         caver.klay.accounts.wallet.add(JSON.parse(walletFromSession))
+        // var walletInstance = this.getWallet();
+        // console.log("getWallet : "+ walletInstance.address);
       } catch (e) {
         sessionStorage.removeItem('walletInstance')
       }
@@ -120,7 +125,7 @@ class ComponentsNavbar extends React.Component {
     caver.klay.accounts.wallet.clear()
     sessionStorage.removeItem('walletInstance')
     this.reset()
-    window.location.reload()
+    this.props.history.push('/')
   }
 
   toggleAccessType = () => {
@@ -205,6 +210,7 @@ class ComponentsNavbar extends React.Component {
                 tag={Link}
                 id="navbar-brand">
                 <span>DM_Plus • </span>
+              
               </NavbarBrand>
               <button
                 aria-expanded={this.state.collapseOpen}
@@ -226,7 +232,9 @@ class ComponentsNavbar extends React.Component {
               <div className="navbar-collapse-header">
                 <Row>
                   <Col className="collapse-brand" xs="6">
+                    
                   DM_Plus•
+                    
                   </Col>
                   <Col className="collapse-close text-right" xs="6">
                     <button
@@ -239,14 +247,17 @@ class ComponentsNavbar extends React.Component {
                   </Col>
                 </Row>
               </div>
+
               <Nav navbar>
                 <NavItem className="p-0">
                   <NavLink
-                    tag={Link} to="/login-company"
-                  >
-                    <p>for COMPANY</p>
+                    tag={Link} to="/new-page">
+                    <p>for Company</p>
                   </NavLink>
                 </NavItem>
+
+               
+                
                 <Button
                 className="btn-tooltip"
                 color="success"
@@ -262,7 +273,7 @@ class ComponentsNavbar extends React.Component {
                 placement="bottom"
                 target="tooltip789511871"
               >
-              <Link to="my-page">
+                             <Link to="my-page">
               <i className="tim-icons icon-single-02 text-neutral" />
               </Link>
               {walletInstance.address}
@@ -285,8 +296,8 @@ class ComponentsNavbar extends React.Component {
               to="/"
               tag={Link}
               id="navbar-brand">
-              <span>DM_Plus• </span>
-
+              <span>DM_Plus • </span>
+            
             </NavbarBrand>
             <button
               aria-expanded={this.state.collapseOpen}
@@ -304,11 +315,12 @@ class ComponentsNavbar extends React.Component {
             isOpen={this.state.collapseOpen}
             onExiting={this.onCollapseExiting}
             onExited={this.onCollapseExited}
-          >
+          > 
             <div className="navbar-collapse-header">
               <Row>
                 <Col className="collapse-brand" xs="6">
-                DM_Plus •
+                  
+                DM_Plus•
                   
                 </Col>
                 <Col className="collapse-close text-right" xs="6">
@@ -324,206 +336,18 @@ class ComponentsNavbar extends React.Component {
             </div>
 
             <Nav navbar>
-              
-
-              <NavItem>
-                <Button
-                  color="success"
-                  onClick={() => this.toggleModal("formModal")}
-                >
-                  Login
-                </Button>
-                <Modal
-                  modalClassName="modal-black"
-                  isOpen={this.state.formModal}
-                  toggle={() => this.toggleModal("formModal")}
-                >
-                  <div className="modal-header justify-content-center">
-                    <button
-                      className="close"
-                      onClick={() => this.toggleModal("formModal")}
-                    >
-                      <i className="tim-icons icon-simple-remove text-white" />
-                    </button>
-                    <div className="text-muted text-center ml-auto mr-auto">
-                      <h3 className="mb-0">Login </h3>
-                    </div>
-                  </div>
-                  <div className="modal-body">
-                    <div className="btn-wrapper text-center">
-                    </div>
-                    <Form role="form">
-                      <Fragment>
-                        {accessType === 'keystore'
-                          // View 1: Access by keystore + password.
-                          ? (
-                            <Fragment>
-                              <FormGroup className="mb-3">
-                                <InputGroup
-                                  className={classnames("input-group-alternative", {
-                                    "input-group-focus": this.state.emailFocus
-                                  })}
-                                >
-                                  <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                      <i className="tim-icons icon-email-85" />
-                                    </InputGroupText>
-                                  </InputGroupAddon>
-
-                                  <Input
-                                    placeholder="Keystore"
-                                    id="keystore"
-                                    type="keystore"
-                                    onChange={this.handleImport}
-                                    accept=".json"
-                                    onFocus={e => this.setState({ emailFocus: true })}
-                                    onBlur={e => this.setState({ emailFocus: false })}
-                                  />
-                                  <label className="Auth__button" htmlFor="keystore"></label>
-                                  <input 
-                                    className="Auth__file"
-                                    id="keystore"
-                                    type="file"
-                                    onChange={this.handleImport}
-                                    accept=".json"
-                                  />
-                                  <p className="Auth__fileName">
-                                  {keystoreName}
-                                  </p>
-                                </InputGroup>
-                              </FormGroup>
-                              <FormGroup>
-                                <InputGroup
-                                  className={classnames("input-group-alternative", {
-                                    "input-group-focus": this.state.passwordFocus
-                                  })}
-                                >
-                                  <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                      <i className="tim-icons icon-key-25" />
-                                    </InputGroupText>
-                                  </InputGroupAddon>
-                                  <Input
-                                    id="input-password"
-                                    name="password"
-                                    placeholder="Password"
-                                    type="password"
-                                    onChange={this.handleChange}
-                                    onFocus={e => this.setState({ passwordFocus: true })}
-                                    onBlur={e => this.setState({ passwordFocus: false })}
-                                  />
-                                </InputGroup>
-                              </FormGroup>
-                            </Fragment>
-                            )
-                            : (
-                            <Fragment>
-                              <FormGroup>
-                                <InputGroup>
-                                  <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                      <i className="tim-icons icon-lock-circle" />
-                                    </InputGroupText>
-                                  </InputGroupAddon>
-                                  <Input
-                                    id="input-privateKey"
-                                    name="privateKey"
-                                    placeholder="privateKey"
-                                    type="privateKey"
-                                    onChange={this.handleChange}
-                                    onFocus={e => this.setState({ passwordFocus: true })}
-                                    onBlur={e => this.setState({ passwordFocus: false })}
-                                  />
-                                </InputGroup>
-                              </FormGroup>
-                            </Fragment>
-                              ) 
-                        }
-
-                        <p className="Auth__keystoreMsg">{keystoreMsg}</p>
-                        <p className="Auth__toggleAccessButton" onClick={this.toggleAccessType}>
-                          {accessType === 'privateKey'
-                            ? 'Want to login with keystore? (click)'
-                            : 'Want to login with privatekey? (click)'
-                          }
-                        </p>
-                        <FormGroup check className="mt-3">
-                          <Label check>
-                            <Input defaultChecked type="checkbox" />
-                            <span className="form-check-sign" />
-                        Remember me!
-                          </Label>
-                        </FormGroup>
-                        <div className="text-center">
-                          <Button className="my-4" color="success" type="button" onClick={this.handleLogin}>
-                                  Login
-                          </Button>
-                        </div>
-                      </Fragment>
-                    </Form>
-                  </div>
-                </Modal>
-              </NavItem>
-
-              <NavItem>
-                <Button color="primary" onClick={() => this.toggleModal("formModal2")}>
-                  Sign up
-                </Button>
-                <Modal
-                  modalClassName="modal-black"
-                  isOpen={this.state.formModal2}
-                  toggle={() => this.toggleModal("formModal2")}
-                >
-                  <div className="modal-header justify-content-center">
-                      <button className="close" onClick={() => this.toggleModal("formModal2")}>
-                        <i className="tim-icons icon-simple-remove text-white" />
-                      </button>
-                    <div className="text-muted text-center ml-auto mr-auto">
-                      <h3 className="mb-0">Sign up </h3>
-                    </div>
-                  </div>
-
-                  <div className="modal-body">
-                    <div className="btn-wrapper text-center">
-                    </div>
-                    <Form role="form">
-                      <FormGroup className="mb-3">
-                        <InputGroup>
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="tim-icons icon-lock-circle" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-
-                          <Input
-                            className="SignupForm__input"
-                            placeholder="Generate Private Key to Sign up"
-                            value={privateKey || ''}
-                            label="Private key"
-                            readOnly
-                          />
-
-                        </InputGroup>
-                        <div className="text-center">
-                        <Button
-                          color="primary"
-                          className="SignupForm__button"
-                          title="Generate Private key"
-                          onClick={this.generatePrivateKey}
-                        >Generate Private key
-                        </Button>
-                        </div>
-                      </FormGroup>
-                    </Form>
-                  </div>
-                </Modal>
+              <NavItem className="p-0">
+                <NavLink
+                  tag={Link} to="/login-company">
+                  <b>for Company</b>
+                </NavLink>
               </NavItem>
             </Nav>
-            </Collapse>              
+          </Collapse>
         </Container>
       </Navbar>
-    );
+    )
   }
 }
 
-export default ComponentsNavbar;
+export default CompanyNavbar;

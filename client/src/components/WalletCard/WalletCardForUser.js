@@ -5,9 +5,10 @@ import { Button, Card, CardBody, Badge, CardImg, CardTitle, CardFooter, CardHead
 import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
+import Login from "components/GoogleLogin/GoogleLoginForUser.js";
 
 
-class WalletCard extends React.Component {
+class WalletCardForUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -228,12 +229,15 @@ class WalletCard extends React.Component {
                 alt="..."
                 src={require("assets/img/square-purple-1.png")}
                 />
-                <CardTitle tag="h4" className="text-neutral">Login with wallet</CardTitle>
+                <CardTitle tag="h4" className="text-neutral">Login for user</CardTitle>
             </CardHeader>
             <div className="space-50"></div>
             <CardBody>
                 <Form className="form" > 
                     <Row>
+                        <Col className="text-center">
+                        <h2>구글 로그인</h2>
+                        </Col>
                         <Col className="text-center">
                         <h2>지갑 계정이 있으신가요?</h2>
                         </Col>
@@ -242,7 +246,8 @@ class WalletCard extends React.Component {
                         </Col>
                     </Row>
                     <Row>    
-                        {/* login part */}
+                        <Col className="text-center" ><Login/></Col>
+                        {/* wallet login part */}
                         <Col className="text-center">
                             <Button color="success" onClick={() => this.toggleModal("formModal")} > Login </Button>
                             <Modal
@@ -376,7 +381,7 @@ class WalletCard extends React.Component {
                             </div>
                             </Modal>
                         </Col>
-                        {/* sign up part */}
+                        {/* wallet sign up part */}
                         <Col className="text-center">
                         <Button color="primary" onClick={() => this.toggleModal("formModal2")}>Sign up</Button>
                         <Modal
@@ -434,4 +439,4 @@ class WalletCard extends React.Component {
     }
 }
 
-export default WalletCard;
+export default WalletCardForUser;

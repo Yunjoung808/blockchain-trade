@@ -1,10 +1,12 @@
 import Axios from 'axios';
 import React , { Component } from "react";
-import Login from "components/GoogleLogin/GoogleLoginForUser.js";
+
 import Caver from "caver-js";
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const Crypto = require('crypto-js');
+import WalletCardForUser from "components/WalletCard/WalletCardForUser.js";
+
 
 
 // reactstrap components
@@ -20,6 +22,7 @@ import {
 import UserNavbar from "components/Navbars/UserNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
+import MainUser from './MainUser';
 
 
 class LoginUser extends React.Component {
@@ -55,7 +58,11 @@ class LoginUser extends React.Component {
 
   render() {
     var walletInstance = this.getWallet();
-   
+   if(walletInstance){
+     return (
+       <MainUser/>
+     );
+   }
     return (
       <>
       <UserNavbar />
@@ -65,55 +72,10 @@ class LoginUser extends React.Component {
             <div className="page-header-image" />
             <div className="content">
               <Container>
-              <Row>
-                <Col className="item"><hr className="line-primary"></hr></Col>
-              </Row>
-
-              <Row>
-              <h2>LOGIN for User </h2>
-              </Row>
 
               <Row className="row-grid justify-content-between align-items-center text-left">
-                    <Col lg="6" md="6">
-                      <h1 className="text-white">We keep your token <br />
-                        <span className="text-white">secured</span>
-                      </h1>
-                      <p className="text-white mb-3">
-                        A wonderful serenity has taken possession of my entire soul,
-                        like these sweet mornings of spring which I enjoy with my
-                        whole heart. I am alone, and feel...
-                      </p>
-                      <div className="btn-wrapper">
-                        <div className="button-container">
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                            <i className="fab fa-twitter" />
-                          </Button>
-                          <Button className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                            <i className="fab fa-dribbble" />
-                          </Button>
-                          <Button
-                            className="btn-icon btn-simple btn-round btn-neutral" color="default" href="#pablo"
-                            onClick={e => e.preventDefault()}>
-                          <i className="fab fa-facebook" />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="space-50"></div>
-                      <Login/>
-                    </Col>
-                    <Col lg="4" md="5">
-                    <img alt="..." className="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0RJLMHNZYBuToyhqHdLtOjcpkOoxq-KVYQ&usqp=CAU"/>
-                    </Col>
-                  </Row>
-                  <div className="space-50"></div>
-                  <Row>
-                <Col className="item"><hr className="line-primary"></hr></Col>
+                    <WalletCardForUser/>
               </Row>
-              
-              <div className="space-70"></div>
-
                 <div
                   className="square square-3"
                   id="square3"

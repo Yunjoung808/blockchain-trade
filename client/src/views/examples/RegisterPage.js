@@ -69,7 +69,7 @@ class RegisterPage extends React.Component {
     let complpage=this;
     const user = this.getWallet();
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
-    userContract.methods.setUserInfo(enc,808).send({
+    userContract.methods.setUserInfo(enc,9999).send({
       from: feePayer.address,
       gas: '250000'
     }).then(function(receipt){
@@ -84,7 +84,6 @@ class RegisterPage extends React.Component {
       }).then(
         alert("approve 성공")
       )
-      
      
       //send
       rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({

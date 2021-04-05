@@ -20,7 +20,7 @@ function Login2(){
 
         Axios.post("http://localhost:5000/api/company/register", body)
 
-        document.location.href = "/main-company"
+        // document.location.href = "/main-company"
     };
 
     const onFailure = (res) => {

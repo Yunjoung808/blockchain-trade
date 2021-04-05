@@ -13,7 +13,7 @@ import "assets/css/nucleo-icons.css";
 import Footer from "components/Footer/Footer.js";
 import { Link } from "react-router-dom";
 import Caver from "caver-js";
-import WalletCard from "components/WalletCard/WalletCard.js";
+import WalletCardForUser from "components/WalletCard/WalletCardForUser.js";
 
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
@@ -106,7 +106,7 @@ class MainUser extends React.Component {
       </Col>
     )});
 
-    if(walletInstance){
+
       return (
         <>
           <div className="wrapper">
@@ -120,7 +120,7 @@ class MainUser extends React.Component {
                   <Col className="item"><hr className="line-primary"></hr></Col>
                   <div className="space-50"></div>
                 </Row>
-                <WalletCard/>
+                <WalletCardForUser/>
                 <hr className="line-primary"></hr>
                   <Container>
                     <div id="images">
@@ -147,31 +147,8 @@ class MainUser extends React.Component {
       </>
       );
 
-    }
-      return (
-        <>
-          <div className="wrapper">
-            <div className="page-header">
-            <div className="page-header-image" />
-              <div className="content">
-              <UserNavbar />
-              <img alt="..." className="path" src={require("assets/img/blob.png")} />
-                <Container> 
-                <Row>
-                  <Col className="item"><hr className="line-primary"></hr></Col>
-                  <div className="space-50"></div>
-                </Row>
-                <WalletCard/>
-                  <div className="space-70"></div>
-                  <div className="square square-3" id="square3"/>
-                  <div className="square square-6" id="square6"/>
-                </Container>
-              </div>
-            </div>
-          <Footer/>
-        </div>
-      </>
-      );
+    
+
 
    
   }

@@ -195,6 +195,100 @@ class ComponentsNavbar extends React.Component {
     var walletInstance = this.getWallet();
     const { privateKey } = this.state
 
+    if (walletInstance) {
+      return (
+        <Navbar
+          className={"fixed-top " + this.state.color}
+          color-on-scroll="100"
+          expand="lg">
+          <Container>
+            <div className="navbar-translate">
+              <NavbarBrand
+                to="/"
+                tag={Link}
+                id="navbar-brand">
+                <span>DM_Plus • </span>
+              
+              </NavbarBrand>
+              <button
+                aria-expanded={this.state.collapseOpen}
+                className="navbar-toggler navbar-toggler"
+                onClick={this.toggleCollapse}
+              >
+                <span className="navbar-toggler-bar bar1" />
+                <span className="navbar-toggler-bar bar2" />
+                <span className="navbar-toggler-bar bar3" />
+              </button>
+            </div>
+            <Collapse
+              className={"justify-content-end " + this.state.collapseOut}
+              navbar
+              isOpen={this.state.collapseOpen}
+              onExiting={this.onCollapseExiting}
+              onExited={this.onCollapseExited}
+            > 
+              <div className="navbar-collapse-header">
+                <Row>
+                  <Col className="collapse-brand" xs="6">
+                    
+                  DM_Plus•
+                    
+                  </Col>
+                  <Col className="collapse-close text-right" xs="6">
+                    <button
+                      aria-expanded={this.state.collapseOpen}
+                      className="navbar-toggler"
+                      onClick={this.toggleCollapse}
+                    >
+                      <i className="tim-icons icon-simple-remove" />
+                    </button>
+                  </Col>
+                </Row>
+              </div>
+
+              <Nav navbar>
+                <NavItem className="p-0">
+                  <NavLink
+                    tag={Link} to="/login-user">
+                    <p>for USER</p>
+                  </NavLink>
+                </NavItem>
+                <NavItem className="p-0">
+                  <NavLink
+                    tag={Link} to="/login-company">
+                    <p>for COMPANY</p>
+                  </NavLink>
+                </NavItem>
+
+               
+                
+                <Button
+                className="btn-tooltip"
+                color="success"
+                id="tooltip789511871"
+                size="sm"
+              >
+             <Link to="my-page">
+              <i className="tim-icons icon-single-02 text-neutral" />
+              </Link>
+              </Button>
+              <UncontrolledTooltip
+                delay={0}
+                placement="bottom"
+                target="tooltip789511871"
+              >
+                             <Link to="my-page">
+              <i className="tim-icons icon-single-02 text-neutral" />
+              </Link>
+              {walletInstance.address}
+              </UncontrolledTooltip>
+                <Button size="sm" color="secondary" onClick={this.removeWallet}>Logout</Button>
+              </Nav>
+            </Collapse>
+          </Container>
+        </Navbar>
+      )
+    }
  
       return (
         <Navbar

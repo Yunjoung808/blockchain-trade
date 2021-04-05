@@ -7,7 +7,7 @@ import Caver from "caver-js";
 const config = { rpcURL: 'https://api.baobab.klaytn.net:8651' }
 const caver = new Caver(config.rpcURL);
 
-class ComponentsNavbar extends React.Component {
+class UserNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -350,4 +350,4 @@ class ComponentsNavbar extends React.Component {
   }
 }
 
-export default ComponentsNavbar;
+export default UserNavbar;
