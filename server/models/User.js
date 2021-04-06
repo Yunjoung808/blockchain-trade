@@ -36,6 +36,10 @@ let userSchema = Schema({
         type: String,
         require: true
     },
+    authName:{
+        type: String,
+        require: true
+    },
     walletAddress:{
         type: String,
         require: true

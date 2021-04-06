@@ -27,6 +27,7 @@ import Caver from "caver-js";
 import "assets/css/nucleo-icons.css";
 import Axios from 'axios';
 
+
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
@@ -61,14 +62,24 @@ class RegisterPage extends React.Component {
     document.body.classList.toggle("register-page");
   }
 
-  //데이터 받아서 서버로 보내기
-  addInfo = () => {
-    const url = 'http://localhost:5000/api/info';
-    const formData = new FormData();
-    formData.append('name', this.state.name);
-    formData.append('email', this.state.email);
-    return post(url, formData);
+
+  //DB에서 검색한 User의 데이터 받아오기
+  updateAuthdate = () => {
+
+    var walletInstance = this.getWallet();
+    const url = 'http://localhost:5000/api/user/authInfo';
+    const body = { authName : this.state.name, authEmail : this.state.email, walletAddress : walletInstance.address };
+    Axios.post(url, body)
   }
+
+  //데이터 받아서 서버로 보내기
+  // addInfo = () => {
+  //   const url = 'http://localhost:5000/api/info';
+  //   const formData = new FormData();
+  //   formData.append('name', this.state.name);
+  //   formData.append('email', this.state.email);
+  //   return post(url, formData);
+  // }
 
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
@@ -164,10 +175,12 @@ handleFormSubmit = (e) => {
   console.log("dec : ", dec);
 
   //데이터 서버로 보내기
-  this.addInfo()
-      .then((response)=>{
-        console.log(response.data);
-      })
+  // this.addInfo()
+  //     .then((response)=>{
+  //       console.log(response.data);
+  //     })
+  
+  this.updateAuthdate()
 
   //enc 블록체인에 올리기 
   this.uploadInfo(enc);

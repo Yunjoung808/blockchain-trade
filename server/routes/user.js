@@ -4,7 +4,7 @@ const Mongodb_URI = require('../config/dev').mongoURI
 const { User } = require('../models/User');
 const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(Mongodb_URI);
-
+let updateAuthName;
 var DB;
 
 
@@ -32,6 +32,8 @@ router.post('/',(req,res) => {
 router.post('/register', (req,res) => {
   var users = DB.collection('users');
     users.insertOne({
+      authName: '',
+      authEmail:'',
       walletAddress: req.body.walletAddress,
       googleId: req.body.googleId,
       imageUrl: req.body.imageUrl,
@@ -44,6 +46,17 @@ router.post('/register', (req,res) => {
   })
 })
 
+//save auth info
+router.post('/authInfo', (req,res) =>{
+  var users = DB.collection('users');
+  users.findOneAndUpdate(
+    { walletAddress : req.body.walletAddress },
+    { $set : { authName : req.body.authName, authEmail : req.body.authEmail}}
+    ).then((data) => {
+      res.json({success:true, msg:data})
+    })
+})
+
 
 //search by email function
 router.post('/getUserByEmail', (req,res) => {
@@ -54,6 +67,7 @@ router.post('/getUserByEmail', (req,res) => {
   })
   .catch(err => res.status(500).send(err));
 })
+
 
 //search by walletAddress function
 router.post('/getUserByWallet', (req,res) => {

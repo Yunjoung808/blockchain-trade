@@ -30,10 +30,7 @@ const rewardContract = new caver.klay.Contract(DEPLOYED_ABI_REWARDTOKEN, DEPLOYE
 const Crypto = require('crypto-js');
 
 class MainCompany extends React.Component {
-    state = {
-        squares1to6: "",
-        squares7and8: ""
-      };
+
 
     constructor(props) {
       super(props)
@@ -155,7 +152,6 @@ class MainCompany extends React.Component {
       </Col>
     )});
 
-
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -197,36 +193,24 @@ class MainCompany extends React.Component {
                   <Col className="item"><hr className="line-success"></hr></Col>
                   <div className="space-50"></div>
                 </Row>
-                <Card>
-                  <CardBody>
-                  <Row>
-                    <Col className="align-self-center col-md-3">
-                    <Badge color="success">My Wallet Address</Badge>
-                    </Col>
-                    <Col className="align-self-center col-md-8">
-                    <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                   
-                    </Col>
-                  </Row>
-                    {Items}
-                  </CardBody>
-                </Card>
-              
-                <div
-                  className="index-page square square-3"
-                  id="square3"
-                  style={{ transform: this.state.squares1to6 }}
-                />
-                <div
-                  className="square square-6"
-                  id="square6"
-                  style={{ transform: this.state.squares1to6 }}
-                />
-                </Container>
+                    <Card>
+                      <CardBody>
+                      <Row>
+                        <Col className="align-self-center col-md-3">
+                        <Badge color="success">My Wallet Address</Badge>
+                        </Col>
+                        <Col className="align-self-center col-md-8">
+                        <p className="text-neutral"><b>{walletInstance.address}</b></p>
+                        </Col>
+                        </Row>
+                        {Items}
+                      </CardBody>
+                    </Card>
+                  </Container>
+                </div>
               </div>
-            </div>
-            <div class="space-70"></div>
-                <div class="space-70"></div>  
+              <div class="space-70"></div>
+            <div class="space-70"></div>  
           <Footer/>
         </div>
       </>
