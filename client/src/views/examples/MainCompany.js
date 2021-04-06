@@ -17,7 +17,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Progress
+  Progress,
+  Table
 } from "reactstrap";
 import "assets/css/nucleo-icons.css";
 // core components
@@ -129,7 +130,6 @@ class MainCompany extends React.Component {
   }
 
   render() {
-
     let Items =  this.state.userInfo.map(item => {
       if (item._id ==='_id') return( <></>)
       return(
@@ -165,7 +165,6 @@ class MainCompany extends React.Component {
           </div>
       </Col>
     )});
-
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -199,9 +198,9 @@ class MainCompany extends React.Component {
                                     <Button onClick={this.toggleModalDemo}  className="btn btn-success" type="submit">Search</Button>
                                       <Modal isOpen={this.state.modalDemo} toggle={this.toggleModalDemo}>
                                           <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">
-                                              Modal title
-                                            </h5>
+                                            <h3 className="modal-title" id="exampleModalLabel">
+                                              DM_Plus Payment
+                                            </h3>
                                             <button
                                               type="button"
                                               className="close"
@@ -212,16 +211,49 @@ class MainCompany extends React.Component {
                                               <i className="tim-icons icon-simple-remove" />
                                             </button>
                                           </div>
-                                          <ModalBody>
-                                              <p>Woohoo, you're reading this text in a modal!</p>
+                                              <ModalBody>
+                                                  <p>Data를 열람하시겠습니까?</p>
+                                                  <Row>
+                                                        <Col className="mt-5 col-12">
+                                                          <Table className="text-right table">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th scope="col"><p>#Block Number</p></th>
+                                                                      <th scope="col"><p>Date</p></th>
+                                                                      <th scope="col"><p>Auth Type</p></th>
+                                                                      <th className="text-right" scope="col"><p>Token</p></th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td><p>ss</p></td>
+                                                                      <td><p>2021년 3월 30일</p></td>
+                                                                      <td><p>Email</p></td>
+                                                                      <td><p>20</p></td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                  </tr>
+                                                              </tbody>
+                                                              <tfoot>
+                                                                  <tr>
+                                                                      <th className="text-right ">Total</th>
+                                                                      <th className="text-right text-primary" colSpan="3">20 Token</th>
+                                                                  </tr>
+                                                              </tfoot>
+                                                          </Table>
+                                                           
+                                                        </Col>
+                                                    </Row>
                                           </ModalBody>
                                           <ModalFooter>
-                                              <Button color="secondary" onClick={this.toggleModalDemo}>
-                                                  Close
-                                              </Button>
-                                              <Button color="primary">
-                                                  Save changes
-                                              </Button>
+                                              <Row>
+                                                <Col>
+                                                <Button color="secondary" onClick={this.toggleModalDemo}>
+                                                  결제하기
+                                                </Button>
+                                                </Col>
+                                              </Row>
+                                              
                                           </ModalFooter>
                                       </Modal>
                                 </Col>
