@@ -138,10 +138,13 @@ getInfoDB = () => {
 }
 
 
-
 //'등록하기' 클릭하면 실행
 handleFormSubmit = (e) => {
   e.preventDefault();
+  this.setState({
+    name:'',
+    email:''
+  })
 
   //데이터 암복호화
   let data = this.state.name +','+ this.state.email
