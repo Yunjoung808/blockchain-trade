@@ -28,7 +28,7 @@ router.post('/',(req,res) => {
     })
   })
 
-  //회원정보 저장
+//save user login 
 router.post('/register', (req,res) => {
   var users = DB.collection('users');
     users.insertOne({
@@ -46,7 +46,7 @@ router.post('/register', (req,res) => {
   })
 })
 
-//save auth info
+//update auth info (authEmail, authName)
 router.post('/authInfo', (req,res) =>{
   var users = DB.collection('users');
   users.findOneAndUpdate(

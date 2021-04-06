@@ -63,23 +63,12 @@ class RegisterPage extends React.Component {
   }
 
 
-  //DB에서 검색한 User의 데이터 받아오기
   updateAuthdate = () => {
-
     var walletInstance = this.getWallet();
     const url = 'http://localhost:5000/api/user/authInfo';
     const body = { authName : this.state.name, authEmail : this.state.email, walletAddress : walletInstance.address };
     Axios.post(url, body)
   }
-
-  //데이터 받아서 서버로 보내기
-  // addInfo = () => {
-  //   const url = 'http://localhost:5000/api/info';
-  //   const formData = new FormData();
-  //   formData.append('name', this.state.name);
-  //   formData.append('email', this.state.email);
-  //   return post(url, formData);
-  // }
 
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
@@ -101,7 +90,7 @@ class RegisterPage extends React.Component {
       //approve
       rewardContract.methods.approve('0x53a6426775da737a92bfa061366da166e9899b8e', 20).send({
         from: feePayer.address, //DM_Plus 지갑 주소(Feepayer)
-        gas: '2500000'
+        gas: '250000'
       }).then(
         alert("approve 성공")
       )
@@ -109,7 +98,7 @@ class RegisterPage extends React.Component {
       //send
       rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({
         from: feePayer.address, 
-        gas: '2500000'
+        gas: '250000'
       }).then(function(receipt){
         alert("토큰 지급 :"+receipt.transactionHash)
         complpage.props.history.push({
@@ -155,36 +144,30 @@ getInfoDB = () => {
 
 //'등록하기' 클릭하면 실행
 handleFormSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  //검색 후 검색창 지우기
-  this.setState({
-    name:'',
-    email:''
-  })
+    //검색 후 검색창 지우기
+    this.setState({
+      name:'',
+      email:''
+    })
 
-  //데이터 암복호화
-  let data = this.state.name +','+ this.state.email
-  let key = this.state.userInfo[0]._id
-  console.log("key:",key)
+    //데이터 암복호화
+    let data = this.state.name +','+ this.state.email
+    let key = this.state.userInfo[0]._id
+    let enc = this.encrypt(data, key);
+    let dec = this.decrypt(enc, key);
 
-  let enc = this.encrypt(data, key);
-  console.log("enc : ", enc);
+    console.log("key:",key)
+    console.log("enc : ", enc);
+    console.log("dec : ", dec);
+    
 
-  let dec = this.decrypt(enc, key);
-  console.log("dec : ", dec);
+    //authEmail, authName DB update
+    this.updateAuthdate();
 
-  //데이터 서버로 보내기
-  // this.addInfo()
-  //     .then((response)=>{
-  //       console.log(response.data);
-  //     })
-  
-  this.updateAuthdate()
-
-  //enc 블록체인에 올리기 
-  this.uploadInfo(enc);
-
+    //enc 블록체인에 올리기 
+    this.uploadInfo(enc);
 }
 
   //로그인된 지갑 주소 받기

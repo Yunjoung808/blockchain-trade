@@ -12,7 +12,12 @@ import {
   InputGroup,
   Form,
   FormGroup,
-  Input
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Progress
 } from "reactstrap";
 import "assets/css/nucleo-icons.css";
 // core components
@@ -23,6 +28,7 @@ import Caver from "caver-js";
 import InputGroupText from "reactstrap/lib/InputGroupText";
 import Axios from 'axios';
 
+
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
@@ -31,17 +37,25 @@ const Crypto = require('crypto-js');
 
 class MainCompany extends React.Component {
 
-
     constructor(props) {
       super(props)
       this.handleValueChange = this.handleValueChange.bind(this);
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
       this.getInfoDB = this.getInfoDB.bind(this);
+      this.toggleModalDemo = this.toggleModalDemo.bind(this);
       this.state = {
         searchKeyword:'',
+        modalDemo: false,
         userInfo:[]
       };
     }
+
+   
+  toggleModalDemo(){
+      this.setState({
+          modalDemo: !this.state.modalDemo
+      });
+  }
 
   componentDidMount() {
     document.body.classList.toggle("index-page");
@@ -59,7 +73,7 @@ class MainCompany extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    this.getInfoDB();
+    // this.getInfoDB();
     this.setState({
       searchKeyword:''
     })
@@ -182,7 +196,34 @@ class MainCompany extends React.Component {
                                     </InputGroup>
                                 </Col>
                                 <Col className="col-sm-4">
-                                    <Button type="button" className="btn btn-success" type="submit">Search</Button>
+                                    <Button onClick={this.toggleModalDemo}  className="btn btn-success" type="submit">Search</Button>
+                                      <Modal isOpen={this.state.modalDemo} toggle={this.toggleModalDemo}>
+                                          <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">
+                                              Modal title
+                                            </h5>
+                                            <button
+                                              type="button"
+                                              className="close"
+                                              data-dismiss="modal"
+                                              aria-hidden="true"
+                                              onClick={this.toggleModalDemo}
+                                            >
+                                              <i className="tim-icons icon-simple-remove" />
+                                            </button>
+                                          </div>
+                                          <ModalBody>
+                                              <p>Woohoo, you're reading this text in a modal!</p>
+                                          </ModalBody>
+                                          <ModalFooter>
+                                              <Button color="secondary" onClick={this.toggleModalDemo}>
+                                                  Close
+                                              </Button>
+                                              <Button color="primary">
+                                                  Save changes
+                                              </Button>
+                                          </ModalFooter>
+                                      </Modal>
                                 </Col>
                             </Row>
                         </FormGroup>
