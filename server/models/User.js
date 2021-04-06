@@ -7,7 +7,7 @@ autoIncrement.initialize(connection);
 const Schema = mongoose.Schema;
 
 let userSchema = Schema({
-  
+
     googleId:{
         type: String,
         require: true

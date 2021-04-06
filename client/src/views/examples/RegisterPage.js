@@ -25,28 +25,34 @@ import { Link } from "react-router-dom";
 import { post } from "axios";
 import Caver from "caver-js";
 import "assets/css/nucleo-icons.css";
+import Axios from 'axios';
+
 const config = {rpcURL: 'https://api.baobab.klaytn.net:8651'}
 const caver = new Caver(config.rpcURL);
 const userContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
 const rewardContract = new caver.klay.Contract(DEPLOYED_ABI_REWARDTOKEN, DEPLOYED_ADDRESS_REWARDTOKEN);
 const Crypto = require('crypto-js');
 
+
 class RegisterPage extends React.Component {
 
   constructor(props){
     super(props);
+    this.getInfoDB = this.getInfoDB.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.state = {
+      _id:'',
       name:'',
       email:'',
-      visible: true
+      visible: true,
+      userInfo:[]
     }
   }
 
   onDismiss = () => {
     this.setState({ visible: false });
   };
-
-
   componentDidMount() {
     document.body.classList.toggle("register-page");
   }
@@ -120,14 +126,29 @@ handleValueChange = (e) => {
   this.setState(nextStage);
 }
 
+getInfoDB = () => {
+  var walletInstance = this.getWallet();
+  const url = 'http://localhost:5000/api/user/getUserByWallet';
+  const body = { walletAddress: walletInstance.address };
+  Axios.post(url, body)
+      .then(res => this.setState({userInfo: res.data}))
+      .catch(function (error) {
+          console.log(error);
+      });
+}
+
+
 
 //'등록하기' 클릭하면 실행
 handleFormSubmit = (e) => {
   e.preventDefault();
+  this.getInfoDB();
 
   //데이터 암복호화
   let data = this.state.name +','+ this.state.email
-  let key = "dmplus";
+  let item = this.state.userInfo
+  let key = item._id
+  console.log("key:",key)
 
   let enc = this.encrypt(data, key);
   console.log("enc : ", enc);

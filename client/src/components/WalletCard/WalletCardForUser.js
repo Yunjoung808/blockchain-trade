@@ -20,7 +20,8 @@ class WalletCardForUser extends React.Component {
           keystore: '',
           keystoreMsg: '',
           password: '',
-          privateKey: ''
+          privateKey: '',
+          walletAddress: ''
         };
       }
     
@@ -222,8 +223,7 @@ class WalletCardForUser extends React.Component {
         </Card>
         )
       }
-        return(
-            
+        return(   
         <Card className="card-register">
             <CardHeader>
                 <CardImg
@@ -435,7 +435,6 @@ class WalletCardForUser extends React.Component {
                 </Form>
             </CardBody>
         </Card>
-                
         );
     }
 }

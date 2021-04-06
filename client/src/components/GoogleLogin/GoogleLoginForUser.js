@@ -10,6 +10,7 @@ function Login(){
     const onSuccess = (res) => {
         console.log('[Login Success] currentUser:', res.profileObj);
         const body = {
+            walletAddress: '0x530b04e83cafc9b339ca9c6f42ff2cc3c3bf2db3',
             googleId: res.profileObj.googleId,
             imageUrl: res.profileObj.imageUrl,
             email: res.profileObj.email,
