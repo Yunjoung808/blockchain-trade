@@ -73,9 +73,13 @@ class RegisterPage extends React.Component {
   //암호화된 데이터 받아서 블록체인에 올리기
   uploadInfo = (enc) => {
     let complpage=this;
+    let user_id = this.state.userInfo[0]._id
+    let userSeq = user_id.replace(/[^0-9]/g,'');
+
     const user = this.getWallet();
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
-    userContract.methods.setUserInfo(enc,9999).send({
+
+    userContract.methods.setUserInfo(enc,userSeq).send({
       from: feePayer.address,
       gas: '250000'
     }).then(function(receipt){
@@ -94,7 +98,7 @@ class RegisterPage extends React.Component {
       //send
       rewardContract.methods.transferFrom(feePayer.address, user.address, 20).send({
         from: feePayer.address, 
-        gas: '25000000'
+        gas: '2500000'
       }).then(function(receipt){
         alert("토큰 지급 :"+receipt.transactionHash)
         complpage.props.history.push({
@@ -141,6 +145,8 @@ getInfoDB = () => {
 //'등록하기' 클릭하면 실행
 handleFormSubmit = (e) => {
   e.preventDefault();
+
+  //검색 후 검색창 지우기
   this.setState({
     name:'',
     email:''
@@ -149,7 +155,6 @@ handleFormSubmit = (e) => {
   //데이터 암복호화
   let data = this.state.name +','+ this.state.email
   let key = this.state.userInfo[0]._id
-
   console.log("key:",key)
 
   let enc = this.encrypt(data, key);
@@ -179,8 +184,6 @@ handleFormSubmit = (e) => {
     return caver.klay.accounts.wallet[0];
   }
 }
-  
-  
 
   //화면
   render() {
