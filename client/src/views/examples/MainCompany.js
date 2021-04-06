@@ -88,7 +88,6 @@ class MainCompany extends React.Component {
     }).then(
       console.log(userInfo[_userSeq].userInfo)
       //DB에서 암호 키 가져와서 복호화 -> 화면에 보여주기
-
     )
   }
 
@@ -139,7 +138,6 @@ class MainCompany extends React.Component {
                         <td className="text-right">{item.googleId} googleId</td> 
                         <td className="text-right">{item._id} userSeq</td> 
                       </tr>
-
                     <tr>
                       <td className="text-left">
                       </td>

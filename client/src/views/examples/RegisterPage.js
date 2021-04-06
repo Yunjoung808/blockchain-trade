@@ -55,6 +55,7 @@ class RegisterPage extends React.Component {
   };
   componentDidMount() {
     document.body.classList.toggle("register-page");
+    this.getInfoDB();
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
@@ -66,7 +67,6 @@ class RegisterPage extends React.Component {
     const formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('email', this.state.email);
-
     return post(url, formData);
   }
 
@@ -142,12 +142,11 @@ getInfoDB = () => {
 //'등록하기' 클릭하면 실행
 handleFormSubmit = (e) => {
   e.preventDefault();
-  this.getInfoDB();
 
   //데이터 암복호화
   let data = this.state.name +','+ this.state.email
-  let item = this.state.userInfo
-  let key = item._id
+  let key = this.state.userInfo[0]._id
+
   console.log("key:",key)
 
   let enc = this.encrypt(data, key);
