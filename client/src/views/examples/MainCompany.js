@@ -44,6 +44,7 @@ class MainCompany extends React.Component {
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
       this.getInfoDB = this.getInfoDB.bind(this);
       this.toggleModalDemo = this.toggleModalDemo.bind(this);
+
       this.state = {
         searchKeyword:'',
         modalDemo: false,
@@ -59,8 +60,7 @@ class MainCompany extends React.Component {
   }
 
   componentDidMount() {
-    document.body.classList.toggle("index-page");
-    
+    document.body.classList.toggle("index-page"); 
   }
   componentWillUnmount() {
     document.body.classList.toggle("index-page");
@@ -104,11 +104,16 @@ class MainCompany extends React.Component {
   }
 
   //Company->DM_Plus 결제
-  sendToken = (e) => {
+  sendToken = () => {
+    //결제창 닫아주기
+    this.setState({
+      modalDemo: !this.state.modalDemo
+    });
+    //토큰 보내기
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
-      rewardContract.methods.transferFrom(user.address,feePayer.address,  20).send({
+      rewardContract.methods.transfer(feePayer.address,  20).send({
         from: feePayer.address, 
-        gas: '25000000'
+        gas: '2500000'
       }).then(function(receipt){
         alert("결제 완료 :"+receipt.transactionHash)
       })
@@ -215,40 +220,33 @@ class MainCompany extends React.Component {
                                                   <p>Data를 열람하시겠습니까?</p>
                                                   <Row>
                                                         <Col className="mt-5 col-12">
-                                                          <Table className="text-right table">
+                                                          <Table className=" table">
                                                               <thead>
                                                                   <tr>
-                                                                      <th scope="col"><p>#Block Number</p></th>
-                                                                      <th scope="col"><p>Date</p></th>
-                                                                      <th scope="col"><p>Auth Type</p></th>
-                                                                      <th className="text-right" scope="col"><p>Token</p></th>
+                                                                      <th scope="col"><b><p>Email</p></b></th>
+                                                                      <th scope="col"><p>Token</p></th>
                                                                   </tr>
                                                               </thead>
                                                               <tbody>
                                                                   <tr>
-                                                                      <td><p>ss</p></td>
-                                                                      <td><p>2021년 3월 30일</p></td>
-                                                                      <td><p>Email</p></td>
+                                                                      <td><p>25ksok8@gmail.com</p></td>
                                                                       <td><p>20</p></td>
-                                                                  </tr>
-                                                                  <tr>
                                                                   </tr>
                                                               </tbody>
                                                               <tfoot>
                                                                   <tr>
-                                                                      <th className="text-right ">Total</th>
-                                                                      <th className="text-right text-primary" colSpan="3">20 Token</th>
+                                                                      <th >Total</th>
+                                                                      <th className=" text-default" colSpan="3">20 Token</th>
                                                                   </tr>
                                                               </tfoot>
                                                           </Table>
-                                                           
                                                         </Col>
                                                     </Row>
                                           </ModalBody>
-                                          <ModalFooter>
+                                          <ModalFooter className="text-center">
                                               <Row>
                                                 <Col>
-                                                <Button color="secondary" onClick={this.toggleModalDemo}>
+                                                <Button color="secondary" onClick={this.sendToken}>
                                                   결제하기
                                                 </Button>
                                                 </Col>
