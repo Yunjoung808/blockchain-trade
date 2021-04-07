@@ -1,4 +1,4 @@
-import React ,{ Component }  from "react";
+import React ,{ Component, Fragment }  from "react";
 import CompanyNavbar from 'components/Navbars/CompanyNavbar';
 // reactstrap components
 import {
@@ -53,6 +53,7 @@ class MainCompany extends React.Component {
         encData : '',
         decData : '',
         isBool:'true',
+        isBool2:'true',
         receipt:''
       };
     }
@@ -115,6 +116,8 @@ class MainCompany extends React.Component {
 
     //결제창 닫아주기
     this.setState({modalDemo: !this.state.modalDemo});
+
+    this.setState({isBool2 : false})
   }
 
   //Company->DM_Plus 결제
@@ -157,6 +160,7 @@ class MainCompany extends React.Component {
 
   render() {
     var { isBool } = this.state;
+    var { isBool2 } = this.state;
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -207,7 +211,7 @@ class MainCompany extends React.Component {
                                         <ModalBody className="text-center">
                                           <p><u>{this.state.searchKeyword}</u>님의  Data를 조회하시겠습니까?</p>
                                             <Col className="mt-5 col-12">
-                                              <Table reponsive>
+                                              <Table>
                                                 <thead>
                                                     <tr>
                                                         <th className="text-default" colSpan="3">User</th>
@@ -262,24 +266,39 @@ class MainCompany extends React.Component {
                           </form>
                         </CardBody>
                     </Card>
-                    <Row>
-                      <Col className="item"><hr className="line-success"></hr></Col>
+                    {isBool2 ?
+                    <Fragment>
                       <div className="space-50"></div>
-                    </Row>
-                    <Card>
-                      <CardBody>
-                        <Row>
-                          <Col className="align-self-center col-md-3">
-                            <Badge color="success">My Wallet Address</Badge>
-                          </Col>
-                          <Col className="align-self-center col-md-8">
-                            <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                          </Col>
-                        </Row>
-                        {this.state.encData}
-                        {this.state.decData}
-                      </CardBody>
-                    </Card>
+                    </Fragment>
+                    
+                    : <Fragment>
+                      <Row>
+                    <Col className="item"><hr className="line-success"></hr></Col>
+                    <div className="space-50"></div>
+                  </Row>
+                  <Card>
+                    <CardBody>
+                      <Row>
+                        <Col className="align-self-center col-md-3">
+                          <Badge color="success">My Wallet Address</Badge>
+                        </Col>
+                        <Col className="align-self-center col-md-8">
+                          <p className="text-neutral"><b>{walletInstance.address}</b></p>
+                        </Col>
+                      </Row>
+                      {this.state.encData}
+                      {this.state.decData}
+                    </CardBody>
+                  </Card>
+
+                    </Fragment>
+                     }
+
+
+                    
+
+
+
                   </Container>
                 </div>
               </div>
