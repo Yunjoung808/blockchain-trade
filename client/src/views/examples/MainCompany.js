@@ -267,38 +267,61 @@ class MainCompany extends React.Component {
                         </CardBody>
                     </Card>
                     {isBool2 ?
-                    <Fragment>
-                      <div className="space-50"></div>
-                    </Fragment>
-                    
-                    : <Fragment>
-                      <Row>
-                    <Col className="item"><hr className="line-success"></hr></Col>
-                    <div className="space-50"></div>
-                  </Row>
-                  <Card>
-                    <CardBody>
-                      <Row>
-                        <Col className="align-self-center col-md-3">
-                          <Badge color="success">My Wallet Address</Badge>
-                        </Col>
-                        <Col className="align-self-center col-md-8">
-                          <p className="text-neutral"><b>{walletInstance.address}</b></p>
-                        </Col>
-                      </Row>
-                      {this.state.encData}
-                      {this.state.decData}
-                    </CardBody>
-                  </Card>
-
-                    </Fragment>
-                     }
-
-
-                    
-
-
-
+                      <Fragment>
+                        <div className="space-50"></div>
+                      </Fragment>
+                      :<Fragment>
+                        <Row>
+                          <Col className="item"><hr className="line-success"></hr></Col>
+                          <div className="space-50"></div>
+                        </Row>
+                        <Card>
+                          <CardBody>
+                            <Row>
+                              <Col className="align-self-center col-md-3">
+                                <Badge color="success">My Wallet Address</Badge>
+                              </Col>
+                              <Col className="align-self-center col-md-8">
+                                <p className="text-neutral"><b>{walletInstance.address}</b></p>
+                              </Col>
+                            </Row>
+                            <div className="space-50"/>
+                            <Row>
+                              <Col className="align-self-center col-md-3">
+                                <h4><b>암호 데이터</b></h4>
+                              </Col>
+                              <Col className="align-self-center col-md-8">
+                                <p className="text-neutral"><b>{this.state.encData}</b></p>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col className="align-self-center col-md-3">
+                                <h4><b>암호 키</b></h4>
+                              </Col>
+                              <Col className="align-self-center col-md-8">
+                                <p className="text-neutral"><b>{this.state.userInfo[0]._id}</b></p>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col className="align-self-center col-md-3">
+                                <h4><b>복호화 데이터</b></h4>
+                              </Col>
+                              <Col className="align-self-center col-md-8">
+                                <p className="text-neutral"><b>{this.state.decData}</b></p>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col className="align-self-center col-md-3">
+                                <h4><b>Scope</b></h4>
+                              </Col>
+                              <Col>
+                               <Button color="success" onClick={this.onClick}>Go To Klaytn Scope  <i className="tim-icons icon-minimal-right"/></Button>
+                              </Col>
+                            </Row>
+                          </CardBody>
+                        </Card>
+                      </Fragment>
+                      }
                   </Container>
                 </div>
               </div>
