@@ -43,17 +43,17 @@ class MainCompany extends React.Component {
       this.handleValueChange = this.handleValueChange.bind(this);
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
       this.getInfoDB = this.getInfoDB.bind(this);
-      this.toggleModalDemo = this.toggleModalDemo.bind(this);
+      this.getInfo = this.getInfo.bind(this);
 
+      this.toggleModalDemo = this.toggleModalDemo.bind(this);
       this.state = {
         searchKeyword:'',
         modalDemo: false,
         userInfo:[],
-        transactionHashP:'',
-        transactionHashD:''
+        encData : '',
+        decData : ''
       };
     }
-
    
   toggleModalDemo(){
       this.setState({
@@ -67,7 +67,6 @@ class MainCompany extends React.Component {
   componentWillUnmount() {
     document.body.classList.toggle("index-page");
   }
-
   handleValueChange = (e) => {
     let nextStage = {};
     nextStage[e.target.name] = e.target.value;
@@ -77,7 +76,10 @@ class MainCompany extends React.Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
     this.getInfoDB();
-    
+  }
+
+  decrypt(data, key){
+    return Crypto.AES.decrypt(data, key).toString(Crypto.enc.Utf8);
   }
 
   //DB에서 검색한 User의 데이터 받아오기
@@ -91,24 +93,33 @@ class MainCompany extends React.Component {
         });
   }
 
-  //블록체인에서 암호화된 데이터 받아오기
+  //블록체인에서 암호화된 데이터 받아와
   getInfo = () => {
     let user_id = this.state.userInfo[0]._id
     let userSeq = user_id.replace(/[^0-9]/g,'');
+    userContract.methods.getUserInfo(userSeq)
+                        .call()
+                        .then(
+                          res => this.setState({ encData : res})
+                          
+                          )
+  }
 
-    userContract.methods.getUserInfo(userSeq).call().then((res) => (console.log("암호 데이터 : ",res))
-    )
+  decryptUserData = () => {
+    let data = this.state.encData;
+    console.log("암호 데이터 :", data)
+    let key = this.state.userInfo[0]._id;
+    console.log("암호 키 :", key)
+    let decData = this.decrypt(data, key);
+    console.log("복호화 데이터 (암호 데이터 + 암호 키) :", decData)
   }
 
   //Company->DM_Plus 결제
   sendToken = () => {
     //결제창 닫아주기
-    this.setState({
-      modalDemo: !this.state.modalDemo
-    });
-    this.setState({
-      searchKeyword:''
-    })
+    this.setState({modalDemo: !this.state.modalDemo});
+    //검색창 클린
+    this.setState({searchKeyword:''})
     //토큰 보내기
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
       rewardContract.methods.transfer(feePayer.address, 20).send({
@@ -275,6 +286,7 @@ class MainCompany extends React.Component {
                         <p className="text-neutral"><b>{walletInstance.address}</b></p>
                         </Col>
                         </Row>
+                        {this.state.encData}
                         {/* {Items} */}
                       </CardBody>
                     </Card>
