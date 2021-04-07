@@ -48,7 +48,9 @@ class MainCompany extends React.Component {
       this.state = {
         searchKeyword:'',
         modalDemo: false,
-        userInfo:[]
+        userInfo:[],
+        transactionHashP:'',
+        transactionHashD:''
       };
     }
 
@@ -74,10 +76,8 @@ class MainCompany extends React.Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    // this.getInfoDB();
-    this.setState({
-      searchKeyword:''
-    })
+    this.getInfoDB();
+    
   }
 
   //DB에서 검색한 User의 데이터 받아오기
@@ -92,14 +92,11 @@ class MainCompany extends React.Component {
   }
 
   //블록체인에서 암호화된 데이터 받아오기
-  getInfo = (userSeq) => {
-    const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
-    userContract.methods.getUserInfo(userSeq).send({
-      from: feePayer.address,
-      gas:'250000'
-    }).then(
-      console.log(userInfo[_userSeq].userInfo)
-      //DB에서 암호 키 가져와서 복호화 -> 화면에 보여주기
+  getInfo = () => {
+    let user_id = this.state.userInfo[0]._id
+    let userSeq = user_id.replace(/[^0-9]/g,'');
+
+    userContract.methods.getUserInfo(userSeq).call().then((res) => (console.log("암호 데이터 : ",res))
     )
   }
 
@@ -109,14 +106,18 @@ class MainCompany extends React.Component {
     this.setState({
       modalDemo: !this.state.modalDemo
     });
+    this.setState({
+      searchKeyword:''
+    })
     //토큰 보내기
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
-      rewardContract.methods.transfer(feePayer.address,  20).send({
+      rewardContract.methods.transfer(feePayer.address, 20).send({
         from: feePayer.address, 
         gas: '2500000'
       }).then(function(receipt){
         alert("결제 완료 :"+receipt.transactionHash)
       })
+      this.getInfo();
   }
 
   //로그인된 wallet address 
@@ -135,41 +136,41 @@ class MainCompany extends React.Component {
   }
 
   render() {
-    let Items =  this.state.userInfo.map(item => {
-      if (item._id ==='_id') return( <></>)
-      return(
-        <Col className="mt-5 mt-sm-0" sm="3" xs="6">
-          <div className="card-profile card">
-            <div className="card-body">
-                <hr className="line-primary"></hr>
-                  <table className="tablesorter table">
-                    <tbody>
-                      <tr>
-                        <td className="text-left" >
-                          <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
-                          <p className="category text-primary d-inline">Auth</p>
-                        </td>
-                        <td className="text-right">{item.name}</td>
-                        <td className="text-right">{item.email} email</td>  
-                        <td className="text-right">{item.googleId} googleId</td> 
-                        <td className="text-right">{item._id} userSeq</td> 
-                      </tr>
-                    <tr>
-                      <td className="text-left">
-                      </td>
-                      <td className="text-right">
-                        <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
-                                onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item._id;}}>
-                             <i className="tim-icons icon-minimal-right"/>
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
-      </Col>
-    )});
+    // let Items =  this.state.userInfo.map(item => {
+    //   if (item._id ==='_id') return( <></>)
+    //   return(
+    //     <Col className="mt-5 mt-sm-0" sm="3" xs="6">
+    //       <div className="card-profile card">
+    //         <div className="card-body">
+    //             <hr className="line-primary"></hr>
+    //               <table className="tablesorter table">
+    //                 <tbody>
+    //                   <tr>
+    //                     <td className="text-left" >
+    //                       <i className="tim-icons icon-bag-16  text-primary" ></i> &nbsp;
+    //                       <p className="category text-primary d-inline">Auth</p>
+    //                     </td>
+    //                     <td className="text-right">{item.name}</td>
+    //                     <td className="text-right">{item.email} email</td>  
+    //                     <td className="text-right">{item.googleId} googleId</td> 
+    //                     <td className="text-right">{item._id} userSeq</td> 
+    //                   </tr>
+    //                 <tr>
+    //                   <td className="text-left">
+    //                   </td>
+    //                   <td className="text-right">
+    //                     <Button className="btn-round btn-sm" color="primary" type="button" Link tag={Link} to="/register-page"
+    //                             onClick={(e) => {e.preventDefault(); window.location.href='/register-page?index='+item._id;}}>
+    //                          <i className="tim-icons icon-minimal-right"/>
+    //                     </Button>
+    //                   </td>
+    //                 </tr>
+    //               </tbody>
+    //             </table>
+    //           </div>
+    //       </div>
+    //   </Col>
+    // )});
     var walletInstance = this.getWallet();
     if (walletInstance) { 
       return (
@@ -223,13 +224,13 @@ class MainCompany extends React.Component {
                                                           <Table className=" table">
                                                               <thead>
                                                                   <tr>
-                                                                      <th scope="col"><b><p>Email</p></b></th>
+                                                                      <th scope="col"><b><p>User</p></b></th>
                                                                       <th scope="col"><p>Token</p></th>
                                                                   </tr>
                                                               </thead>
                                                               <tbody>
                                                                   <tr>
-                                                                      <td><p>25ksok8@gmail.com</p></td>
+                                                                      <td><p>{this.state.searchKeyword}</p></td>
                                                                       <td><p>20</p></td>
                                                                   </tr>
                                                               </tbody>
@@ -274,7 +275,7 @@ class MainCompany extends React.Component {
                         <p className="text-neutral"><b>{walletInstance.address}</b></p>
                         </Col>
                         </Row>
-                        {Items}
+                        {/* {Items} */}
                       </CardBody>
                     </Card>
                   </Container>
