@@ -101,8 +101,7 @@ class MainCompany extends React.Component {
     let userSeq = user_id.replace(/[^0-9]/g,'');
     userContract.methods.getUserInfo(userSeq)
                         .call()
-                        .then(res => this.setState({ encData : res}))
-                        
+                        .then(res => this.setState({ encData : res}))             
   }
 
   decryptUserData = () => {

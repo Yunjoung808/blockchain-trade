@@ -82,14 +82,14 @@ class RegisterPage extends React.Component {
     userContract.methods.setUserInfo(enc,userSeq).send({
       from: feePayer.address,
       gas: '250000'
-    }).then(function(receipt){
-      //txHash받으면 토큰 지급하기
-      if (receipt.transactionHash){
-        alert("업로드 성공 : "+ receipt.transactionHash);
+      }).then(function(receipt){
+        if (receipt.transactionHash){
+          alert("업로드 성공 : "+ receipt.transactionHash);
+
         
-      rewardContract.methods.transfer(feePayer.address, 20).send({
-        from: feePayer.address, 
-        gas: '2500000'
+    rewardContract.methods.transfer(feePayer.address, 20).send({
+      from: feePayer.address, 
+      gas: '2500000'
       }).then(function(receipt){
         alert("토큰 지급 :"+receipt.transactionHash)
         complpage.props.history.push({
