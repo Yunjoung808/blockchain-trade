@@ -80,7 +80,7 @@ class RegisterPage extends React.Component {
     const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); // DM_Plus 지갑주소
 
     userContract.methods.setUserInfo(enc,userSeq).send({
-      from: feePayer.address,
+      from: user.address,
       gas: '250000'
       }).then(function(receipt){
         if (receipt.transactionHash){
@@ -88,7 +88,7 @@ class RegisterPage extends React.Component {
 
         
     rewardContract.methods.transfer(feePayer.address, 20).send({
-      from: feePayer.address, 
+      from: user.address, 
       gas: '2500000'
       }).then(function(receipt){
         alert("토큰 지급 :"+receipt.transactionHash)

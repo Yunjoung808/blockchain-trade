@@ -54,7 +54,8 @@ class MainCompany extends React.Component {
         decData : '',
         isBool:'true',
         isBool2:'true',
-        receipt:''
+        receipt:'',
+        receipt2:''
       };
     }
    
@@ -113,9 +114,10 @@ class MainCompany extends React.Component {
     console.log("복호화 데이터 (암호 데이터 + 암호 키) :", decData)
     this.setState({decData:decData})
 
+    
+
     //결제창 닫아주기
     this.setState({modalDemo: !this.state.modalDemo});
-
     this.setState({isBool2 : false})
   }
 
@@ -125,11 +127,13 @@ class MainCompany extends React.Component {
     this.setState({searchKeyword:''})
 
     //토큰 보내기
-    const feePayer = caver.klay.accounts.wallet.add('0x2f1c41403a47679d6a152bb6edf610888febbefb31db1601fc2bc6c45880b1a8'); //DM_Plus 지갑 주소
-      rewardContract.methods.transfer(feePayer.address, 20).send({
-        from: feePayer.address, 
-        gas: '2500000'
-      }).then(res => this.setState({receipt:res.transactionHash}))
+    const feePayer = caver.klay.accounts.wallet.add('0x262bf45650ccff9c2bb4d74533d3bc1d33462b773f273c60a7c77fa1f06eefaf'); //DM_Plus 지갑 주소
+    const user = this.getWallet();
+
+    rewardContract.methods.transfer(feePayer.address, 20).send({
+      from: user.address, 
+      gas: '2500000'
+    }).then(res => this.setState({receipt:res.transactionHash}))
 
     this.getInfo();
   }
